@@ -7,8 +7,6 @@ from flask.ext.mail import Mail
 from flask.ext.security import Security, MongoEngineUserDatastore
 from config import config
 
-from models import User, Role
-
 app = Flask(__name__)
 db = MongoEngine()
 mail = Mail()
@@ -23,11 +21,12 @@ with app.app_context():
     db.init_app(app)
     mail.init_app(app)
 
-    user_datastore = MongoEngineUserDatastore(db, User, Role)
-    security.init_app(app, user_datastore)
-
-    login_manager.init__app(app)
-    login_manager.session_protection = 'strong'
+    login_manager.init_app(app)
     login_manager.login_view = 'login'
+
+    from VJ.models import User, Role
+    user_datastore = MongoEngineUserDatastore(db, User, Role)
+
+    security.init_app(app, user_datastore)
 
 from views import *

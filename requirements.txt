@@ -1,9 +1,7 @@
-Flask==0.10.1
-Flask_Security
-Flask-Admin==1.1.0
-Flask-Mail
-Flask-Script==2.0.5
-Flask-WTF==0.10.3
+flask==0.10.1
+flask-security==1.7.4
+flask-admin==1.1.0
+flask-script==2.0.5
 pymongo
 flask-mongoengine
 pygments
