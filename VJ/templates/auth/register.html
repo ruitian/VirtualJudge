@@ -4,5 +4,9 @@
 {% block title %}Virtual Judge{% endblock %}
 
 {% block page_content %}
+<ul class="nav nav-tabs">
+  <li role="presentation"><a href="/auth/login">登录</a></li>
+  <li role="presentation" class="active"><a href="#">注册</a></li>
+</ul>
 {{ wtf.quick_form(form) }}
 {% endblock %}
