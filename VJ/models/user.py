@@ -3,7 +3,7 @@ from datetime import datetime
 from flask.ext.security import UserMixin
 from flask.ext.security.utils import encrypt_password
 from flask.ext.security.utils import verify_password as _verify_password
-from VJ.models.role import Role
+from VJ.models.role import RoleModel
 from flask import current_app
 from mongoengine import DENY
 
@@ -11,15 +11,17 @@ from mongoengine import DENY
 def load_user(id):
     User.objects(_id=id)
 
-class User(db.Document, UserMixin):
-    email = db.StringField(required=True, unique=True)
+class UserModel(db.Document, UserMixin):
     username = db.StringField(max_length=255)
+    email = db.StringField(required=True, unique=True)
     password = db.StringField(max_length=255)
     created_at = db.DateTimeField(default=datetime.now, required=True)
     roles = db.ListField(
-        db.ReferenceField(Role, reverse_delete_rule=DENY),
+        db.ReferenceField(RoleModel, reverse_delete_rule=DENY),
         default=[]
     )
+
+    active = db.BooleanField(default=True)
 
     last_login_at = db.DateTimeField()
     current_login_at = db.DateTimeField()
@@ -34,6 +36,16 @@ class User(db.Document, UserMixin):
 
     def set_password(self, password):
         self.password = generate_password(password)
+
+    @classmethod
+    def create_user(cls, username, email, password, **kwargs):
+        password = cls.generate_password(password)
+        return cls.objects.create(
+            username = username,
+            email = email,
+            password = password,
+            **kwargs
+        )
 
     def verify_password(self, password):
         return _verify_password(
