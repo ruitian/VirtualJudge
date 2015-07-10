@@ -5,8 +5,8 @@ bp_problem = Blueprint('problem', __name__)
 
 bp_problem.add_url_rule(
     '',
-    endpoint = 'problem',
-    view_func = ProblemListView.as_view('problem'),
+    endpoint = 'list',
+    view_func = ProblemListView.as_view('list'),
     methods = ['get', 'post']
 )
 
