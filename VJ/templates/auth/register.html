@@ -1,12 +1,24 @@
 {% extends "base.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
+{% from "_formhelpers.html" import render_field %}
 
 {% block title %}Virtual Judge{% endblock %}
 
 {% block page_content %}
+{{ form.csrf_token }}
+{% if form.csrf_token.errors %}
+  <div class="warning">You have submitted an invalid CSRF token</div>
+{% endif %}
 <ul class="nav nav-tabs">
   <li role="presentation"><a href="/auth/login">登录</a></li>
   <li role="presentation" class="active"><a href="#">注册</a></li>
 </ul>
-{{ wtf.quick_form(form) }}
+<form method=post action="/auth/register">
+  <dl>
+    {{ render_field(form.username) }}
+    {{ render_field(form.email) }}
+    {{ render_field(form.password) }}
+    {{ render_field(form.confirm) }}
+  </dl>
+  <p><input type="submit" value="注册">
+</form>
 {% endblock %}
