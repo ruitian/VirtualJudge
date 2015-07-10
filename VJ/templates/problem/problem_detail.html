@@ -3,4 +3,37 @@
 {% block title %}Problem | Virtual Judge{% endblock %}
 
 {% block page_content %}
+<div class="row">
+  <div id="problem_body" class="col-md-12">
+    <div id="problem_title" class="center-block">
+      <h1>{{ problem.title }}</h1>
+      <p>Memory Limit : {{ problem.memory_limit }}</p>
+      <p>Time Limit : {{ problem.time_limit }}</p>
+    </div>
+    <div id="problem_description">
+      <h2>Description</h2>
+      {{ problem.description|safe }}
+    </div>
+    {% if problem.input %}
+    <div id="problem_input">
+      <h2>Input</h2>
+      {{ problem.input|safe }}
+    </div>
+    {% endif %}
+    {% if problem.output %}
+    <div id="problem_output">
+      <h2>Output</h2>
+      {{ problem.output|safe }}
+    </div>
+    {% endif %}
+    <div id="problem_sampleinput">
+      <h2>Sample Input</h2>
+      {{ problem.sample_input|safe }}
+    </div>
+    <div id="problem_sampleoutput">
+      <h2>Sample Output</h2>
+      {{ problem.sample_output|safe }}
+    </div>
+  </div>
+</div>
 {% endblock %}
