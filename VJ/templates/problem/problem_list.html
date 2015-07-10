@@ -5,12 +5,38 @@
 
 {% block page_content %}
 {{ render_pagination(paginate, 'problem.list') }}
+<form>
+<table class="table" style="margin-bottom:0px">
+  <thead>
+    <tr>
+      <th style="width:4%">
+        <select class="form-control" name="origin_oj">
+          <option>POJ</option>
+          <option>HDU</option>
+          <option>SDUT</option>
+          <option>FZU</option>
+        </select>
+      </th>
+      <th style="width:4%">
+        <input class="form-control" type="text" name="user" placeholder="PID">
+      </th>
+      <th style="width:8%">
+        <input class="form-control" type="text" name="user" placeholder="标题">
+      </th>
+      <th class="hidden-xs" style="width:10%"></th>
+      <th class="hidden-xs" style="width:10%"></th>
+      <th style="width:4%">
+          <button class="btn btn-primary btn-block" type="submit">筛选</button>
+      </th>
+    </tr>
+  </thead>
+</table>
+</form>
 <table class="table">
   <thead>
     <tr>
-      <th></th>
-      <th>OJ</th>
-      <th>Problem ID</th>
+      <th style="width:10%;text-align:right">OJ</th>
+      <th style="width:10%">Problem ID</th>
       <th>Title</th>
       <th>Update Time</th>
       <th>AC/Submit</th>
@@ -18,8 +44,7 @@
   </thead>
     {% for problem in problems %}
     <tr>
-      <td></td>
-      <td>{{ problem.origin_oj }}</td>
+      <td style="text-align:right">{{ problem.origin_oj|upper }}</td>
       <td><a href="{{ problem.problem_url}}" target="_blank">{{ problem.problem_id }}</a></td>
       <td><a href="{{ url_for('problem.detail', origin_oj=problem.origin_oj, problem_id=problem.problem_id) }}" target="_blank">{{ problem.title }}</a></td>
       <td>{{ problem.update_time}}</td>
