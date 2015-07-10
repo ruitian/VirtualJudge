@@ -1,6 +1,8 @@
 {% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}Virtual Judge{% endblock %}
+{% block title %}登录 | Virtual Judge{% endblock %}
 
 {% block page_content %}
+{{ wtf.quick_form(form) }}
 {% endblock %}
