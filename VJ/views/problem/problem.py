@@ -11,7 +11,7 @@ from VJ.models import ProblemItem
 
 class ProblemListView(MethodView):
 
-    template = 'problem/list.html'
+    template = 'problem/problem_list.html'
 
     def get(self):
         problems = ProblemItem.objects.all()
