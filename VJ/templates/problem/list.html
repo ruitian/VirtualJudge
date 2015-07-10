@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Problems | Virtual Judge{% endblock %}
+
+{% block page_content %}
+<table class="table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>OJ</th>
+      <th>Problem ID</th>
+      <th>Title</th>
+      <th>Update Time</th>
+      <th>AC/Submit</th>
+    </tr>
+  </thead>
+    {% for problem in problems %}
+    <tr>
+      <td></td>
+      <td>{{ problem.origin_oj }}</td>
+      <td><a href="{{ problem.problem_url}}" target="_blank">{{ problem.problem_id }}</a></td>
+      <td>{{ problem.title }}</td>
+      <td>{{ problem.update_time}}</td>
+      <td></td>
+    </tr>
+    {% endfor %}
+  <tbody>
+  </tbody>
+</table>
+{% endblock %}
