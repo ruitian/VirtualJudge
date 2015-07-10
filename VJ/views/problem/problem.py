@@ -1,6 +1,8 @@
 from flask import (
+    request,
     redirect,
     url_for,
+    current_app,
     render_template
 )
 
@@ -14,8 +16,15 @@ class ProblemListView(MethodView):
     template = 'problem/problem_list.html'
 
     def get(self):
-        problems = ProblemItem.objects.all()
-        return render_template(self.template, problems=problems)
+        per_page = current_app.config['PROBLEM_PER_PAGE']
+        page = request.args.get('page', 1, type=int)
+        paginate = ProblemItem.objects.paginate(page=page, per_page=per_page)
+        problems = paginate.items
+        return render_template(
+            self.template,
+            problems = problems,
+            paginate = paginate
+        )
 
     def post(self):
         pass
