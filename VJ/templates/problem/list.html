@@ -21,7 +21,11 @@
       <td><a href="{{ problem.problem_url}}" target="_blank">{{ problem.problem_id }}</a></td>
       <td>{{ problem.title }}</td>
       <td>{{ problem.update_time}}</td>
-      <td></td>
+      <td>
+        {% if problem.accpect and problem.submit %}
+          {{ problem.accpect }} / {{problem.submit }}
+        {% endif %}
+      </td>
     </tr>
     {% endfor %}
   <tbody>
