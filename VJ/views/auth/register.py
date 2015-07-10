@@ -5,6 +5,7 @@ from flask import (
     render_template
 )
 from flask.views import MethodView
+from flask.ext.login import login_user
 
 from VJ.forms import RegisterForm
 
@@ -17,4 +18,8 @@ class RegisterView(MethodView):
         return render_template(self.template, form=form)
 
     def post(self):
-        pass
+        form = RegisterForm()
+        if form.validate_on_submit():
+            user = form.register()
+            login_user(user)
+        return redirect(url_for('index.index'))
