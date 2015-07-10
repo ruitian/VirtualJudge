@@ -4,5 +4,9 @@
 {% block title %}登录 | Virtual Judge{% endblock %}
 
 {% block page_content %}
+<ul class="nav nav-tabs">
+  <li role="presentation" class="active"><a href="#">登录</a></li>
+  <li role="presentation"><a href="/auth/register">注册</a></li>
+</ul>
 {{ wtf.quick_form(form) }}
 {% endblock %}
