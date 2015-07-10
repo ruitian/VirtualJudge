@@ -5,6 +5,7 @@ from flask import (
     render_template
 )
 from flask.views import MethodView
+from VJ.forms import LoginForm, RegisterForm
 
 class IndexView(MethodView):
 
