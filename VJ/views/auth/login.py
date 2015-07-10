@@ -23,7 +23,6 @@ class LoginView(MethodView):
 
     def post(self):
         form = LoginForm()
-        print form.data
         if not form.validate():
             return render_template(self.template, form=form)
         login_user(form.user)
