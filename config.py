@@ -2,6 +2,10 @@ import os
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
+    import sys
+    reload(sys)
+    sys.setdefaultencoding('utf-8')
+
     SECRET_KEY = 'you-will-never-guess'
     CSRF_ENABLED = True
     UPLOAD_FOLDER = BASE_DIR + '/app/uploads'
