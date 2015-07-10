@@ -8,8 +8,7 @@ from VJ.models import UserModel
 class LoginForm(Form):
     email = StringField(u'邮箱', [Required(), Email()])
     password = PasswordField(u'密码', [Required()])
-    remember_me = BooleanField('记住我')
-    submit = SubmitField('登录')
+    remember_me = BooleanField(u'记住我')
 
     def validate_password(self, field):
         user = UserModel.objects.filter(
@@ -18,4 +17,4 @@ class LoginForm(Form):
         if user is not None and user.verify_password(field.data):
             self.user = user
         else:
-            raise ValidationError('邮箱或密码错误')
+            raise ValidationError(u'邮箱或密码错误')
