@@ -19,7 +19,7 @@
       <td></td>
       <td>{{ problem.origin_oj }}</td>
       <td><a href="{{ problem.problem_url}}" target="_blank">{{ problem.problem_id }}</a></td>
-      <td>{{ problem.title }}</td>
+      <td><a href="{{ url_for('problem.detail', origin_oj=problem.origin_oj, problem_id=problem.problem_id) }}" target="_blank">{{ problem.title }}</a></td>
       <td>{{ problem.update_time}}</td>
       <td>
         {% if problem.accpect and problem.submit %}
