@@ -1,8 +1,10 @@
 {% extends "base.html" %}
+{% from "_pagination.html" import render_pagination %}
 
 {% block title %}Problems | Virtual Judge{% endblock %}
 
 {% block page_content %}
+{{ render_pagination(paginate, 'problem.list') }}
 <table class="table">
   <thead>
     <tr>
