@@ -55,3 +55,7 @@ class UserModel(db.Document, UserMixin):
 
     def __unicode__(self):
         return self.email
+
+    meta = {
+        'collection': 'User'
+    }
