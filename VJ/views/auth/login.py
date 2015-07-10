@@ -23,7 +23,9 @@ class LoginView(MethodView):
 
     def post(self):
         form = LoginForm()
-        if form.validate_on_submit():
-            login_user(form.user)
+        print form.data
+        if not form.validate():
+            return render_template(self.template, form=form)
+        login_user(form.user)
         flash(u'登录成功')
         return redirect(url_for('index.index'))

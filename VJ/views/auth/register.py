@@ -19,7 +19,8 @@ class RegisterView(MethodView):
 
     def post(self):
         form = RegisterForm()
-        if form.validate_on_submit():
-            user = form.register()
-            login_user(user)
+        if not form.validate():
+            return render_template(self.template, form=form)
+        user = form.register()
+        login_user(user)
         return redirect(url_for('index.index'))
