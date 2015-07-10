@@ -29,4 +29,15 @@ with app.app_context():
 
     security.init_app(app, user_datastore)
 
-from views import *
+    from .views import (
+        bp_index,
+        bp_auth,
+    )
+
+    app.register_blueprint(
+        bp_index,
+        url_prefix='/')
+
+    app.register_blueprint(
+        bp_auth,
+        url_prefix='/auth')
