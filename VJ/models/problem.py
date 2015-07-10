@@ -10,8 +10,14 @@ class ProblemItem(db.Document):
     memory_limit = db.StringField()
     description = db.StringField()
     input = db.StringField()
-    ouput = db.StringField()
+    output = db.StringField()
     sample_input = db.StringField()
     sample_output = db.StringField()
     hint = db.StringField()
     source = db.StringField()
+    update_time = db.StringField()
+
+    meta = {
+        'collection': 'ProblemItem',
+        'indexes': ['origin_oj', 'problem_id']
+    }
