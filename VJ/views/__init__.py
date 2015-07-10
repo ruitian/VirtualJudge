@@ -1,1 +1,2 @@
-from index import *
+from .auth import bp_auth
+from .index import bp_index
