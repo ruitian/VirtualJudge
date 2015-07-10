@@ -8,6 +8,7 @@ class Config:
 
     SECRET_KEY = 'you-will-never-guess'
     CSRF_ENABLED = True
+    PROBLEM_PER_PAGE = 50
     UPLOAD_FOLDER = BASE_DIR + '/app/uploads'
     MONGODB_SETTINGS = {
         'db': 'OJCC',
