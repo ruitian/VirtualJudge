@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "_macro/_formhelpers.html" import render_field %}
+{% from "_macro/_formhelpers.html" import field_error %}
 
 {% block title %}Virtual Judge{% endblock %}
 
@@ -8,13 +8,40 @@
   <li role="presentation" class="active"><a href="#">Log in</a></li>
   <li role="presentation"><a href="/auth/register">Register</a></li>
 </ul>
-<form method=post action="/auth/login">
+<div class="col-md-12" style="margin-top:40px">
+<form method=post class="form-horizontal" action="/auth/login">
 {{ form.csrf_token }}
 {% if form.csrf_token.errors %}
   <div class="warning">You have submitted an invalid CSRF token</div>
 {% endif %}
-    {{ render_field(form.email) }}
-    {{ render_field(form.password) }}
-  <p><input type="submit" class="form-control" value="submit"></input>
+    <div class="form-group">
+      {{ form.email.label(class="col-sm-4 control-label") }}
+      <div class="col-sm-4">
+        {{ form.email(class="form-control") }}
+      </div>
+        {{ field_error(form.email) }}
+    </div>
+    <div class="form-group">
+      {{ form.password.label(class="col-sm-4 control-label") }}
+      <div class="col-sm-4">
+        {{ form.password(class="form-control") }}
+      </div>
+        {{ field_error(form.password) }}
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-4 col-sm-4">
+        <div class="checkbox">
+          <label>
+            {{ form.remember_me }}
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-4 col-sm-4">
+        <button type="submit" class="btn btn-default">Sign in</button>
+      </div>
+    </div>
 </form>
+</div>
 {% endblock %}
