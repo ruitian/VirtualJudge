@@ -5,18 +5,16 @@
 
 {% block page_content %}
 <ul class="nav nav-tabs">
-  <li role="presentation" class="active"><a href="#">登录</a></li>
-  <li role="presentation"><a href="/auth/register">注册</a></li>
+  <li role="presentation" class="active"><a href="#">Log in</a></li>
+  <li role="presentation"><a href="/auth/register">Register</a></li>
 </ul>
 <form method=post action="/auth/login">
 {{ form.csrf_token }}
 {% if form.csrf_token.errors %}
   <div class="warning">You have submitted an invalid CSRF token</div>
 {% endif %}
-  <dl>
     {{ render_field(form.email) }}
     {{ render_field(form.password) }}
-  </dl>
   <p><input type="submit" value="提交"></input>
 </form>
 {% endblock %}
