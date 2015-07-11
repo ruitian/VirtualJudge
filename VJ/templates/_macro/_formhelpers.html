@@ -12,3 +12,13 @@
   {% endif %}
   </div>
 {% endmacro %}
+
+{% macro field_error(field) %}
+  {% if field.errors %}
+    <ul class="errors">
+    {% for error in field.errors %}
+      <p class="help-block">{{ error }}</p>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endmacro %}
