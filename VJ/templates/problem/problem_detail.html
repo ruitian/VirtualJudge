@@ -8,8 +8,8 @@
   <div id="problem_body" class="col-md-12">
     <div id="problem_title" class="text-center">
       <h1>{{ problem.title }}</h1>
-      <p>Memory Limit : {{ problem.memory_limit }}</p>
-      <p>Time Limit : {{ problem.time_limit }}</p>
+      <p>Memory Limit : {{ problem.memory_limit|safe }}</p>
+      <p>Time Limit : {{ problem.time_limit|safe }}</p>
     </div>
     <div id="problem_description">
       <h2>Description</h2>
