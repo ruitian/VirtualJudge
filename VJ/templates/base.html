@@ -27,7 +27,14 @@
           <ul class="nav navbar-nav">
             <li><a href="/problem">Problem</a><li>
             <li><a href="/status">Status</a></li>
-            <li><a href="/contest">Contest</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Contest <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="{{ url_for('contest.pending') }}">Pending</a></li>
+                <li><a href="{{ url_for('contest.running') }}">Running</a></li>
+                <li><a href="{{ url_for('contest.ended') }}">Ended</a></li>
+              </ul>
+            </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
               {% if current_user.is_authenticated() %}
