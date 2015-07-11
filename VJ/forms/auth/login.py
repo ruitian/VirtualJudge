@@ -17,4 +17,4 @@ class LoginForm(Form):
         if user is not None and user.verify_password(field.data):
             self.user = user
         else:
-            raise ValidationError(u'邮箱或密码错误')
+            raise ValidationError(u'Email or username is invalid')
