@@ -4,7 +4,9 @@
 {% block title %}Problems | Virtual Judge{% endblock %}
 
 {% block page_content %}
+<div class="text-center">
 {{ render_pagination(paginate, 'problem.list') }}
+</div>
 <form>
 <table class="table" style="margin-bottom:0px">
   <thead>
