@@ -30,7 +30,8 @@ with app.app_context():
     from .views import (
         bp_index,
         bp_auth,
-        bp_problem
+        bp_problem,
+        bp_contest
     )
 
     app.register_blueprint(
@@ -46,4 +47,9 @@ with app.app_context():
     app.register_blueprint(
         bp_problem,
         url_prefix='/problem'
+    )
+
+    app.register_blueprint(
+        bp_contest,
+        url_prefix='/contest'
     )
