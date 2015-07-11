@@ -12,22 +12,22 @@ from wtforms.validators import (
 from VJ.models import UserModel
 
 class RegisterForm(Form):
-    username = StringField(u'用户名', [Required(), Length(min=4, max=25)])
-    email = StringField(u'邮箱', [Required(), Email()])
-    password = PasswordField(u'密码', [
+    username = StringField('Username', [Required(), Length(min=4, max=25)])
+    email = StringField('Email', [Required(), Email()])
+    password = PasswordField('Password', [
         Required(),
-        EqualTo('confirm', message=u'密码必须一样')
+        EqualTo('confirm', message='Passwords must match')
     ])
-    confirm = PasswordField(u'重复密码')
-    submit = SubmitField(u'注册')
+    confirm = PasswordField('Confirm Password')
+    submit = SubmitField('Register')
 
     def validate_username(self, field):
         if UserModel.objects.filter(username=field.data):
-            raise ValidationError(u'当前用户名已被注册')
+            raise ValidationError('Username has already been registered')
 
     def validate_email(self, field):
         if UserModel.objects.filter(email=field.data):
-            raise ValidationError(u'邮箱已经注册')
+            raise ValidationError('Email has already been registered')
 
     def register(self):
         return UserModel.create_user(
