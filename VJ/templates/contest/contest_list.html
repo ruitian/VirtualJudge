@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% from "_macro/_pagination.html" import render_pagination %}
+
+{% block title %}Contests | Virtual Judge{% endblock %}
+
+{% block page_content %}
+{% block page_nav %}
+<ul class="nav nav-tabs">
+  <li role="presentation"><a href="/contest/pending">Pending</a></li>
+  <li role="presentation" class="active"><a href="#">Running</a></li>
+  <li role="presentation"><a href="/contest/ended">Ended</a></li>
+</ul>
+{% endblock %}
+<div class="text-center">
+{{ render_pagination(paginate, 'contest.list') }}
+</div>
+<form>
+<table class="table" style="margin-bottom:0px">
+  <thead>
+    <tr>
+      <th>
+        <input class="form-control" type="text" name="title" placeholder="Title">
+      </th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+</table>
+</form>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Contest ID</th>
+      <th>Title</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+      <th>Type</th>
+      <th>Manager</th>
+    </tr>
+  </thead>
+    {% for contest in contests %}
+    <tr>
+    </tr>
+    {% endfor %}
+  <tbody>
+  </tbody>
+</table>
+{% endblock %}
