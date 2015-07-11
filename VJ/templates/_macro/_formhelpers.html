@@ -1,13 +1,14 @@
 {% macro render_field(field) %}
 {{ field.csrf_token }}
-  <dt>{{ field.label(class="control-label") }}
-  <dd>{{ field(**kwargs)|safe }}
+  <div class="form-group">
+      {{ field.label }}
+      {{ field(class="form-control", **kwargs)|safe }}
   {% if field.errors %}
-    <ul class=errors>
+    <ul class="errors">
     {% for error in field.errors %}
-      <li>{{ error }}</li>
+      <p class="help-block">{{ error }}</p>
     {% endfor %}
     </ul>
   {% endif %}
-  </dd>
+  </div>
 {% endmacro %}
