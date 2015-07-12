@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Virtual Judge{% endblock %}
+
+{% block page_content %}
+<div class="columns profile">
+  <div class="vcard columns">
+    <a href="/user/setting/profile">
+      <img src="{{ user.avatar(460) }}" class="vcard-avatar" width="230" >
+    </a>
+    <h1>{{ user.username }}</h1>
+    <ul class="vcard-details">
+    </ul>
+  </div>
+
+  <div class="columns">
+  </div>
+</div>
+{% endblock %}
