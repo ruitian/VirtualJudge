@@ -2,6 +2,7 @@ from VJ import db
 from datetime import datetime
 
 class ContestModel(db.Document):
+    id = db.SequenceField(primary_key=True)
     title = db.StringField()
     password = db.StringField()
     description = db.StringField()
