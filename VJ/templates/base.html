@@ -49,7 +49,7 @@
                   <ul class="dropdown-menu dropdown-user">
                     <li><a href="{{ url_for('user.profile', username=current_user.username)}}"><i class="fa fa-cube fa-fw"></i> Profile</a></li>
                       <li class="divider"></li>
-                      <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a></li>
+                      <li><a href="{{ url_for('user.setting') }}"><i class="fa fa-gear fa-fw"></i> Settings</a></li>
                       <li><a href="/auth/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
                   </ul>
               </li>
