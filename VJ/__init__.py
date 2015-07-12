@@ -32,7 +32,8 @@ with app.app_context():
         bp_auth,
         bp_problem,
         bp_contest,
-        bp_solution
+        bp_solution,
+        bp_user
     )
 
     app.register_blueprint(
@@ -58,4 +59,9 @@ with app.app_context():
     app.register_blueprint(
         bp_solution,
         url_prefix='/solution'
+    )
+
+    app.register_blueprint(
+        bp_user,
+        url_prefix='/user'
     )
