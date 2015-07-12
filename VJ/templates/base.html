@@ -31,6 +31,7 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Contest <span class="caret"></span></a>
               <ul class="dropdown-menu">
+                <li><a href="{{ url_for('contest.list') }}">All</a></li>
                 <li><a href="{{ url_for('contest.pending') }}">Pending</a></li>
                 <li><a href="{{ url_for('contest.running') }}">Running</a></li>
                 <li><a href="{{ url_for('contest.ended') }}">Ended</a></li>
@@ -74,6 +75,8 @@
         {% endwith %}
       {% endblock %}
       {% block page_content %}{% endblock %}
+    </div>
+    <div class="footer">
     </div>
     {% block script %}
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
