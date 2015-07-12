@@ -55,11 +55,18 @@
             <h4 class="modal-title" id="submitModalLabel">提交代码</h4>
           </div>
           <form method=post action="/problem/submit">
+            {{ form.csrf_token }}
+            {% if form.csrf_token.errors %}
+              <div class="warning">You have submitted an invalid CSRF token</div>
+            {% endif %}
             <div class="modal-body">
-                {{ render_field(form.origin_oj, disabled="disabled", value=problem.origin_oj|upper) }}
-                {{ render_field(form.problem_id, disabled="disabled", value=problem.problem_id) }}
-                {{ render_field(form.language, required="required") }}
-                {{ render_field(form.code, rows="9", required="required") }}
+              <div class="input-group" style="margin-bottom:15px">
+                <span class="input-group-addon" id="basic-addon2">{{ problem.origin_oj|upper }}</span>
+                {{ form.origin_oj(class="hidden", value=problem.origin_oj) }}
+                {{ form.problem_id(class="form-control", disabled="disabled", value=problem.problem_id) }}
+              </div>
+              {{ render_field(form.language) }}
+              {{ render_field(form.code, rows="14", required="required") }}
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
