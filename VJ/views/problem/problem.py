@@ -11,6 +11,7 @@ from flask.ext.login import login_user
 
 from VJ.models import ProblemItem
 from VJ.forms import SubmitForm
+from VJ.libs import submit
 
 class ProblemListView(MethodView):
 
@@ -42,10 +43,21 @@ class ProblemDetailView(MethodView):
         )
         return render_template(self.template, problem=problem, form=form)
 
+    def post(self, origin_oj , problem_id):
+        form = SubmitForm()
+        if not form.validate():
+            return redirect(
+                url_for('problem.detail',
+                    origin_oj=origin_oj,
+                    problem_id=problem_id
+                )
+            )
+        form.submit()
+        return redirect(url_for('index.index'))
+
 class ProblemSubmitView(MethodView):
 
     template = 'problem/problem_detail.html'
 
     def post(self):
-        form = SubmitForm()
-        return redirect(url_for('index.index'))
+        pass
