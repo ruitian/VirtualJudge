@@ -7,7 +7,7 @@ from VJ.models import SolutionItem
 class SubmitForm(Form):
     origin_oj = StringField('OJ', [Required()])
     problem_id = StringField('Problem ID', [Required()])
-    language = SelectField(u'Language',
+    language = SelectField('Language',
         choices=[
             ('gcc', 'GCC'),
             ('g++', 'G++'),
