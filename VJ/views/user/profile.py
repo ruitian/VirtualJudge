@@ -15,7 +15,7 @@ class ProfileView(MethodView):
 
     @login_required
     def get(self):
-        pass
+        return render_template(self.template)
 
     @login_required
     def post(self):
