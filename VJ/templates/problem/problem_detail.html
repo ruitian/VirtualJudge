@@ -54,16 +54,17 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="submitModalLabel">Submit Code</h4>
           </div>
-          <form method=post action="/problem/submit">
+          <form method=post>
             {{ form.csrf_token }}
             {% if form.csrf_token.errors %}
               <div class="warning">You have submitted an invalid CSRF token</div>
             {% endif %}
             <div class="modal-body">
-              <div class="input-group" style="margin-bottom:15px">
-                <span class="input-group-addon" id="basic-addon2">{{ problem.origin_oj|upper }}</span>
                 {{ form.origin_oj(class="hidden", value=problem.origin_oj) }}
-                {{ form.problem_id(class="form-control", disabled="disabled", value=problem.problem_id) }}
+                {{ form.problem_id(class="hidden", value=problem.problem_id) }}
+              <div class="input-group" style="margin-bottom:15px">
+                <span class="input-group-addon" id="basic-addon1">{{ problem.origin_oj|upper }}</span>
+                <input type="text" class="form-control" disabled value={{ problem.problem_id }} aria-describedby="basic-addon1">
               </div>
               {{ render_field(form.language) }}
               {{ render_field(form.code, rows="14", required="required") }}
