@@ -16,7 +16,7 @@ class ProblemItem(db.Document):
     hint = db.StringField()
     source = db.StringField()
     update_time = db.StringField()
-    accpect = db.StringField()
+    accept = db.StringField()
     submit = db.StringField()
 
     meta = {
