@@ -1,5 +1,6 @@
 from flask import Blueprint
 from .contest import (
+    ContestListView,
     ContestPendingView,
     ContestRunningView,
     ContestEndedView,
@@ -7,6 +8,13 @@ from .contest import (
 )
 
 bp_contest = Blueprint('contest', __name__)
+
+bp_contest.add_url_rule(
+    '',
+    endpoint = 'list',
+    view_func = ContestListView.as_view('list'),
+    methods = ['get', 'post']
+)
 
 bp_contest.add_url_rule(
     '/pending',
