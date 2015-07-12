@@ -31,7 +31,7 @@ class RegisterForm(Form):
 
     def register(self):
         return UserModel.create_user(
-            username=self.username.data,
-            email=self.email.data,
-            password=self.password.data
+            username = self.username.data,
+            email = self.email.data,
+            password = self.password.data
         )
