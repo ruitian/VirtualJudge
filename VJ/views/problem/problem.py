@@ -7,7 +7,7 @@ from flask import (
 )
 
 from flask.views import MethodView
-from flask.ext.login import login_user
+from flask.ext.login import login_user, login_required
 
 from VJ.models import ProblemItem
 from VJ.forms import SubmitForm
@@ -43,6 +43,7 @@ class ProblemDetailView(MethodView):
         )
         return render_template(self.template, problem=problem, form=form)
 
+    @login_required
     def post(self, origin_oj , problem_id):
         form = SubmitForm()
         if not form.validate():
