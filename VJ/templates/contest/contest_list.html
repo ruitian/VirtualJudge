@@ -6,8 +6,9 @@
 {% block page_content %}
 {% block page_nav %}
 <ul class="nav nav-tabs">
+  <li role="presentation" class="active"><a href="#">All</a></li>
   <li role="presentation"><a href="/contest/pending">Pending</a></li>
-  <li role="presentation" class="active"><a href="#">Running</a></li>
+  <li role="presentation"><a href="/contest/running">Running</a></li>
   <li role="presentation"><a href="/contest/ended">Ended</a></li>
 </ul>
 {% endblock %}
@@ -19,13 +20,20 @@
   <thead>
     <tr>
       <th>
+        <input class="form-control" type="text" name="cid" placeholder="Contest ID">
+      </th>
+      <th>
         <input class="form-control" type="text" name="title" placeholder="Title">
+      </th>
+      <th>
+        <input class="form-control" type="text" name="manager" placeholder="Manager">
       </th>
       <th></th>
       <th></th>
       <th></th>
-      <th></th>
-      <th></th>
+      <th>
+          <button class="btn btn-primary btn-block" type="submit">Filter</button>
+      </th>
     </tr>
   </thead>
 </table>
