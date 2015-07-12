@@ -1,18 +1,102 @@
 body {
-    padding-top:60px;
+    padding-top: 60px;
 }
 
 .nav-tabs{
-    padding-top:20px;
-    margin-bottom:10px
+    padding-top: 20px;
+    margin-bottom: 10px
+}
+
+.content{
+    margin-top: 20px
+}
+
+.right{
+    float: right;
+}
+
+.left{
+    float: left;
+}
+
+/*
+ * Profile
+ */
+
+.one-fifth{
+    width: 20%
+}
+
+.four-fifth{
+    width: 80%
+}
+
+.main{
+    padding-left: 30px;
+}
+
+.vcard-avatar{
+    border-radius: 5px;
+}
+
+.vcard-details{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-top: 1px solid #eee;
+}
+
+.panels{
+    margin-top: 20px
+}
+
+.one-half{
+    width: 49%
+}
+
+/*
+ * Problem
+ */
+
+#problem_body{
+    margin-top: 20px
+}
+
+#problem_title{
+    display: inline-block;
+    vertical-align: text-bottom;
+    padding-right: 20px;
+}
+
+#problem_info{
+    display: inline-block;
+    border-left: 1px;
+    border-left-style: dashed;
+    padding-left: 20px;
+    text-align: left
+}
+
+#problem_description{
+    border: 1px;
+    border-style: dashed;
+    padding: 20px;
+}
+
+#problem_input{
+    border: 1px;
+    border-style: dashed;
+    padding: 20px;
+}
+
+#problem_output{
+    border: 1px;
+    border-style: dashed;
+    padding: 20px;
+    padding-bottom: 10px;
 }
 
 /*
  * Footer
  */
-.content{
-    margin-top:20px
-}
 
 .footer {
      padding: 40px 0;
@@ -21,8 +105,4 @@ body {
      background-color: #f9f9f9;
      border-top: 1px solid #e5e5e5;
      margin-top: 40px;
-}
-
-.footer p:last-child {
-  margin-bottom: 0;
 }
