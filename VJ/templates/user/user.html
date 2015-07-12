@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Profile | Virtual Judge{% endblock %}
+
+{% block page_content %}
+<div class="content">
+  <div class="one-fifth left">
+    <a href="{{ url_for('user.profile') }}">
+      <img src="{{ user.avatar(460) }}" class="vcard-avatar" width="230" >
+    </a>
+    <h1>{{ user.username }}</h1>
+    <ul class="vcard-details">
+    </ul>
+  </div>
+  <div class="four-fifth right main">
+    {% block profile_main %}
+    <ul class="nav nav-tabs" style="padding-top:0px">
+      <li role="presentation" class="active"><a href="#"><i class="fa fa-pencil-square-o"> Your Problem</i></a></li>
+      <li role="presentation"><a href="#"><i class="fa fa-list"> Your Contest</i></a></li>
+      <li role="presentation"><a href="#"><i class="fa fa-rss"> Public activity</i></a></li>
+      <a href="{{ url_for('user.profile') }}" class="btn btn-default right"><i class="fa fa-pencil"> Edit Profile</i></a>
+    </ul>
+    <div class="panels">
+      <div class="panel panel-default one-half right">
+        <!-- Default panel contents -->
+        <div class="panel-heading"><i class="fa fa-exclamation-circle"></i> Error Submit Problem</div>
+
+        <!-- List group -->
+        <ul class="list-group">
+          <li class="list-group-item">Cras justo odio</li>
+          <li class="list-group-item">Dapibus ac facilisis in</li>
+          <li class="list-group-item">Morbi leo risus</li>
+          <li class="list-group-item">Porta ac consectetur ac</li>
+          <li class="list-group-item">Vestibulum at eros</li>
+        </ul>
+      </div>
+      <div class="panel panel-default one-half left">
+        <!-- Default panel contents -->
+        <div class="panel-heading"><i class="fa fa-star"></i> Star Problem</div>
+
+        <!-- List group -->
+        <ul class="list-group">
+          <li class="list-group-item">Cras justo odio</li>
+          <li class="list-group-item">Dapibus ac facilisis in</li>
+          <li class="list-group-item">Morbi leo risus</li>
+          <li class="list-group-item">Porta ac consectetur ac</li>
+          <li class="list-group-item">Vestibulum at eros</li>
+        </ul>
+      </div>
+    </div>
+    {% endblock %}
+  </div>
+</div>
+{% endblock %}

@@ -1,52 +1,31 @@
 {% extends "base.html" %}
 
-{% block title %}Profile | Virtual Judge{% endblock %}
+{% block title %}Profile Setting | Virtual Judge{% endblock %}
 
 {% block page_content %}
-<div class="profile">
-  <div class="vcard">
-    <a href="{{ url_for('user.setting') }}">
-      <img src="{{ user.avatar(460) }}" class="vcard-avatar" width="230" >
-    </a>
-    <h1>{{ user.username }}</h1>
-    <ul class="vcard-details">
-    </ul>
+<div class="content">
+  <div class="one-fifth left">
+    <div class="panel panel-default">
+      <!-- Default panel contents -->
+      <div class="panel-heading">Personal settings</div>
+
+      <!-- List group -->
+      <ul class="list-group">
+        <li class="list-group-item"><a href="#">Profile</a></li>
+        <li class="list-group-item"><a href="#">Account settings</a></li>
+        <li class="list-group-item"><a href="#">Email</a></li>
+      </ul>
+    </div>
   </div>
-  <div class="main">
-    {% block profile_main %}
-    <ul class="nav nav-tabs" style="padding-top:0px">
-      <li role="presentation" class="active"><a href="#"><i class="fa fa-pencil-square-o"> Your Problem</i></a></li>
-      <li role="presentation"><a href="#"><i class="fa fa-list"> Your Contest</i></a></li>
-      <li role="presentation"><a href="#"><i class="fa fa-rss"> Public activity</i></a></li>
-      <a href="{{ url_for('user.setting') }}" class="btn btn-default right"><i class="fa fa-pencil"> Edit Profile</i></a>
-    </ul>
-    <div class="panels">
-      <div class="panel panel-default one-half err_p">
-        <!-- Default panel contents -->
-        <div class="panel-heading"><i class="fa fa-exclamation-circle"></i> Error Submit Problem</div>
-
-        <!-- List group -->
-        <ul class="list-group">
-          <li class="list-group-item">Cras justo odio</li>
-          <li class="list-group-item">Dapibus ac facilisis in</li>
-          <li class="list-group-item">Morbi leo risus</li>
-          <li class="list-group-item">Porta ac consectetur ac</li>
-          <li class="list-group-item">Vestibulum at eros</li>
-        </ul>
+  <div class="four-fifth right main">
+    {% block setting_main %}
+    <div class="panel panel-default">
+      <!-- Default panel contents -->
+      <div class="panel-heading">Panel heading</div>
+      <div class="panel-body">
+        <p>...</p>
       </div>
-      <div class="panel panel-default one-half star">
-        <!-- Default panel contents -->
-        <div class="panel-heading"><i class="fa fa-star"></i> Star Problem</div>
 
-        <!-- List group -->
-        <ul class="list-group">
-          <li class="list-group-item">Cras justo odio</li>
-          <li class="list-group-item">Dapibus ac facilisis in</li>
-          <li class="list-group-item">Morbi leo risus</li>
-          <li class="list-group-item">Porta ac consectetur ac</li>
-          <li class="list-group-item">Vestibulum at eros</li>
-        </ul>
-      </div>
     </div>
     {% endblock %}
   </div>
