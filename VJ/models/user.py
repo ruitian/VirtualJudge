@@ -23,6 +23,18 @@ class UserModel(db.Document, UserMixin):
 
     active = db.BooleanField(default=True)
 
+    poj_username = db.StringField(max_length=255)
+    poj_password = db.StringField(max_length=255)
+
+    hdu_username = db.StringField(max_length=255)
+    hdu_password = db.StringField(max_length=255)
+
+    sdut_username = db.StringField(max_length=255)
+    sdut_password = db.StringField(max_length=255)
+
+    fzu_username = db.StringField(max_length=255)
+    fzu_password = db.StringField(max_length=255)
+
     last_login_at = db.DateTimeField()
     current_login_at = db.DateTimeField()
     last_login_ip = db.StringField(max_length=255)
