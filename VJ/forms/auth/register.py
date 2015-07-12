@@ -12,7 +12,7 @@ from wtforms.validators import (
 from VJ.models import UserModel
 
 class RegisterForm(Form):
-    username = StringField('Username', [Required(), Length(min=4, max=25)])
+    username = StringField('Username', [Required(), Length(min=4, max=11)])
     email = StringField('Email', [Required(), Email()])
     password = PasswordField('Password', [
         Required(),
