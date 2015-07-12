@@ -6,33 +6,40 @@
 {% block page_content %}
 <div class="row">
   <div id="problem_body" class="col-md-12">
-    <div id="problem_title" class="text-center">
-      <h1>{{ problem.title }}</h1>
-      <p>Memory Limit : {{ problem.memory_limit|safe }}</p>
-      <p>Time Limit : {{ problem.time_limit|safe }}</p>
+    <div class="center-block text-center">
+      <div id="problem_title">
+        <h1>{{ problem.origin_oj|upper }}</h1>
+        <h1>{{ problem.title }}</h1>
+      </div>
+      <div id="problem_info">
+        <p>Accept : {{ problem.accept|safe }}</p>
+        <p>Submit : {{ problem.submit|safe }}</p>
+        <p>Memory Limit : {{ problem.memory_limit|safe }}</p>
+        <p>Time Limit : {{ problem.time_limit|safe }}</p>
+      </div>
     </div>
+    <h2>Description</h2>
     <div id="problem_description">
-      <h2>Description</h2>
       {{ problem.description|safe }}
     </div>
     {% if problem.input %}
+    <h2>Input</h2>
     <div id="problem_input">
-      <h2>Input</h2>
       {{ problem.input|safe }}
     </div>
     {% endif %}
     {% if problem.output %}
+    <h2>Output</h2>
     <div id="problem_output">
-      <h2>Output</h2>
       {{ problem.output|safe }}
     </div>
     {% endif %}
+    <h2>Sample Input</h2>
     <div id="problem_sampleinput">
-      <h2>Sample Input</h2>
       {{ problem.sample_input|safe }}
     </div>
+    <h2>Sample Output</h2>
     <div id="problem_sampleoutput">
-      <h2>Sample Output</h2>
       {{ problem.sample_output|safe }}
     </div>
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#submitModal">
