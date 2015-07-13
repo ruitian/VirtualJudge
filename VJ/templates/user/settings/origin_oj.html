@@ -6,12 +6,12 @@
 {% block setting_main %}
 <div class="one-half left">
   <div class="panel panel-default">
-    <div class="panel-heading">Origin OJ Binding</div>
+    <div class="panel-heading">Origin OJ Bind</div>
     <ul class="list-group">
       <li class="list-group-item">
         <a href="http://poj.org/" target="_blank">POJ</a>
         {% if not current_user.poj %}
-        <a class="btn btn-success btn-xs binding right"><i class="fa fa-chain"> Binding</i></a>
+        <a class="btn btn-success btn-xs bind right"><i class="fa fa-chain"> Bind</i></a>
         {% else %}
         <a href="{{ url_for('user.poj') }}" class="btn btn-warning btn-xs unbind right"><i class="fa fa-chain-broken"> Unbind</i></a>
         {% endif %}
@@ -19,7 +19,7 @@
       <li class="list-group-item">
         <a href="http://acm.hdu.edu.cn" target="_blank">HDU</a>
         {% if not current_user.hdu %}
-        <a class="btn btn-success btn-xs binding right"><i class="fa fa-chain"> Binding</i></a>
+        <a class="btn btn-success btn-xs bind right"><i class="fa fa-chain"> Bind</i></a>
         {% else %}
         <a href="{{ url_for('user.hdu') }}" class="btn btn-warning btn-xs unbind right"><i class="fa fa-chain-broken"> Unbind</i></a>
         {% endif %}
@@ -27,7 +27,7 @@
       <li class="list-group-item">
         <a href="http://acm.sdut.edu.cn" target="_blank">SDUT</a>
         {% if not current_user.sdut %}
-        <a class="btn btn-success btn-xs binding right"><i class="fa fa-chain"> Binding</i></a>
+        <a class="btn btn-success btn-xs bind right"><i class="fa fa-chain"> Bind</i></a>
         {% else %}
         <a href="{{ url_for('user.sdut') }}" class="btn btn-warning btn-xs unbind right"><i class="fa fa-chain-broken"> Unbind</i></a>
         {% endif %}
@@ -35,7 +35,7 @@
       <li class="list-group-item">
         <a href="http://acm.fzu.edu.cn" target="_blank">FZU</a>
         {% if not current_user.fzu %}
-        <a class="btn btn-success btn-xs binding right"><i class="fa fa-chain"> Binding</i></a>
+        <a class="btn btn-success btn-xs bind right"><i class="fa fa-chain"> Bind</i></a>
         {% else %}
         <a href="{{ url_for('user.fzu') }}" class="btn btn-warning btn-xs unbind right"><i class="fa fa-chain-broken"> Unbind</i></a>
         {% endif %}
@@ -97,12 +97,18 @@
 {{ super() }}
 <script>
   $(document).ready(function(){
-    $(".binding").click(function(){
+    $(".bind").click(function(){
       var origin_oj = $(this).prev().text();
       $(".modal-title").text(origin_oj + " Binding");
       $("form").attr("action", "/user/settings/origin_oj/" + origin_oj.toLowerCase());
       $("#origin_oj").val(origin_oj);
       $("#OriginOJModal").modal();
+    });
+  });
+  $(document).ready(function(){
+    $(".unbind").click(function(){
+      var origin_oj = $(this).prev().text();
+      return confirm("you will unbind " + origin_oj.toLowerCase() + " account?"); 
     });
   });
 </script>
