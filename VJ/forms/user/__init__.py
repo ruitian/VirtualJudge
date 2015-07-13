@@ -1,1 +1,1 @@
-form origin_oj import *
+from origin_oj import *
