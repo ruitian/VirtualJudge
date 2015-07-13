@@ -6,7 +6,7 @@
 {% block page_content %}
 <ul class="nav nav-tabs">
   <li role="presentation" class="active"><a href="#">Log in</a></li>
-  <li role="presentation"><a href="/auth/register">Register</a></li>
+  <li role="presentation"><a href="{{ url_for('auth.register') }}">Register</a></li>
 </ul>
 <div class="col-md-12 content">
 <form method=post class="form-horizontal" action="/auth/login">

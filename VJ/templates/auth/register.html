@@ -5,7 +5,7 @@
 
 {% block page_content %}
 <ul class="nav nav-tabs">
-  <li role="presentation"><a href="/auth/login">Log in</a></li>
+  <li role="presentation"><a href="{{ url_for('auth.login') }}">Log in</a></li>
   <li role="presentation" class="active"><a href="#">Register</a></li>
 </ul>
 <div class="col-md-12 content">
