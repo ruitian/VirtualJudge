@@ -1,0 +1,110 @@
+{% extends "user/settings/profile.html" %}
+{% from "_macro/_formhelpers.html" import render_field %}
+
+{% block title %}Origin OJ | Virtual Judge{% endblock %}
+
+{% block setting_main %}
+<div class="one-half left">
+  <div class="panel panel-default">
+    <div class="panel-heading">Origin OJ Binding</div>
+    <ul class="list-group">
+      <li class="list-group-item">
+        <a href="http://poj.org/" target="_blank">POJ</a>
+        {% if not current_user.poj %}
+        <a class="btn btn-success btn-xs binding right"><i class="fa fa-chain"> Binding</i></a>
+        {% else %}
+        <a class="btn btn-warning btn-xs unbind right"><i class="fa fa-chain-broken"> Unbind</i></a>
+        {% endif %}
+      </li>
+      <li class="list-group-item">
+        <a href="http://acm.hdu.edu.cn" target="_blank">HDU</a>
+        {% if not current_user.hdu %}
+        <a class="btn btn-success btn-xs binding right"><i class="fa fa-chain"> Binding</i></a>
+        {% else %}
+        <a class="btn btn-warning btn-xs unbind right"><i class="fa fa-chain-broken"> Unbind</i></a>
+        {% endif %}
+      </li>
+      <li class="list-group-item">
+        <a href="http://acm.sdut.edu.cn" target="_blank">SDUT</a>
+        {% if not current_user.sdut %}
+        <a class="btn btn-success btn-xs binding right"><i class="fa fa-chain"> Binding</i></a>
+        {% else %}
+        <a class="btn btn-warning btn-xs unbind right"><i class="fa fa-chain-broken"> Unbind</i></a>
+        {% endif %}
+      </li>
+      <li class="list-group-item">
+        <a href="http://acm.fzu.edu.cn" target="_blank">FZU</a>
+        {% if not current_user.fzu %}
+        <a class="btn btn-success btn-xs binding right"><i class="fa fa-chain"> Binding</i></a>
+        {% else %}
+        <a class="btn btn-warning btn-xs unbind right"><i class="fa fa-chain-broken"> Unbind</i></a>
+        {% endif %}
+      </li>
+      <!-- Modal -->
+      <div class="modal fade" id="OriginOJModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Binding</h4>
+            </div>
+            <form method="post">
+              <div class="modal-body">
+                {{ form.csrf_token }}
+                  {{ form.origin_oj(class="hidden") }}
+                  {{ render_field(form.username) }}
+                  {{ render_field(form.password) }}
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </ul>
+
+  </div>
+</div>
+<div class="one-half right">
+  <div class="panel panel-default">
+    <div class="panel-heading">Origin OJ Sync</div>
+    <ul class="list-group">
+      <li class="list-group-item">
+        <a href="http://poj.org/" target="_blank">POJ</a>
+        <a class="btn btn-default btn-xs right"><i class="fa fa-refresh"> refresh</i></a>
+      </li>
+      <li class="list-group-item">
+        <a href="http://acm.hdu.edu.cn" target="_blank">HDU</a>
+        <a class="btn btn-default btn-xs right"><i class="fa fa-refresh"> refresh</i></a>
+      </li>
+      <li class="list-group-item">
+        <a href="http://acm.sdut.edu.cn" target="_blank">SDUT</a>
+        <a class="btn btn-default btn-xs right"><i class="fa fa-refresh"> refresh</i></a>
+      </li>
+      <li class="list-group-item">
+        <a href="http://acm.fzu.edu.cn" target="_blank">FZU</a>
+        <a class="btn btn-default btn-xs right"><i class="fa fa-refresh"> refresh</i></a>
+      </li>
+    </ul>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+{{ super() }}
+<script>
+  $(document).ready(function(){
+    $(".binding").click(function(){
+      var origin_oj = $(this).prev().text();
+      $(".modal-title").text(origin_oj + " Binding");
+      $("form").attr("action", "/user/settings/origin_oj/" + origin_oj.toLowerCase());
+      $("#origin_oj").val(origin_oj);
+      $("#OriginOJModal").modal();
+    });
+  });
+
+</script>
+{% endblock %}
