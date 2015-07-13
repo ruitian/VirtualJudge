@@ -67,6 +67,7 @@ class FzuView(MethodView):
     def get(self):
         current_user.update(fzu=None)
         return redirect(url_for('user.origin_oj'))
+
     @login_required
     def post(self):
         form = OriginOJAccountForm()
