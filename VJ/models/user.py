@@ -7,9 +7,15 @@ from VJ.models.role import RoleModel
 from flask import current_app
 from mongoengine import DENY
 
+from hashlib import md5
+
 @login_manager.user_loader
 def load_user(id):
     User.objects(_id=id)
+
+class AccountModel(db.EmbeddedDocument):
+    username = db.StringField(max_length=255)
+    password = db.StringField(max_length=255)
 
 class UserModel(db.Document, UserMixin):
     username = db.StringField(max_length=255)
@@ -23,22 +29,27 @@ class UserModel(db.Document, UserMixin):
 
     active = db.BooleanField(default=True)
 
-    poj_username = db.StringField(max_length=255)
-    poj_password = db.StringField(max_length=255)
-
-    hdu_username = db.StringField(max_length=255)
-    hdu_password = db.StringField(max_length=255)
-
-    sdut_username = db.StringField(max_length=255)
-    sdut_password = db.StringField(max_length=255)
-
-    fzu_username = db.StringField(max_length=255)
-    fzu_password = db.StringField(max_length=255)
+    poj = db.EmbeddedDocumentField(AccountModel)
+    hdu = db.EmbeddedDocumentField(AccountModel)
+    sdut = db.EmbeddedDocumentField(AccountModel)
+    fzu = db.EmbeddedDocumentField(AccountModel)
 
     last_login_at = db.DateTimeField()
     current_login_at = db.DateTimeField()
     last_login_ip = db.StringField(max_length=255)
     current_login_ip = db.StringField(max_length=255)
+
+    @property
+    def email_md5(self):
+        email = self.email.strip()
+        if isinstance(email, unicode):
+            email = email.encode('utf-8')
+        return md5(email).hexdigest()
+
+    def avatar(self, size=48):
+        return "{0}{1}?d=mm&s={2}".format(
+            current_app.config['GRAVATAR_BASE_URL'], self.email_md5, size
+        )
 
     @staticmethod
     def generate_password(password):
