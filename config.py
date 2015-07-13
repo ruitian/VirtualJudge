@@ -8,8 +8,11 @@ class Config:
 
     SECRET_KEY = 'you-will-never-guess'
     CSRF_ENABLED = True
-    PROBLEM_PER_PAGE = 50
+    PROBLEM_PER_PAGE = 20
+    CONTEST_PER_PAGE = 20
+    STATUS_PER_PAGE = 50
     UPLOAD_FOLDER = BASE_DIR + '/app/uploads'
+    GRAVATAR_BASE_URL = 'http://gravatar.duoshuo.com/avatar/'
     MONGODB_SETTINGS = {
         'db': 'OJCC',
         'username': '',
