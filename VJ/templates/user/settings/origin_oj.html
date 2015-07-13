@@ -13,7 +13,7 @@
         {% if not current_user.poj %}
         <a class="btn btn-success btn-xs binding right"><i class="fa fa-chain"> Binding</i></a>
         {% else %}
-        <a class="btn btn-warning btn-xs unbind right"><i class="fa fa-chain-broken"> Unbind</i></a>
+        <a href="{{ url_for('user.poj', _method='GET') }}" class="btn btn-warning btn-xs unbind right"><i class="fa fa-chain-broken"> Unbind</i></a>
         {% endif %}
       </li>
       <li class="list-group-item">
@@ -29,7 +29,7 @@
         {% if not current_user.sdut %}
         <a class="btn btn-success btn-xs binding right"><i class="fa fa-chain"> Binding</i></a>
         {% else %}
-        <a class="btn btn-warning btn-xs unbind right"><i class="fa fa-chain-broken"> Unbind</i></a>
+        <a href="{{ url_for('user.sdut', _method='GET') }}" class="btn btn-warning btn-xs unbind right"><i class="fa fa-chain-broken"> Unbind</i></a>
         {% endif %}
       </li>
       <li class="list-group-item">
@@ -105,6 +105,5 @@
       $("#OriginOJModal").modal();
     });
   });
-
 </script>
 {% endblock %}
