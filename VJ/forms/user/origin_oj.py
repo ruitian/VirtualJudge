@@ -1,15 +1,16 @@
 from flask_wtf import Form
-from wtforms import StringField, TextAreaField, SelectField
+from wtforms import StringField, TextAreaField, SelectField, PasswordField
 from wtforms.validators import Required, ValidationError
 
-class OriginOJForm(Form):
-    origin_oj = SelectField('OJ',
-        choices=[
-            ('poj', 'POJ'),
-            ('hdu', 'HDU'),
-            ('sdut', 'SDUT'),
-            ('fzu', 'FZU')
-        ]
-    )
+from VJ.models import AccountModel
+
+class OriginOJAccountForm(Form):
+    origin_oj = StringField('OJ')
     username = StringField('Username')
     password = PasswordField('Password')
+
+    def generate_account(self):
+        return AccountModel(
+            username = self.username.data,
+            password = self.password.data
+        )
