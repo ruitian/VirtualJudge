@@ -5,7 +5,7 @@
 {% block page_content %}
 <div class="content">
   <div class="one-fifth left">
-    <a href="{{ url_for('user.profile') }}">
+    <a href="{{ user.avatar(460) }}">
       <img src="{{ user.avatar(460) }}" class="vcard-avatar" width="230" >
     </a>
     <h1>{{ user.username }}</h1>
