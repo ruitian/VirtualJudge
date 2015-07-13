@@ -11,7 +11,7 @@ from VJ.models import UserModel
 
 class ProfileView(MethodView):
 
-    template = 'user/profile.html'
+    template = 'user/settings/profile.html'
 
     @login_required
     def get(self):
