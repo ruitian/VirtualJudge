@@ -1,5 +1,4 @@
 {% macro render_field(field) %}
-{{ field.csrf_token }}
   <div class="form-group">
       {{ field.label }}
       {{ field(class="form-control", **kwargs)|safe }}
