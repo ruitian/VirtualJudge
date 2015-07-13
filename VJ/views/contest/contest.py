@@ -7,7 +7,7 @@ from flask import (
     render_template
 )
 from flask.views import MethodView
-from flask.ext.login import current_app, login_user
+from flask.ext.login import current_app, login_user, login_required
 
 from VJ.models import ContestModel
 
@@ -87,8 +87,10 @@ class ContestCreateView(MethodView):
 
     template = 'contest/contest_create.html'
 
+    @login_required
     def get(self):
         return render_template(self.template)
 
+    @login_required
     def post(self):
         pass
