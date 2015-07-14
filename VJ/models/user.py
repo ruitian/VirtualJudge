@@ -13,9 +13,18 @@ from hashlib import md5
 def load_user(id):
     User.objects(_id=id)
 
-class AccountModel(db.EmbeddedDocument):
+class AccountItem(db.Document):
+    origin_oj = db.StringField()
     username = db.StringField(max_length=255)
     password = db.StringField(max_length=255)
+    status = db.StringField(defaule='Unauthorized')
+    accept = db.StringField()
+    submit = db.StringField()
+    rank = db.StringField()
+
+    meta = {
+        'collection': 'AccountItem'
+    }
 
 class UserModel(db.Document, UserMixin):
     username = db.StringField(max_length=255)
@@ -29,10 +38,10 @@ class UserModel(db.Document, UserMixin):
 
     active = db.BooleanField(default=True)
 
-    poj = db.EmbeddedDocumentField(AccountModel)
-    hdu = db.EmbeddedDocumentField(AccountModel)
-    sdut = db.EmbeddedDocumentField(AccountModel)
-    fzu = db.EmbeddedDocumentField(AccountModel)
+    poj = db.ReferenceField(AccountItem)
+    hdu = db.ReferenceField(AccountItem)
+    sdut = db.ReferenceField(AccountItem)
+    fzu = db.ReferenceField(AccountItem)
 
     last_login_at = db.DateTimeField()
     current_login_at = db.DateTimeField()
