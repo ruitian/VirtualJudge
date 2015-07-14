@@ -11,7 +11,6 @@ from flask.ext.login import login_user, login_required
 
 from VJ.models import ProblemItem
 from VJ.forms import SubmitForm
-from VJ.libs import submit
 
 class ProblemListView(MethodView):
 
