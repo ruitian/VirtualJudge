@@ -1,5 +1,6 @@
 {% extends "user/settings/profile.html" %}
 {% from "_macro/_formhelpers.html" import render_field %}
+{% from "_macro/_label.html" import render_label %}
 
 {% block title %}Origin OJ | Virtual Judge{% endblock %}
 
@@ -73,18 +74,22 @@
     <ul class="list-group">
       <li class="list-group-item">
         <a href="http://poj.org/" target="_blank">POJ</a>
+        {{ render_label(current_user.poj.status) }}
         <a class="btn btn-default btn-xs right"><i class="fa fa-refresh"> refresh</i></a>
       </li>
       <li class="list-group-item">
         <a href="http://acm.hdu.edu.cn" target="_blank">HDU</a>
+        {{ render_label(current_user.hdu.status) }}
         <a class="btn btn-default btn-xs right"><i class="fa fa-refresh"> refresh</i></a>
       </li>
       <li class="list-group-item">
         <a href="http://acm.sdut.edu.cn" target="_blank">SDUT</a>
+        {{ render_label(current_user.sdut.status) }}
         <a class="btn btn-default btn-xs right"><i class="fa fa-refresh"> refresh</i></a>
       </li>
       <li class="list-group-item">
         <a href="http://acm.fzu.edu.cn" target="_blank">FZU</a>
+        {{ render_label(current_user.fzu.status) }}
         <a class="btn btn-default btn-xs right"><i class="fa fa-refresh"> refresh</i></a>
       </li>
     </ul>
@@ -101,7 +106,7 @@
       var origin_oj = $(this).prev().text();
       $(".modal-title").text(origin_oj + " Binding");
       $("form").attr("action", "/user/settings/origin_oj/" + origin_oj.toLowerCase());
-      $("#origin_oj").val(origin_oj);
+      $("#origin_oj").val(origin_oj.toLowerCase());
       $("#OriginOJModal").modal();
     });
   });
