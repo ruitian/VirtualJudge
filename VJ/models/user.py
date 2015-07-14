@@ -17,7 +17,7 @@ class AccountItem(db.Document):
     origin_oj = db.StringField()
     username = db.StringField(max_length=255)
     password = db.StringField(max_length=255)
-    status = db.StringField(defaule='Unauthorized')
+    status = db.StringField(default='Unauthorized')
     accept = db.StringField()
     submit = db.StringField()
     rank = db.StringField()
