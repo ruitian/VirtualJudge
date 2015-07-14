@@ -23,6 +23,7 @@ class PojView(MethodView):
 
     @login_required
     def get(self):
+        current_user.poj.delete()
         current_user.update(poj=None)
         return redirect(url_for('user.origin_oj'))
 
@@ -30,6 +31,7 @@ class PojView(MethodView):
     def post(self):
         form = OriginOJAccountForm()
         account = form.generate_account()
+        account.save()
         current_user.update(poj=account)
         return redirect(url_for('user.origin_oj'))
 
@@ -37,6 +39,7 @@ class HduView(MethodView):
 
     @login_required
     def get(self):
+        current_user.hdu.delete()
         current_user.update(hdu=None)
         return redirect(url_for('user.origin_oj'))
 
@@ -44,6 +47,7 @@ class HduView(MethodView):
     def post(self):
         form = OriginOJAccountForm()
         account = form.generate_account()
+        account.save()
         current_user.update(hdu=account)
         return redirect(url_for('user.origin_oj'))
 
@@ -52,12 +56,14 @@ class SdutView(MethodView):
     @login_required
     def get(self):
         current_user.update(sdut=None)
+        current_user.sdut.delete()
         return redirect(url_for('user.origin_oj'))
 
     @login_required
     def post(self):
         form = OriginOJAccountForm()
         account = form.generate_account()
+        account.save()
         current_user.update(sdut=account)
         return redirect(url_for('user.origin_oj'))
 
@@ -65,6 +71,7 @@ class FzuView(MethodView):
 
     @login_required
     def get(self):
+        current_user.fzu.delete()
         current_user.update(fzu=None)
         return redirect(url_for('user.origin_oj'))
 
@@ -72,5 +79,6 @@ class FzuView(MethodView):
     def post(self):
         form = OriginOJAccountForm()
         account = form.generate_account()
+        account.save()
         current_user.update(fzu=account)
         return redirect(url_for('user.origin_oj'))
