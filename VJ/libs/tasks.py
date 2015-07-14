@@ -18,3 +18,7 @@ celery = make_celery(app)
 @celery.task()
 def add_together(a, b):
     return a + b
+
+@celery.task()
+def problem_init(origin_oj):
+    return a + b
