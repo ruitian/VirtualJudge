@@ -12,7 +12,7 @@
       <li class="list-group-item">
         <a href="http://poj.org/" target="_blank">POJ</a>
         {% if not current_user.poj %}
-        <a class="btn btn-success btn-xs bind right"><i class="fa fa-chain"> Bind</i></a>
+        <a class="btn btn-primary btn-xs bind right"><i class="fa fa-chain"> Bind</i></a>
         {% else %}
         <a href="{{ url_for('user.poj') }}" class="btn btn-warning btn-xs unbind right"><i class="fa fa-chain-broken"> Unbind</i></a>
         {% endif %}
@@ -20,7 +20,7 @@
       <li class="list-group-item">
         <a href="http://acm.hdu.edu.cn" target="_blank">HDU</a>
         {% if not current_user.hdu %}
-        <a class="btn btn-success btn-xs bind right"><i class="fa fa-chain"> Bind</i></a>
+        <a class="btn btn-primary btn-xs bind right"><i class="fa fa-chain"> Bind</i></a>
         {% else %}
         <a href="{{ url_for('user.hdu') }}" class="btn btn-warning btn-xs unbind right"><i class="fa fa-chain-broken"> Unbind</i></a>
         {% endif %}
@@ -28,7 +28,7 @@
       <li class="list-group-item">
         <a href="http://acm.sdut.edu.cn" target="_blank">SDUT</a>
         {% if not current_user.sdut %}
-        <a class="btn btn-success btn-xs bind right"><i class="fa fa-chain"> Bind</i></a>
+        <a class="btn btn-primary btn-xs bind right"><i class="fa fa-chain"> Bind</i></a>
         {% else %}
         <a href="{{ url_for('user.sdut') }}" class="btn btn-warning btn-xs unbind right"><i class="fa fa-chain-broken"> Unbind</i></a>
         {% endif %}
@@ -36,7 +36,7 @@
       <li class="list-group-item">
         <a href="http://acm.fzu.edu.cn" target="_blank">FZU</a>
         {% if not current_user.fzu %}
-        <a class="btn btn-success btn-xs bind right"><i class="fa fa-chain"> Bind</i></a>
+        <a class="btn btn-primary btn-xs bind right"><i class="fa fa-chain"> Bind</i></a>
         {% else %}
         <a href="{{ url_for('user.fzu') }}" class="btn btn-warning btn-xs unbind right"><i class="fa fa-chain-broken"> Unbind</i></a>
         {% endif %}
