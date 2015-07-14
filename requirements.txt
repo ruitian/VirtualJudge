@@ -7,3 +7,4 @@ flask-mongoengine
 pygments
 bpython==0.14.2
 celery
+redis
