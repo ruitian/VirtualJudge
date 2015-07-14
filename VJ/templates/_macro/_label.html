@@ -1,0 +1,11 @@
+{% macro render_label(status) %}
+  {% if status == 'Unauthorized' %}
+  <span class="label label-default">{{status}}</span>
+  {% elif status == 'Authentication Success' %}
+  <span class="label label-success">{{status}}</span>
+  {% elif status == 'Authentication Failed' %}
+  <span class="label label-danger">{{status}}</span>
+  {% elif status == 'Unknown Error' %}
+  <span class="label label-warning">{{status}}</span>
+  {% endif %}
+{% endmacro %}
