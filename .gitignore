@@ -1,5 +1,7 @@
 # Byte-compiled / optimized / DLL files
-OnlineJudge_Crawler_Core/
+OJCC/
+scrapy.cfg
+dump.rdb
 __pycache__/
 *.py[cod]
 
