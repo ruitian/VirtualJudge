@@ -54,7 +54,7 @@ class HduView(MethodView):
     @login_required
     def get(self):
         user = current_user
-        if request.args.get('unbind', None):
+        if request.args.get('unbind', None) and user.hdu:
             user.hdu.delete()
             user.update(hdu=None)
         elif request.args.get('refresh', None) and user.hdu:
@@ -83,7 +83,7 @@ class SdutView(MethodView):
     @login_required
     def get(self):
         user = current_user
-        if request.args.get('unbind', None):
+        if request.args.get('unbind', None) and user.sdut:
             user.sdut.delete()
             user.update(sdut=None)
         elif request.args.get('refresh', None) and user.sdut:
@@ -112,7 +112,7 @@ class FzuView(MethodView):
     @login_required
     def get(self):
         user = current_user
-        if request.args.get('unbind', None):
+        if request.args.get('unbind', None) and user.fzu:
             user.fzu.delete()
             user.update(fzu=None)
         elif request.args.get('refresh', None) and user.fzu:
