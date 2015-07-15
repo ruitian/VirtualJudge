@@ -25,9 +25,9 @@ class PojView(MethodView):
     @login_required
     def get(self):
         user = current_user
-        if request.args.get('unbind', None):
+        if request.args.get('unbind', None) and user.poj:
             user.poj.delete()
-            user.update(hdu=None)
+            user.update(poj=None)
         elif request.args.get('refresh', None) and user.poj:
             account_init.delay(
                 user.poj.origin_oj,
