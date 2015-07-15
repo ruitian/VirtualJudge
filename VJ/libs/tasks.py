@@ -1,6 +1,8 @@
 from VJ import app
 from celery import Celery
 
+from crawl import AccountInitCrawler
+
 def make_celery(app):
     celery = Celery(app.import_name, broker=app.config['CELERY_BROKER_URL'])
     celery.conf.update(app.config)
@@ -16,9 +18,10 @@ def make_celery(app):
 celery = make_celery(app)
 
 @celery.task()
-def add_together(a, b):
-    return a + b
-
-@celery.task()
-def problem_init(origin_oj):
-    return a + b
+def account_init(origin_oj, username, password):
+    crawler = AccountInitCrawler()
+    crawler.crawl(
+        origin_oj,
+        username,
+        password
+    )
