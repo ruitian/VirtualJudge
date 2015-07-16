@@ -2,6 +2,7 @@ from flask import (
     request,
     redirect,
     url_for,
+    flash,
     render_template
 )
 from flask.views import MethodView
@@ -27,7 +28,11 @@ class PojView(MethodView):
         user = current_user
         if user.poj:
             if request.args.get('unbind', None):
-                user.poj.delete()
+                if user.poj.status == 'Unauthorized':
+                    flash('Your account is unauthorized.')
+                else:
+                    user.poj.delete()
+                    flash('Unbind success.')
             elif request.args.get('refresh', None):
                 account_init.delay(
                     user.poj.origin_oj,
@@ -56,7 +61,11 @@ class HduView(MethodView):
         user = current_user
         if user.hdu:
             if request.args.get('unbind', None):
-                user.hdu.delete()
+                if user.hdu.status == 'Unauthorized':
+                    flash('Your account is unauthorized.')
+                else:
+                    user.hdu.delete()
+                    flash('Unbind success.')
             elif request.args.get('refresh', None):
                 account_init.delay(
                     user.hdu.origin_oj,
@@ -85,7 +94,11 @@ class SdutView(MethodView):
         user = current_user
         if user.sdut:
             if request.args.get('unbind', None):
-                user.sdut.delete()
+                if user.sdut.status == 'Unauthorized':
+                    flash('Your account is unauthorized.')
+                else:
+                    user.sdut.delete()
+                    flash('Unbind success.')
             elif request.args.get('refresh', None):
                 account_init.delay(
                     user.sdut.origin_oj,
@@ -114,7 +127,11 @@ class FzuView(MethodView):
         user = current_user
         if user.fzu:
             if request.args.get('unbind', None):
-                user.fzu.delete()
+                if user.fzu.status == 'Unauthorized':
+                    flash('Your account is unauthorized.')
+                else:
+                    user.fzu.delete()
+                    flash('Unbind success.')
             elif request.args.get('refresh', None):
                 account_init.delay(
                     user.fzu.origin_oj,
