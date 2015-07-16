@@ -85,7 +85,7 @@ class UserModel(db.Document, UserMixin):
             current_app.config['SECRET_KEY'] + password
         )
 
-    def get_origin_oj(self, origin_oj):
+    def get_account(self, origin_oj):
         if origin_oj == 'poj':
             return self.poj
         elif origin_oj == 'hdu':
