@@ -85,25 +85,15 @@ class UserModel(db.Document, UserMixin):
             current_app.config['SECRET_KEY'] + password
         )
 
-    def get_origin_oj_password(self, origin_oj):
+    def get_origin_oj(self, origin_oj):
         if origin_oj == 'poj':
-            return self.poj.password
+            return self.poj
         elif origin_oj == 'hdu':
-            return self.hdu.password
+            return self.hdu
         elif origin_oj == 'sdut':
-            return self.sdut.password
+            return self.sdut
         elif origin_oj == 'fzu':
-            return self.fzu.password
-
-    def get_origin_oj_username(self, origin_oj):
-        if origin_oj == 'poj':
-            return self.poj.username
-        elif origin_oj == 'hdu':
-            return self.hdu.username
-        elif origin_oj == 'sdut':
-            return self.sdut.username
-        elif origin_oj == 'fzu':
-            return self.fzu.username
+            return self.fzu
 
     def __unicode__(self):
         return self.email
