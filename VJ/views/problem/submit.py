@@ -3,11 +3,12 @@ from flask import (
     redirect,
     url_for,
     current_app,
+    flash,
     render_template
 )
 
 from flask.views import MethodView
-from flask.ext.login import login_user, login_required
+from flask.ext.login import login_user, login_required, current_user
 
 from VJ.forms import SubmitForm
 from VJ.libs.tasks import code_submit
@@ -31,6 +32,7 @@ class ProblemSubmitView(MethodView):
     @login_required
     def post(self):
         form = SubmitForm()
+        account = current_user.get_account(form.origin_oj.data)
         if not form.validate():
             return render_template(
                 self.template,
@@ -38,4 +40,24 @@ class ProblemSubmitView(MethodView):
                 origin_oj=form.origin_oj.data,
                 problem_id=form.problem_id.data
             )
+        if account is None or account.status != 'Authentication Success':
+            flash('Please bind the correct account.')
+            return redirect(
+                url_for('problem.submit',
+                    origin_oj = form.origin_oj.data,
+                    problem_id = form.problem_id.data,
+                )
+            )
+
+        solution = form.generate_solution(current_user.username)
+        code_submit.delay(
+            form.origin_oj.data,
+            solution.solution_id,
+            form.problem_id.data,
+            form.language.data,
+            form.code.data,
+            account.username,
+            account.password
+        )
+
         return redirect(url_for('solution.list'))
