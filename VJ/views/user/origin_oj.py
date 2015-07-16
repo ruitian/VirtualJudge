@@ -27,7 +27,6 @@ class PojView(MethodView):
         user = current_user
         if request.args.get('unbind', None) and user.poj:
             user.poj.delete()
-            user.update(poj=None)
         elif request.args.get('refresh', None) and user.poj:
             account_init.delay(
                 user.poj.origin_oj,
@@ -56,7 +55,6 @@ class HduView(MethodView):
         user = current_user
         if request.args.get('unbind', None) and user.hdu:
             user.hdu.delete()
-            user.update(hdu=None)
         elif request.args.get('refresh', None) and user.hdu:
             account_init.delay(
                 user.hdu.origin_oj,
@@ -85,7 +83,6 @@ class SdutView(MethodView):
         user = current_user
         if request.args.get('unbind', None) and user.sdut:
             user.sdut.delete()
-            user.update(sdut=None)
         elif request.args.get('refresh', None) and user.sdut:
             account_init.delay(
                 user.sdut.origin_oj,
@@ -114,7 +111,6 @@ class FzuView(MethodView):
         user = current_user
         if request.args.get('unbind', None) and user.fzu:
             user.fzu.delete()
-            user.update(fzu=None)
         elif request.args.get('refresh', None) and user.fzu:
             account_init.delay(
                 user.fzu.origin_oj,
