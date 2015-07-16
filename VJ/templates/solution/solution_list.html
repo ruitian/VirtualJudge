@@ -63,6 +63,12 @@
     <tr>
       <td style="text-align:right">{{ solution.origin_oj|upper }}</td>
       <td><a href="{{ url_for('problem.detail', origin_oj=solution.origin_oj, problem_id=solution.problem_id) }}">{{ solution.problem_id }}</a></td>
+      <td><a href="{{ url_for('user.user', username=solution.username) }}">{{ solution.username }}</a></td>
+      <td>{{ solution.result }}</td>
+      <td>{{ solution.time }}</td>
+      <td>{{ solution.memory }}</td>
+      <td><a href="">{{ solution.code_length }}</a></td>
+      <td>{{ solution.submit_time }}</td>
     </tr>
     {% endfor %}
   <tbody>
