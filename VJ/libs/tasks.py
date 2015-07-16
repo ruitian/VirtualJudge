@@ -1,6 +1,5 @@
 from VJ import app
 from celery import Celery
-from base64 import b64encode
 
 from crawl import (
     AccountCrawler,
@@ -45,7 +44,7 @@ def code_submit(
         solution_id,
         problem_id,
         language,
-        b64encode(code),
+        code,
         username,
         password
     )
