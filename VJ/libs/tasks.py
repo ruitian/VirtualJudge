@@ -1,7 +1,11 @@
 from VJ import app
 from celery import Celery
+from base64 import b64encode
 
-from crawl import AccountInitCrawler
+from crawl import (
+    AccountCrawler,
+    CodeSubmitCrawler
+)
 
 def make_celery(app):
     celery = Celery(app.import_name, broker=app.config['CELERY_BROKER_URL'])
@@ -19,9 +23,29 @@ celery = make_celery(app)
 
 @celery.task()
 def account_init(origin_oj, username, password):
-    crawler = AccountInitCrawler()
+    crawler = AccountCrawler()
     crawler.crawl(
         origin_oj,
+        username,
+        password
+    )
+
+@celery.task()
+def code_submit(
+        origin_oj,
+        solution_id,
+        problem_id,
+        language,
+        code,
+        username,
+        password):
+    crawler = CodeSubmitCrawler()
+    crawler.crawl(
+        origin_oj,
+        solution_id,
+        problem_id,
+        language,
+        b64encode(code),
         username,
         password
     )
