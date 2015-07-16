@@ -5,13 +5,6 @@ from wtforms.validators import Required, ValidationError, Length
 from VJ.models import SolutionItem
 from VJ.models import ProblemItem
 
-ORIGIN_OJ = [
-    'poj',
-    'hdu',
-    'sdut',
-    'fzu'
-]
-
 class SubmitForm(Form):
     origin_oj = StringField('OJ', [Required()])
     problem_id = StringField('Problem ID', [Required()])
@@ -38,11 +31,13 @@ class SubmitForm(Form):
     )
     code = TextAreaField('Code', [Required(), Length(min=4)])
     def validate_origin_oj(self, field):
-        if field.data not in ORIGIN_OJ:
+        if not ProblemItem.objects.filter(origin_oj=field.data):
             raise ValidationError('Invalid origin oj')
 
     def validate_problem_id(self, field):
-        if not ProblemItem.objects.filter(problem_id=field.data):
+        if not ProblemItem.objects.filter(
+                origin_oj=self.origin_oj.data,
+                problem_id=field.data):
             raise ValidationError('Invalid problem id')
 
     def generate_solution(self):
