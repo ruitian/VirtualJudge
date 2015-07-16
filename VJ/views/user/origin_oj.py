@@ -25,14 +25,15 @@ class PojView(MethodView):
     @login_required
     def get(self):
         user = current_user
-        if request.args.get('unbind', None) and user.poj:
-            user.poj.delete()
-        elif request.args.get('refresh', None) and user.poj:
-            account_init.delay(
-                user.poj.origin_oj,
-                user.poj.username,
-                user.poj.password
-            )
+        if user.poj:
+            if request.args.get('unbind', None):
+                user.poj.delete()
+            elif request.args.get('refresh', None):
+                account_init.delay(
+                    user.poj.origin_oj,
+                    user.poj.username,
+                    user.poj.password
+                )
         return redirect(url_for('user.origin_oj'))
 
     @login_required
@@ -53,14 +54,15 @@ class HduView(MethodView):
     @login_required
     def get(self):
         user = current_user
-        if request.args.get('unbind', None) and user.hdu:
-            user.hdu.delete()
-        elif request.args.get('refresh', None) and user.hdu:
-            account_init.delay(
-                user.hdu.origin_oj,
-                user.hdu.username,
-                user.hdu.password
-            )
+        if user.hdu:
+            if request.args.get('unbind', None):
+                user.hdu.delete()
+            elif request.args.get('refresh', None):
+                account_init.delay(
+                    user.hdu.origin_oj,
+                    user.hdu.username,
+                    user.hdu.password
+                )
         return redirect(url_for('user.origin_oj'))
 
     @login_required
@@ -81,14 +83,15 @@ class SdutView(MethodView):
     @login_required
     def get(self):
         user = current_user
-        if request.args.get('unbind', None) and user.sdut:
-            user.sdut.delete()
-        elif request.args.get('refresh', None) and user.sdut:
-            account_init.delay(
-                user.sdut.origin_oj,
-                user.sdut.username,
-                user.sdut.password
-            )
+        if user.sdut:
+            if request.args.get('unbind', None):
+                user.sdut.delete()
+            elif request.args.get('refresh', None):
+                account_init.delay(
+                    user.sdut.origin_oj,
+                    user.sdut.username,
+                    user.sdut.password
+                )
         return redirect(url_for('user.origin_oj'))
 
     @login_required
@@ -109,14 +112,15 @@ class FzuView(MethodView):
     @login_required
     def get(self):
         user = current_user
-        if request.args.get('unbind', None) and user.fzu:
-            user.fzu.delete()
-        elif request.args.get('refresh', None) and user.fzu:
-            account_init.delay(
-                user.fzu.origin_oj,
-                user.fzu.username,
-                user.fzu.password
-            )
+        if user.fzu:
+            if request.args.get('unbind', None):
+                user.fzu.delete()
+            elif request.args.get('refresh', None):
+                account_init.delay(
+                    user.fzu.origin_oj,
+                    user.fzu.username,
+                    user.fzu.password
+                )
         return redirect(url_for('user.origin_oj'))
 
     @login_required
