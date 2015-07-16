@@ -5,7 +5,7 @@ from flask.ext.security.utils import encrypt_password
 from flask.ext.security.utils import verify_password as _verify_password
 from VJ.models.role import RoleModel
 from flask import current_app
-from mongoengine import DENY
+from mongoengine import DENY, NULLIFY
 
 from hashlib import md5
 
@@ -38,10 +38,10 @@ class UserModel(db.Document, UserMixin):
 
     active = db.BooleanField(default=True)
 
-    poj = db.ReferenceField(AccountItem)
-    hdu = db.ReferenceField(AccountItem)
-    sdut = db.ReferenceField(AccountItem)
-    fzu = db.ReferenceField(AccountItem)
+    poj = db.ReferenceField(AccountItem, reverse_delete_rule=NULLIFY)
+    hdu = db.ReferenceField(AccountItem, reverse_delete_rule=NULLIFY)
+    sdut = db.ReferenceField(AccountItem, reverse_delete_rule=NULLIFY)
+    fzu = db.ReferenceField(AccountItem, reverse_delete_rule=NULLIFY)
 
     last_login_at = db.DateTimeField()
     current_login_at = db.DateTimeField()
@@ -84,6 +84,26 @@ class UserModel(db.Document, UserMixin):
             self.password,
             current_app.config['SECRET_KEY'] + password
         )
+
+    def get_origin_oj_password(self, origin_oj):
+        if origin_oj == 'poj':
+            return self.poj.password
+        elif origin_oj == 'hdu':
+            return self.hdu.password
+        elif origin_oj == 'sdut':
+            return self.sdut.password
+        elif origin_oj == 'fzu':
+            return self.fzu.password
+
+    def get_origin_oj_username(self, origin_oj):
+        if origin_oj == 'poj':
+            return self.poj.username
+        elif origin_oj == 'hdu':
+            return self.hdu.username
+        elif origin_oj == 'sdut':
+            return self.sdut.username
+        elif origin_oj == 'fzu':
+            return self.fzu.username
 
     def __unicode__(self):
         return self.email
