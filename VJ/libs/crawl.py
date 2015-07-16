@@ -4,6 +4,8 @@ from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 from scrapy.utils.log import configure_logging
 
+from base64 import b64encode
+
 settings = get_project_settings()
 
 class Crawler():
@@ -48,7 +50,7 @@ class CodeSubmitCrawler(Crawler):
             solution_id = solution_id,
             problem_id = problem_id,
             language = language,
-            code = code,
+            source = b64encode(code),
             username = username,
             password = password
         )
