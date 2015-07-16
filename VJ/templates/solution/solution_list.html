@@ -55,6 +55,7 @@
       <th>Status</th>
       <th>Time</th>
       <th>Memory</th>
+      <th>Language</th>
       <th>Code Length</th>
       <th>Submit Time</th>
     </tr>
@@ -67,8 +68,9 @@
       <td>{{ solution.result }}</td>
       <td>{{ solution.time }}</td>
       <td>{{ solution.memory }}</td>
+      <td>{{ solution.language }}</td>
       <td><a href="">{{ solution.code_length }}</a></td>
-      <td>{{ solution.submit_time }}</td>
+      <td>{{ solution.created_at }}</td>
     </tr>
     {% endfor %}
   <tbody>
