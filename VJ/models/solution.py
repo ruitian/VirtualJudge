@@ -4,7 +4,7 @@ from datetime import datetime
 from base64 import b64encode
 
 class SolutionItem(db.Document):
-    id = db.SequenceField(primary_key=True)
+    solution_id = db.SequenceField()
     origin_oj = db.StringField()
     problem_id = db.StringField()
     username = db.StringField()
@@ -28,11 +28,17 @@ class SolutionItem(db.Document):
         return b64encode(code)
 
     @classmethod
-    def create_solution(cls, origin_oj, problem_id, language, code, **kwargs):
+    def create_solution(cls,
+            origin_oj,
+            problem_id,
+            username,
+            language,
+            code, **kwargs):
         source = cls.generate_source(code)
         return cls.objects.create(
             origin_oj = origin_oj,
             problem_id = problem_id,
+            username = username,
             language = language,
             source = source,
             **kwargs
