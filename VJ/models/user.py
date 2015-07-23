@@ -21,6 +21,7 @@ class AccountItem(db.Document):
     accept = db.StringField()
     submit = db.StringField()
     rank = db.StringField()
+    solved = db.ListField()
 
     meta = {
         'collection': 'AccountItem'
