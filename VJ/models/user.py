@@ -16,6 +16,7 @@ def load_user(id):
 class AccountItem(db.Document):
     origin_oj = db.StringField()
     username = db.StringField(max_length=255)
+    nickname = db.StringField(max_length=255)
     password = db.StringField(max_length=255)
     status = db.StringField(default='Unauthorized')
     accept = db.StringField()
