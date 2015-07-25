@@ -1,8 +1,7 @@
 from VJ import db, login_manager
 from datetime import datetime
-from flask.ext.security import UserMixin
-from flask.ext.security.utils import encrypt_password
-from flask.ext.security.utils import verify_password as _verify_password
+from flask.ext.login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
 from VJ.models.role import RoleModel
 from flask import current_app
 from mongoengine import DENY, NULLIFY
@@ -64,12 +63,18 @@ class UserModel(db.Document, UserMixin):
 
     @staticmethod
     def generate_password(password):
-        return encrypt_password(
+        return generate_password_hash(
             current_app.config['SECRET_KEY'] + password
         )
 
     def set_password(self, password):
         self.password = generate_password(password)
+
+    def verify_password(self, password):
+        return check_password_hash(
+            self.password,
+            current_app.config['SECRET_KEY'] + password
+        )
 
     @classmethod
     def create_user(cls, username, email, password, **kwargs):
@@ -79,12 +84,6 @@ class UserModel(db.Document, UserMixin):
             email = email,
             password = password,
             **kwargs
-        )
-
-    def verify_password(self, password):
-        return _verify_password(
-            self.password,
-            current_app.config['SECRET_KEY'] + password
         )
 
     def get_account(self, origin_oj):
