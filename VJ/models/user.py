@@ -11,7 +11,7 @@ from hashlib import md5
 
 @login_manager.user_loader
 def load_user(id):
-    User.objects(_id=id)
+    return UserModel.objects(id=id).first()
 
 class AccountItem(db.Document):
     origin_oj = db.StringField()
