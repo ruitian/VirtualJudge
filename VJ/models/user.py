@@ -12,6 +12,7 @@ from hashlib import md5
 def load_user(id):
     return UserModel.objects(id=id).first()
 
+
 class AccountItem(db.Document):
     origin_oj = db.StringField()
     username = db.StringField(max_length=255)
