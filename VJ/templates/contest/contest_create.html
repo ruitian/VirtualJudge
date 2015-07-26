@@ -1,6 +1,118 @@
 {% extends "base.html" %}
+{% from "_macro/_formhelpers.html" import field_error %}
+{% from "_macro/_formhelpers.html" import render_field %}
 
 {% block title %}Create Contest | Virtual Judge{% endblock %}
 
 {% block page_content %}
+<ul class="nav nav-tabs">
+  <li role="presentation" class="active"><a href="#">Add Contest</a></li>
+</ul>
+<div class="col-md-12 content">
+  <form class="form-horizontal" method="post">
+    {{ form.csrf_token }}
+    {% if form.csrf_token.errors %}
+      <div class="warning">You have submitted an invalid CSRF token</div>
+    {% endif %}
+    <div class="col-md-6">
+      <div class="form-group">
+        {{ form.title.label(class="col-sm-3 control-label") }}
+        <div class="col-sm-9">
+          {{ form.title(class="form-control") }}
+        </div>
+          {{ field_error(form.title) }}
+      </div>
+      <div class="form-group">
+        {{ form.password.label(class="col-sm-3 control-label") }}
+        <div class="col-sm-9">
+          {{ form.password(class="form-control") }}
+        </div>
+          {{ field_error(form.password) }}
+      </div>
+      <div class="form-group">
+        {{ form.start_at.label(class="col-sm-3 control-label") }}
+        <div class="col-sm-9">
+          {{ form.start_at(class="form-control") }}
+        </div>
+          {{ field_error(form.start_at) }}
+      </div>
+      <div class="form-group">
+        {{ form.end_at.label(class="col-sm-3 control-label") }}
+        <div class="col-sm-9">
+          {{ form.end_at(class="form-control") }}
+        </div>
+          {{ field_error(form.end_at) }}
+      </div>
+      <div class="form-group">
+        {{ form.description.label(class="col-sm-3 control-label") }}
+        <div class="col-sm-9">
+          {{ form.description(class="form-control") }}
+        </div>
+          {{ field_error(form.description) }}
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-6">
+          <div class="btn-group">
+            <button type="submit" class="btn btn-default">Add Contest</button>
+            <button type="reset" class="btn btn-default">Reset</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 problem_fields_wrap">
+
+      <div class="form-group">
+        <div class="btn-group">
+          {{ form.remove(class="btn btn-default") }}
+          {{ form.add(class="btn btn-default") }}
+        </div>
+      </div>
+          
+      {% for entrie in form.problems.entries %}
+      <div class="form-group problem_field">
+          <div class="input-group input_field">
+            <div class="input-group-addon">{{ entrie.id[9:]|int }}</div>
+            <div class="input-group-addon">{{ entrie.origin_oj(class="select_inline") }}</div>
+            {{ entrie.problem_id(class="form-control problem") }}
+            <div class="input-group-addon">{{ entrie.title.data }}</div>
+          </div>
+          {{ entrie.title(hidden="hidden") }}
+      </div>
+      {% endfor %}
+
+    </div>
+  </form>
+</div>
+{% endblock %}
+{% block script %}
+{{ super() }}
+<script>
+$('.problem').keyup(function(){
+  var origin_oj = $(this).prev().children().val();
+  var problem_id = $(this).val();
+  var $this = $(this);
+
+  if(problem_id.length == 4){
+    $.getJSON(
+      '/problem/get',
+      {
+        origin_oj: origin_oj, 
+        problem_id: problem_id
+      },
+      function(data){
+        if(data.status == 'error'){
+          $this.next().html('<span class="fa fa-times"></span>');
+        }
+        else {
+          $this.next().html(data.problem.title);
+          $this.parent().next().val(data.problem.title);
+        }
+      }
+    );
+  } else {
+    $this.next().html('');
+    $this.parent().next().val('');
+  }
+})
+</script>
 {% endblock %}
