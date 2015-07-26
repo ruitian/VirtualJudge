@@ -1,16 +1,16 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 from flask import (
     request,
     redirect,
     url_for,
-    flash,
     render_template
 )
 from flask.views import MethodView
-from flask.ext.login import current_app, login_user, login_required
+from flask.ext.login import current_app, login_required
 
 from VJ.models import ContestModel, ProblemItem
 from VJ.forms import ContestForm
+
 
 class ContestListView(MethodView):
 
@@ -23,12 +23,13 @@ class ContestListView(MethodView):
         contests = paginate.items
         return render_template(
             self.template,
-            contests = contests,
-            paginate = paginate
+            contests=contests,
+            paginate=paginate
         )
 
     def post(self):
         pass
+
 
 class ContestPendingView(MethodView):
 
@@ -41,12 +42,13 @@ class ContestPendingView(MethodView):
         contests = paginate.items
         return render_template(
             self.template,
-            contests = contests,
-            paginate = paginate
+            contests=contests,
+            paginate=paginate
         )
 
     def post(self):
         pass
+
 
 class ContestRunningView(MethodView):
 
@@ -59,12 +61,13 @@ class ContestRunningView(MethodView):
         contests = paginate.items
         return render_template(
             self.template,
-            contests = contests,
-            paginate = paginate
+            contests=contests,
+            paginate=paginate
         )
 
     def post(self):
         pass
+
 
 class ContestEndedView(MethodView):
 
@@ -77,12 +80,13 @@ class ContestEndedView(MethodView):
         contests = paginate.items
         return render_template(
             self.template,
-            contests = contests,
-            paginate = paginate
+            contests=contests,
+            paginate=paginate
         )
 
     def post(self):
         pass
+
 
 class ContestCreateView(MethodView):
 
@@ -104,7 +108,6 @@ class ContestCreateView(MethodView):
             form.problems.append_entry()
             return render_template(self.template, form=form)
 
-        print form.problems.validate.__dict__
         if not form.validate():
             return render_template(self.template, form=form)
 
