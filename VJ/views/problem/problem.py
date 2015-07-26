@@ -2,6 +2,7 @@ from flask import (
     request,
     redirect,
     url_for,
+    jsonify,
     current_app,
     render_template
 )
@@ -12,6 +13,8 @@ from flask.ext.login import login_user, login_required
 from VJ.models import ProblemItem
 from VJ.forms import SubmitForm
 from VJ.libs.tasks import code_submit
+
+import json
 
 class ProblemListView(MethodView):
 
@@ -35,10 +38,30 @@ class ProblemDetailView(MethodView):
 
     template = 'problem/problem_detail.html'
 
-    def get(self, origin_oj , problem_id):
+    def get(self, origin_oj, problem_id):
         form = SubmitForm()
         problem = ProblemItem.objects.get_or_404(
             origin_oj=origin_oj,
             problem_id=problem_id
         )
         return render_template(self.template, problem=problem, form=form)
+
+class ProblemGetView(MethodView):
+
+    def get(self):
+        origin_oj = request.args.get('origin_oj')
+        problem_id = request.args.get('problem_id')
+        problem = ProblemItem.objects(
+            origin_oj=origin_oj,
+            problem_id=problem_id
+        ).first()
+        return jsonify(
+            {
+                'problem': json.loads(
+                    problem.to_json()
+                ),
+                'status': 'success'
+            } if problem else {
+                'status': 'error'
+            }
+        )
