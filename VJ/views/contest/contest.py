@@ -9,7 +9,7 @@ from flask import (
 from flask.views import MethodView
 from flask.ext.login import current_app, login_user, login_required
 
-from VJ.models import ContestModel
+from VJ.models import ContestModel, ProblemItem
 from VJ.forms import ContestForm
 
 class ContestListView(MethodView):
@@ -104,3 +104,17 @@ class ContestCreateView(MethodView):
             form.problems.append_entry()
             return render_template(self.template, form=form)
 
+        print form.problems.validate.__dict__
+        if not form.validate():
+            return render_template(self.template, form=form)
+
+        contest = form.generate_contest()
+
+        contest.problems = [
+            ProblemItem.objects(
+                origin_oj=entrie.origin_oj.data,
+                problem_id=entrie.problem_id.data
+            ).first() for entrie in form.problems.entries
+        ]
+        contest.save()
+        return redirect(url_for('index.index'))
