@@ -95,6 +95,15 @@ body {
 }
 
 /*
+ * Contest
+ */
+
+.select_inline{
+    border: 0px;
+    background-color: #eee;
+}
+
+/*
  * Footer
  */
 
