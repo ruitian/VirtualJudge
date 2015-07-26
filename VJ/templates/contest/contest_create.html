@@ -4,6 +4,11 @@
 
 {% block title %}Create Contest | Virtual Judge{% endblock %}
 
+{% block link %}
+{{ super() }}
+<link href="{{ url_for('static', filename='css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet">
+{% endblock %}
+
 {% block page_content %}
 <ul class="nav nav-tabs">
   <li role="presentation" class="active"><a href="#">Add Contest</a></li>
@@ -32,14 +37,14 @@
       <div class="form-group">
         {{ form.start_at.label(class="col-sm-3 control-label") }}
         <div class="col-sm-9">
-          {{ form.start_at(class="form-control") }}
+          {{ form.start_at(class="form-control form_datetime") }}
         </div>
           {{ field_error(form.start_at) }}
       </div>
       <div class="form-group">
         {{ form.end_at.label(class="col-sm-3 control-label") }}
         <div class="col-sm-9">
-          {{ form.end_at(class="form-control") }}
+          {{ form.end_at(class="form-control form_datetime") }}
         </div>
           {{ field_error(form.end_at) }}
       </div>
@@ -74,7 +79,13 @@
             <div class="input-group-addon">{{ entrie.id[9:]|int }}</div>
             <div class="input-group-addon">{{ entrie.origin_oj(class="select_inline") }}</div>
             {{ entrie.problem_id(class="form-control problem") }}
-            <div class="input-group-addon">{{ entrie.title.data }}</div>
+            <div class="input-group-addon">
+              {% if entrie.title.data %}
+                {{ entrie.title.data }}
+              {% else %}
+                <span class="fa fa-search"></span>
+              {% endif %}
+            </div>
           </div>
           {{ entrie.title(hidden="hidden") }}
       </div>
@@ -84,8 +95,18 @@
   </form>
 </div>
 {% endblock %}
+
 {% block script %}
 {{ super() }}
+<script src="{{ url_for('static', filename='js/bootstrap-datetimepicker.min.js') }}"></script>
+<script>
+$(".form_datetime").datetimepicker({
+  format: 'yyyy-mm-dd hh:ii:ss',
+  autoclose: true,
+  minView: 'hour',
+  forceParse: true
+});
+</script>
 <script>
 $('.problem').keyup(function(){
   var origin_oj = $(this).prev().children().val();
@@ -110,7 +131,7 @@ $('.problem').keyup(function(){
       }
     );
   } else {
-    $this.next().html('');
+    $this.next().html('<span class="fa fa-search"></span>');
     $this.parent().next().val('');
   }
 })
