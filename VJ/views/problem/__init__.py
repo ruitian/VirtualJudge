@@ -1,11 +1,19 @@
 from flask import Blueprint
 from .problem import (
     ProblemListView,
-    ProblemDetailView
+    ProblemDetailView,
+    ProblemGetView
 )
 from .submit import ProblemSubmitView
 
 bp_problem = Blueprint('problem', __name__)
+
+bp_problem.add_url_rule(
+    '/get',
+    endpoint = 'get',
+    view_func = ProblemGetView.as_view('get'),
+    methods = ['get']
+)
 
 bp_problem.add_url_rule(
     '',
