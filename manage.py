@@ -1,8 +1,10 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 from VJ import app, db
 from flask.ext.script import Manager, Server, Shell
 
 manager = Manager(app)
+
+
 def make_shell_context():
     return dict(app=app, db=db)
 
@@ -14,6 +16,7 @@ manager.add_command("runserver", Server(
     )
 )
 manager.add_command("shell", Shell(make_context=make_shell_context))
+
 
 @manager.command
 def deploy():

@@ -5,6 +5,7 @@ from wtforms.validators import Email, Required, ValidationError
 
 from VJ.models import UserModel
 
+
 class LoginForm(Form):
     email = StringField('Email', [Required(), Email()])
     password = PasswordField('Password', [Required()])

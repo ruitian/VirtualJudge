@@ -1,9 +1,10 @@
 import os
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
+
 class Config:
     import sys
-    reload(sys)
+    reload(sys)  # noqa
     sys.setdefaultencoding('utf-8')
 
     SECRET_KEY = 'you-will-never-guess'
@@ -28,18 +29,21 @@ class Config:
     def init_app(app):
         pass
 
+
 class DevelopmentConfig(Config):
     DEBUG = True
 
+
 class TestingConfig(Config):
     TESTING = True
+
 
 class ProductionConfig(Config):
     pass
 
 config = {
-    'development':DevelopmentConfig,
-    'testing':TestingConfig,
-    'production':ProductionConfig,
-    'default':DevelopmentConfig
+    'development': DevelopmentConfig,
+    'testing': TestingConfig,
+    'production': ProductionConfig,
+    'default': DevelopmentConfig
 }

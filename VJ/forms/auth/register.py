@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 from flask_wtf import Form
 from wtforms import PasswordField, StringField, SubmitField
 from wtforms.validators import (
@@ -10,6 +10,7 @@ from wtforms.validators import (
 )
 
 from VJ.models import UserModel
+
 
 class RegisterForm(Form):
     username = StringField('Username', [Required(), Length(min=4, max=11)])
@@ -31,7 +32,7 @@ class RegisterForm(Form):
 
     def register(self):
         return UserModel.create_user(
-            username = self.username.data,
-            email = self.email.data,
-            password = self.password.data
+            username=self.username.data,
+            email=self.email.data,
+            password=self.password.data
         )

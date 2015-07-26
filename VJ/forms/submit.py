@@ -5,10 +5,12 @@ from wtforms.validators import Required, ValidationError, Length
 from VJ.models import SolutionItem
 from VJ.models import ProblemItem
 
+
 class SubmitForm(Form):
     origin_oj = StringField('OJ', [Required()])
     problem_id = StringField('Problem ID', [Required()])
-    language = SelectField('Language',
+    language = SelectField(
+        'Language',
         choices=[
             ('gcc', 'GCC'),
             ('g++', 'G++'),
@@ -43,9 +45,9 @@ class SubmitForm(Form):
 
     def generate_solution(self, username):
         return SolutionItem.create_solution(
-            origin_oj = self.origin_oj.data,
-            problem_id = self.problem_id.data,
-            username = username,
-            language = self.language.data,
-            code = self.code.data
+            origin_oj=self.origin_oj.data,
+            problem_id=self.problem_id.data,
+            username=username,
+            language=self.language.data,
+            code=self.code.data
         )

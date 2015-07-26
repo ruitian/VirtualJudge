@@ -1,2 +1,2 @@
-from .register import *
-from .login import *
+from .register import *  # noqa
+from .login import *  # noqa

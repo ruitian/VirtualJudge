@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 import os
 from flask import Flask
 from flask.ext.login import LoginManager
