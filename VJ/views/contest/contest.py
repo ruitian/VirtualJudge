@@ -10,6 +10,7 @@ from flask.views import MethodView
 from flask.ext.login import current_app, login_user, login_required
 
 from VJ.models import ContestModel
+from VJ.forms import ContestForm
 
 class ContestListView(MethodView):
 
@@ -89,8 +90,17 @@ class ContestCreateView(MethodView):
 
     @login_required
     def get(self):
-        return render_template(self.template)
+        form = ContestForm()
+        form.problems.append_entry()
+        return render_template(self.template, form=form)
 
     @login_required
     def post(self):
-        pass
+        form = ContestForm()
+        if form.remove.data:
+            form.problems.pop_entry()
+            return render_template(self.template, form=form)
+        elif form.add.data:
+            form.problems.append_entry()
+            return render_template(self.template, form=form)
+
