@@ -30,6 +30,7 @@ class SubmitForm(Form):
         validators=[Required()]
     )
     code = TextAreaField('Code', [Required(), Length(min=4)])
+
     def validate_origin_oj(self, field):
         if not ProblemItem.objects.filter(origin_oj=field.data):
             raise ValidationError('Invalid origin oj')
