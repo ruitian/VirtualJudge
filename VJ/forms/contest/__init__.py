@@ -1,1 +1,1 @@
-from .contest import *
+from .contest import * # noqa
