@@ -4,6 +4,15 @@ from VJ.models import ProblemItem, UserModel
 from mongoengine import DENY
 
 
+class ContestProblemModel(db.EmbeddedDocument):
+    problem = db.ReferenceField(
+        ProblemItem,
+    )
+    index = db.StringField()
+    accepted = db.IntField(default=0)
+    submit = db.IntField(default=0)
+
+
 class ContestModel(db.Document):
     id = db.SequenceField(primary_key=True)
     title = db.StringField(max_length=255)
@@ -11,10 +20,10 @@ class ContestModel(db.Document):
     password = db.StringField()
     description = db.StringField(max_length=255)
     problems = db.ListField(
-        db.ReferenceField(
-            ProblemItem,
-            reverse_delete_rule=DENY
-        )
+        db.EmbeddedDocumentField(
+            ContestProblemModel,
+        ),
+        default=[]
     )
     manager = db.ReferenceField(
         UserModel,
