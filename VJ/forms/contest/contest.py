@@ -41,7 +41,7 @@ class ContestForm(Form):
         'Contest Title',
         [Required()],
         default='The king asked me to look for the mountains. ',
-        )
+    )
     password = PasswordField('Password')
     start_at = DateTimeField(
         'Start Time',
@@ -58,8 +58,15 @@ class ContestForm(Form):
     add = SubmitField()
 
     def validate_end_at(self, field):
-        if field.data < self.start_at.data:
-            raise ValidationError('End time is not greater than start time')
+        try:
+            if field.data < self.start_at.data:
+                raise ValidationError(
+                    'End time is not greater than start time'
+                )
+        except:
+            raise ValidationError(
+                'Invalid start or end time format'
+            )
 
     def validate_remove(self, field):
         pass
