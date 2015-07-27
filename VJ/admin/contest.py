@@ -9,7 +9,7 @@ class ContestAdmin(ModelViewMixin):
 
     can_restore = False
     can_create = True
-    can_edit = False
+    can_edit = True
     can_delete = True
 
     column_list = (
