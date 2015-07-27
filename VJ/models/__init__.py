@@ -1,5 +1,5 @@
-from .user import *
-from .role import *
-from .problem import *
-from .contest import *
-from .solution import *
+from .user import *  # noqa
+from .role import *  # noqa
+from .problem import *  # noqa
+from .contest import *  # noqa
+from .solution import *  # noqa

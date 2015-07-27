@@ -8,7 +8,7 @@ class ContestProblemModel(db.EmbeddedDocument):
     problem = db.ReferenceField(
         ProblemItem,
     )
-    index = db.StringField()
+    index = db.StringField(max_length=255)
     accepted = db.IntField(default=0)
     submit = db.IntField(default=0)
 
@@ -17,7 +17,7 @@ class ContestModel(db.Document):
     id = db.SequenceField(primary_key=True)
     title = db.StringField(max_length=255)
     contest_type = db.StringField(max_length=255)
-    password = db.StringField()
+    password = db.StringField(max_length=255)
     description = db.StringField(max_length=255)
     problems = db.ListField(
         db.EmbeddedDocumentField(

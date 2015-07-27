@@ -4,7 +4,7 @@ from flask import Flask
 from flask.ext.login import LoginManager
 from flask.ext.mongoengine import MongoEngine
 from flask.ext.mail import Mail
-from config import config
+from .config import config
 
 app = Flask(__name__)
 db = MongoEngine()
@@ -20,6 +20,9 @@ with app.app_context():
     mail.init_app(app)
     login_manager.init_app(app)
     login_manager.login_view = 'auth.login'
+
+    from .admin import admin
+    admin.init_app(app)
 
     from .views import (
         bp_index,

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from VJ import db, login_manager
 from datetime import datetime
 from flask.ext.login import UserMixin
@@ -7,6 +9,7 @@ from flask import current_app
 from mongoengine import DENY, NULLIFY
 
 from hashlib import md5
+from .role import Permission
 
 
 @login_manager.user_loader
@@ -35,10 +38,7 @@ class UserModel(db.Document, UserMixin):
     email = db.StringField(required=True, unique=True)
     password = db.StringField(max_length=255)
     created_at = db.DateTimeField(default=datetime.now, required=True)
-    roles = db.ListField(
-        db.ReferenceField(RoleModel, reverse_delete_rule=DENY),
-        default=[]
-    )
+    role = db.ReferenceField(RoleModel, reverse_delete_rule=DENY)
 
     active = db.BooleanField(default=True)
 
@@ -98,6 +98,13 @@ class UserModel(db.Document, UserMixin):
             return self.sdut
         elif origin_oj == 'fzu':
             return self.fzu
+
+    def can(self, permissions):
+        return (self.role and
+                (self.role.permissions & permissions) == permissions)
+
+    def is_administrator(self):
+        return self.can(Permission.ADMINISTER)
 
     def __unicode__(self):
         return self.email
