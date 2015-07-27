@@ -79,7 +79,6 @@
       {{ entrie.csrf_token }}
       <div class="form-group problem_field">
           <div class="input-group input_field">
-            <div class="input-group-addon">{{ entrie.id[9:]|int }}</div>
             <div class="input-group-addon">{{ entrie.origin_oj(class="select_inline") }}</div>
             {{ entrie.problem_id(class="form-control problem", required="required") }}
             <div class="input-group-addon">
