@@ -19,6 +19,9 @@ class ProblemItem(db.Document):
     accept = db.StringField()
     submit = db.StringField()
 
+    def __unicode__(self):
+        return '%s: %s' % (self.origin_oj, self.problem_id)
+
     meta = {
         'collection': 'ProblemItem',
         'indexes': ['origin_oj', 'problem_id']
