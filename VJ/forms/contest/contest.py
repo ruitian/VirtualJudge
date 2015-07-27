@@ -36,7 +36,7 @@ class ProblemForm(Form):
             raise ValidationError('Problem Id is required')
 
 
-class ContestForm(Form):
+class ContestCreateForm(Form):
     title = StringField(
         'Contest Title',
         [Required()],
@@ -96,3 +96,12 @@ class ContestForm(Form):
             end_at=self.end_at.data,
             description=self.description.data
         )
+
+
+class ContestEditForm(ContestCreateForm):
+
+    def validate_password(self, field):
+        pass
+
+    def validate_contest_type(self, field):
+        pass
