@@ -42,6 +42,14 @@ class ContestForm(Form):
         [Required()],
         default='The king asked me to look for the mountains. ',
     )
+    contest_type = SelectField(
+        'Contest Type',
+        [Required()],
+        choices=[
+            ('public', 'Public'),
+            ('private', 'Private'),
+        ]
+    )
     password = PasswordField('Password')
     start_at = DateTimeField(
         'Start Time',
@@ -50,7 +58,8 @@ class ContestForm(Form):
     )
     end_at = DateTimeField(
         'End Time',
-        [Required()]
+        [Required()],
+        default=datetime.now,
     )
     description = TextAreaField('Description')
     problems = FieldList(FormField(ProblemForm))
@@ -74,9 +83,14 @@ class ContestForm(Form):
     def validate_add(self, field):
         pass
 
+    def validate_password(self, field):
+        if self.contest_type.data == 'private' and not field.data:
+            raise ValidationError('Private contest this field is required')
+
     def generate_contest(self):
         return ContestModel.create_contest(
             title=self.title.data,
+            contest_type=self.contest_type.data,
             password=self.password.data,
             start_at=self.start_at.data,
             end_at=self.end_at.data,
