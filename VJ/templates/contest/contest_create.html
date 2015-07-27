@@ -30,6 +30,13 @@
           {{ field_error(form.title) }}
       </div>
       <div class="form-group">
+        {{ form.contest_type.label(class="col-sm-3 control-label") }}
+        <div class="col-sm-9">
+          {{ form.contest_type(class="form-control") }}
+        </div>
+          {{ field_error(form.contest_type) }}
+      </div>
+      <div class="form-group">
         {{ form.password.label(class="col-sm-3 control-label") }}
         <div class="col-sm-9">
           {{ form.password(class="form-control") }}
@@ -147,6 +154,26 @@ $('#remove').click(function(){
   } else {
     return false;
   }
+})
+</script>
+<script>
+$('#start_at').keyup(function(){
+  var start_time = new Date($(this).val());
+  start_time.setHours(start_time.getHours() + 5);
+  var year = start_time.getFullYear();
+  var month = start_time.getMonth() + 1;
+  var d = start_time.getDate();
+  var hours = start_time.getHours();
+  var min = start_time.getMinutes();
+  var sec = start_time.getSeconds();
+  $('#end_at').val(
+    year + '-' +
+    (month > 10 ? month : '0' + month) + '-' +
+    (d > 10 ? d : '0' + d) + ' ' +
+    (hours > 10 ? hours : '0' + hours) + ':' +
+    (min > 10 ? min : '0' + min) + ':' +
+    (sec > 10 ? sec : '0' + sec)
+  );
 })
 </script>
 {% endblock %}
