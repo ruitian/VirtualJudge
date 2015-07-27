@@ -1,7 +1,7 @@
 from VJ import db
 from datetime import datetime
-from VJ.models.problem import ProblemItem
-from mongoengine import DENY, NULLIFY
+from VJ.models import ProblemItem, UserModel
+from mongoengine import DENY
 
 
 class ContestModel(db.Document):
@@ -14,6 +14,10 @@ class ContestModel(db.Document):
             ProblemItem,
             reverse_delete_rule=DENY
         )
+    )
+    manager = db.ReferenceField(
+        UserModel,
+        reverse_delete_rule=DENY
     )
     start_at = db.DateTimeField(required=True)
     end_at = db.DateTimeField(required=True)
@@ -32,7 +36,6 @@ class ContestModel(db.Document):
             start_at,
             end_at,
             description, **kwargs):
-        print title, start_at, end_at
         return cls.objects.create(
             title=title,
             password=password,
@@ -41,4 +44,3 @@ class ContestModel(db.Document):
             description=description,
             **kwargs
         )
-

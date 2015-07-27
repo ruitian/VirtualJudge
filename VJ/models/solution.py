@@ -3,6 +3,7 @@ from datetime import datetime
 
 from base64 import b64encode
 
+
 class SolutionItem(db.Document):
     solution_id = db.SequenceField()
     origin_oj = db.StringField()
@@ -28,7 +29,8 @@ class SolutionItem(db.Document):
         return b64encode(code)
 
     @classmethod
-    def create_solution(cls,
+    def create_solution(
+            cls,
             origin_oj,
             problem_id,
             username,
@@ -36,10 +38,10 @@ class SolutionItem(db.Document):
             code, **kwargs):
         source = cls.generate_source(code)
         return cls.objects.create(
-            origin_oj = origin_oj,
-            problem_id = problem_id,
-            username = username,
-            language = language,
-            source = source,
+            origin_oj=origin_oj,
+            problem_id=problem_id,
+            username=username,
+            language=language,
+            source=source,
             **kwargs
         )

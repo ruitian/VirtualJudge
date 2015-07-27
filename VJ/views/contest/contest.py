@@ -6,9 +6,9 @@ from flask import (
     render_template
 )
 from flask.views import MethodView
-from flask.ext.login import current_app, login_required
+from flask.ext.login import current_app, login_required, current_user
 
-from VJ.models import ContestModel, ProblemItem
+from VJ.models import ContestModel, ProblemItem, UserModel
 from VJ.forms import ContestForm
 
 
@@ -119,5 +119,8 @@ class ContestCreateView(MethodView):
                 problem_id=entrie.problem_id.data
             ).first() for entrie in form.problems.entries
         ]
+        contest.manager = UserModel.objects(
+            username=current_user.username
+        ).first()
         contest.save()
         return redirect(url_for('index.index'))
