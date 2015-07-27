@@ -68,17 +68,17 @@ class Config:
             'args': (1, 2)
         },
         'hdu': {
-            'task': 'VJ.libs.tasks.problem_crawler',
+            'task': 'VJ.libs.tasks.origin_oj_crawler',
             'schedule': crontab(minute=0, hour=3),
             'args': ['hdu']
         },
         'sdut': {
-            'task': 'VJ.libs.tasks.problem_crawler',
+            'task': 'VJ.libs.tasks.origin_oj_crawler',
             'schedule': crontab(minute=0, hour=3),
             'args': ['sdut']
         },
         'fzu': {
-            'task': 'VJ.libs.tasks.problem_crawler',
+            'task': 'VJ.libs.tasks.origin_oj_crawler',
             'schedule': crontab(minute=0, hour=3),
             'args': ['fzu']
         },

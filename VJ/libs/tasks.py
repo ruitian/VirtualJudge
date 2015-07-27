@@ -2,23 +2,35 @@ from VJ import app
 from celery import Celery
 
 from crawl import (
+    OriginOJCrawler,
     AccountCrawler,
     CodeSubmitCrawler
 )
+
 
 def make_celery(app):
     celery = Celery(app.import_name, broker=app.config['CELERY_BROKER_URL'])
     celery.conf.update(app.config)
     TaskBase = celery.Task
+
     class ContextTask(TaskBase):
         abstract = True
+
         def __call__(self, *args, **kwargs):
             with app.app_context():
                 return TaskBase.__call__(self, *args, **kwargs)
+
     celery.Task = ContextTask
     return celery
 
 celery = make_celery(app)
+
+
+@celery.task()
+def origin_oj_crawler(origin_oj):
+    crawler = OriginOJCrawler()
+    crawler.crawl(origin_oj)
+
 
 @celery.task()
 def account_init(origin_oj, username, password):
@@ -28,6 +40,7 @@ def account_init(origin_oj, username, password):
         username,
         password
     )
+
 
 @celery.task()
 def code_submit(
@@ -48,3 +61,8 @@ def code_submit(
         username,
         password
     )
+
+
+@celery.task()
+def test(a, b):
+    return a + b
