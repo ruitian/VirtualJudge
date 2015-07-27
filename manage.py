@@ -2,11 +2,18 @@
 from VJ import app, db
 from flask.ext.script import Manager, Server, Shell
 
+from VJ.models import UserModel, RoleModel
+
 manager = Manager(app)
 
 
 def make_shell_context():
-    return dict(app=app, db=db)
+    return dict(
+        app=app,
+        db=db,
+        UserModel=UserModel,
+        RoleModel=RoleModel
+    )
 
 manager.add_command("runserver", Server(
         use_debugger=True,
