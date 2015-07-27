@@ -16,6 +16,6 @@ class RoleAdmin(ModelViewMixin):
 
 admin.add_view(
     RoleAdmin(
-        RoleModel, name='Role', category='User', url='role'
+        RoleModel, name='Role', category='User Manage', url='role'
     )
 )

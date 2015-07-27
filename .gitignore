@@ -1,6 +1,4 @@
 # Byte-compiled / optimized / DLL files
-OJCC/
-scrapy.cfg
 dump.rdb
 __pycache__/
 *.py[cod]

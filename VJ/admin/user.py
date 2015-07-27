@@ -37,6 +37,6 @@ class UserAdmin(ModelViewMixin):
 
 admin.add_view(
     UserAdmin(
-        UserModel, name='User', category='User', url='user'
+        UserModel, name='User', category='User Manage', url='user'
     )
 )
