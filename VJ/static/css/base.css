@@ -112,6 +112,29 @@ body {
     margin-left: 5%;
 }
 
+#contest_info{
+    margin-top:20px;
+    margin-bottom:20px
+}
+
+.contest_title{
+    padding-top:20px;
+    padding-bottom:20px
+}
+
+.contest_time{
+    display: inline-block;
+    border-left: 1px;
+    text-align: left;
+    padding-left: 20px;
+    border-left-style: dashed
+}
+
+.contest_info{
+    display: inline-block;
+    padding-right: 20px
+}
+
 /*
  * Footer
  */
