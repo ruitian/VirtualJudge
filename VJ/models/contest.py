@@ -7,7 +7,7 @@ from mongoengine import DENY
 class ContestModel(db.Document):
     id = db.SequenceField(primary_key=True)
     title = db.StringField(max_length=255)
-    type = db.StringField(max_length=255)
+    ctype = db.StringField(max_length=255)
     password = db.StringField()
     description = db.StringField(max_length=255)
     problems = db.ListField(
