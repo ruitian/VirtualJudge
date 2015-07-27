@@ -108,6 +108,10 @@ body {
     background-color: #eee;
 }
 
+.fields_wrap{
+    margin-left: 5%;
+}
+
 /*
  * Footer
  */
