@@ -168,9 +168,9 @@ $('#start_at').keyup(function(){
   var sec = start_time.getSeconds();
   $('#end_at').val(
     year + '-' +
-    (month > 10 ? month : '0' + month) + '-' +
+    (month >= 10 ? month : '0' + month) + '-' +
     (d > 10 ? d : '0' + d) + ' ' +
-    (hours > 10 ? hours : '0' + hours) + ':' +
+    (hours >= 10 ? hours : '0' + hours) + ':' +
     (min > 10 ? min : '0' + min) + ':' +
     (sec > 10 ? sec : '0' + sec)
   );
