@@ -95,7 +95,6 @@ class ContestCreateView(MethodView):
     @login_required
     def get(self):
         form = ContestForm()
-        form.problems.append_entry()
         return render_template(self.template, form=form)
 
     @login_required
