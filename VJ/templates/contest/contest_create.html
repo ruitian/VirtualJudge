@@ -4,10 +4,12 @@
 
 {% block title %}Create Contest | Virtual Judge{% endblock %}
 
+
 {% block link %}
 {{ super() }}
 <link href="{{ url_for('static', filename='css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet">
 {% endblock %}
+
 
 {% block page_content %}
 <ul class="nav nav-tabs">
@@ -23,7 +25,7 @@
       <div class="form-group">
         {{ form.title.label(class="col-sm-3 control-label") }}
         <div class="col-sm-9">
-          {{ form.title(class="form-control") }}
+          {{ form.title(class="form-control", required="required") }}
         </div>
           {{ field_error(form.title) }}
       </div>
@@ -37,14 +39,14 @@
       <div class="form-group">
         {{ form.start_at.label(class="col-sm-3 control-label") }}
         <div class="col-sm-9">
-          {{ form.start_at(class="form-control form_datetime") }}
+          {{ form.start_at(class="form-control form_datetime", required="required") }}
         </div>
           {{ field_error(form.start_at) }}
       </div>
       <div class="form-group">
         {{ form.end_at.label(class="col-sm-3 control-label") }}
         <div class="col-sm-9">
-          {{ form.end_at(class="form-control form_datetime") }}
+          {{ form.end_at(class="form-control form_datetime", required="required") }}
         </div>
           {{ field_error(form.end_at) }}
       </div>
@@ -74,11 +76,12 @@
       </div>
           
       {% for entrie in form.problems.entries %}
+      {{ entrie.csrf_token }}
       <div class="form-group problem_field">
           <div class="input-group input_field">
             <div class="input-group-addon">{{ entrie.id[9:]|int }}</div>
             <div class="input-group-addon">{{ entrie.origin_oj(class="select_inline") }}</div>
-            {{ entrie.problem_id(class="form-control problem") }}
+            {{ entrie.problem_id(class="form-control problem", required="required") }}
             <div class="input-group-addon">
               {% if entrie.title.data %}
                 {{ entrie.title.data }}
@@ -95,6 +98,7 @@
   </form>
 </div>
 {% endblock %}
+
 
 {% block script %}
 {{ super() }}
