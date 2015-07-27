@@ -10,6 +10,7 @@ from flask.ext.login import current_app, login_required, current_user
 
 from VJ.models import ContestModel, ProblemItem, UserModel
 from VJ.forms import ContestForm
+from datetime import datetime
 
 
 class ContestListView(MethodView):
@@ -38,7 +39,12 @@ class ContestPendingView(MethodView):
     def get(self):
         per_page = current_app.config['CONTEST_PER_PAGE']
         page = request.args.get('page', 1, type=int)
-        paginate = ContestModel.objects.paginate(page=page, per_page=per_page)
+        paginate = ContestModel.objects(
+            start_at__gt=datetime.now()
+        ).paginate(
+            page=page,
+            per_page=per_page
+        )
         contests = paginate.items
         return render_template(
             self.template,
@@ -57,7 +63,10 @@ class ContestRunningView(MethodView):
     def get(self):
         per_page = current_app.config['CONTEST_PER_PAGE']
         page = request.args.get('page', 1, type=int)
-        paginate = ContestModel.objects.paginate(page=page, per_page=per_page)
+        paginate = ContestModel.objects(
+            start_at__lt=datetime.now(),
+            end_at__gt=datetime.now()
+        ).paginate(page=page, per_page=per_page)
         contests = paginate.items
         return render_template(
             self.template,
@@ -76,7 +85,9 @@ class ContestEndedView(MethodView):
     def get(self):
         per_page = current_app.config['CONTEST_PER_PAGE']
         page = request.args.get('page', 1, type=int)
-        paginate = ContestModel.objects.paginate(page=page, per_page=per_page)
+        paginate = ContestModel.objects(
+            end_at__lt=datetime.now()
+        ).paginate(page=page, per_page=per_page)
         contests = paginate.items
         return render_template(
             self.template,
