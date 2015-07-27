@@ -5,20 +5,20 @@
 {% block page_content %}
 {% block page_nav %}
 {% endblock %}
+<ul class="nav nav-tabs">
+  <li role="presentation" class="active"><a href="#">Problem</a></li>
+  <li role="presentation"><a href="">Solution</a></li>
+  <li role="presentation"><a href="">Rank</a></li>
+  {% if current_user.is_authenticated() and current_user.username == contest.manager.username %}
+  <a href="{{ url_for('contest.edit', contest_id=contest.id) }}" class="btn btn-default right"><i class="fa fa-pencil"> Edit Contest</i></a>
+  {% endif %}
+</ul>
 <div class="row">
   <div class="col-md-12">
     <div class="text-center">
       <div class="contest_title">
-        <h1>{{ contest.title }}</h1>
+        <h2>{{ contest.title }}</h2>
       </div>
-      <ul class="nav nav-tabs">
-        <li role="presentation" class="active"><a href="#">Problem</a></li>
-        <li role="presentation"><a href="">Solution</a></li>
-        <li role="presentation"><a href="">Rank</a></li>
-        {% if current_user.is_authenticated() and current_user.username == contest.manager.username %}
-        <a href="" class="btn btn-default right"><i class="fa fa-pencil"> Edit Contest</i></a>
-        {% endif %}
-      </ul>
       <div id="contest_info">
         <div class="contest_info">
           <p>Contest Type: {{ contest.contest_type }}</p>
@@ -35,15 +35,17 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Title</th>
-              <th>AC/Submit</th>
+              <th style="width:10%"></th>
+              <th style="width:10%">ID</th>
+              <th style="text-align:left">Title</th>
+              <th style="width:10%">AC/Submit</th>
             </tr>
           </thead>
             {% for problem in contest.problems %}
             <tr>
-              <td>{{ problem.index }}</td>
-              <td><a href="" target="__blank">{{ problem.problem.title }}</a></td>
+              <th></th>
+              <td style="text-align:left">{{ problem.index }}</td>
+              <td style="text-align:left"><a href="" target="__blank">{{ problem.problem.title }}</a></td>
               <td>
                   {{ problem.accepted }} / {{problem.submit }}
               </td>
