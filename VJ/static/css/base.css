@@ -2,6 +2,11 @@ body {
     padding-top: 60px;
 }
 
+.alert-messages {
+    margin-bottom: 0px;
+    margin-top: 10px
+}
+
 .nav-tabs{
     padding-top: 20px;
     margin-bottom: 10px
