@@ -33,12 +33,14 @@ class ContestModel(db.Document):
     def create_contest(
             cls,
             title,
+            contest_type,
             password,
             start_at,
             end_at,
             description, **kwargs):
         return cls.objects.create(
             title=title,
+            contest_type=contest_type,
             password=password,
             start_at=start_at,
             end_at=end_at,
