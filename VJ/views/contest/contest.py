@@ -8,8 +8,13 @@ from flask import (
 from flask.views import MethodView
 from flask.ext.login import current_app, login_required, current_user
 
-from VJ.models import ContestModel, ProblemItem, UserModel
-from VJ.forms import ContestForm
+from VJ.models import (
+    ContestModel,
+    ProblemItem,
+    UserModel,
+    ContestProblemModel
+)
+from VJ.forms import ContestCreateForm, ContestEditForm
 from datetime import datetime
 
 
@@ -99,18 +104,35 @@ class ContestEndedView(MethodView):
         pass
 
 
+class ContestView(MethodView):
+
+    template = 'contest/contest.html'
+
+    @login_required
+    def get(self, contest_id):
+        contest = ContestModel.objects.get_or_404(id=contest_id)
+        return render_template(
+            self.template,
+            contest=contest,
+        )
+
+    @login_required
+    def post(self):
+        pass
+
+
 class ContestCreateView(MethodView):
 
     template = 'contest/contest_create.html'
 
     @login_required
     def get(self):
-        form = ContestForm()
+        form = ContestCreateForm()
         return render_template(self.template, form=form)
 
     @login_required
     def post(self):
-        form = ContestForm()
+        form = ContestCreateForm()
         if form.remove.data:
             form.problems.pop_entry()
             return render_template(self.template, form=form)
@@ -123,14 +145,39 @@ class ContestCreateView(MethodView):
 
         contest = form.generate_contest()
 
-        contest.problems = [
-            ProblemItem.objects(
+        contest_problems = []
+        for index, entrie in enumerate(form.problems.entries):
+            problem = ContestProblemModel()
+            problem.index = chr(index + 65)
+            problem.problem = ProblemItem.objects(
                 origin_oj=entrie.origin_oj.data,
                 problem_id=entrie.problem_id.data
-            ).first() for entrie in form.problems.entries
-        ]
+            ).first()
+            contest_problems.append(problem)
+
+        contest.problems = contest_problems
         contest.manager = UserModel.objects(
             username=current_user.username
         ).first()
         contest.save()
         return redirect(url_for('index.index'))
+
+
+class ContestEditView(MethodView):
+
+    template = 'contest/contest_edit.html'
+
+    @login_required
+    def get(self, contest_id):
+        contest = ContestModel.objects.get_or_404(id=contest_id)
+        form = ContestEditForm()
+
+        return render_template(
+            self.template,
+            form=form,
+            contest=contest
+        )
+
+    @login_required
+    def post(self):
+        pass
