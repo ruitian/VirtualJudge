@@ -1,4 +1,4 @@
-# Virtual_Judge
+# Virtual Judge
 
 ## Features
 

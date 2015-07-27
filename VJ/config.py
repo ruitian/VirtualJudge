@@ -63,7 +63,7 @@ class Config:
     )
     CELERYBEAT_SCHEDULE = {
         'test': {
-            'task': 'stepbystep.libs.tasks.test',
+            'task': 'VJ.libs.tasks.test',
             'schedule': crontab(minute='*/1'),
             'args': (1, 2, 3)
         },
