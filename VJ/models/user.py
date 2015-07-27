@@ -8,6 +8,7 @@ from mongoengine import DENY, NULLIFY
 
 from hashlib import md5
 
+
 @login_manager.user_loader
 def load_user(id):
     return UserModel.objects(id=id).first()
@@ -27,6 +28,7 @@ class AccountItem(db.Document):
     meta = {
         'collection': 'AccountItem'
     }
+
 
 class UserModel(db.Document, UserMixin):
     username = db.StringField(max_length=255)
@@ -53,7 +55,7 @@ class UserModel(db.Document, UserMixin):
     @property
     def email_md5(self):
         email = self.email.strip()
-        if isinstance(email, unicode):
+        if isinstance(email, unicode):  # noqa
             email = email.encode('utf-8')
         return md5(email).hexdigest()
 
@@ -69,7 +71,7 @@ class UserModel(db.Document, UserMixin):
         )
 
     def set_password(self, password):
-        self.password = generate_password(password)
+        self.password = self.generate_password(password)
 
     def verify_password(self, password):
         return check_password_hash(
@@ -81,9 +83,9 @@ class UserModel(db.Document, UserMixin):
     def create_user(cls, username, email, password, **kwargs):
         password = cls.generate_password(password)
         return cls.objects.create(
-            username = username,
-            email = email,
-            password = password,
+            username=username,
+            email=email,
+            password=password,
             **kwargs
         )
 
