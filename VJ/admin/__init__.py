@@ -15,7 +15,7 @@ class AdminIndexView(_AdminIndexView):
 
 
 admin = Admin(
-    name='Virtual Judge Admin',
+    name='Virtual Judge ADMIN',
     index_view=AdminIndexView(name='Index'),
     template_mode='admin'
 )
