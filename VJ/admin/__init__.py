@@ -21,3 +21,6 @@ admin = Admin(
 )
 
 from . import user  # noqa
+from . import role  # noqa
+from . import problem  # noqa
+from . import contest  # noqa
