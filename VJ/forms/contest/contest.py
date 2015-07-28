@@ -27,6 +27,10 @@ class ProblemForm(Form):
     )
     problem_id = StringField('Problem ID', [Required()])
     title = StringField('Title')
+    delete = SubmitField('Delete')
+
+    def validate_delete(self, field):
+        pass
 
     def validate_problem_id(self, field):
         if not ProblemItem.objects(
