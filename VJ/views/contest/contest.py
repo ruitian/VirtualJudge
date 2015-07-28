@@ -135,10 +135,17 @@ class ContestCreateView(MethodView):
         form = ContestCreateForm()
         if form.remove.data:
             form.problems.pop_entry()
+            print(form.problems.last_index)
             return render_template(self.template, form=form)
         elif form.add.data:
             form.problems.append_entry()
+            print(form.problems.last_index)
             return render_template(self.template, form=form)
+
+        for index, entrie in enumerate(form.problems.entries):
+            if entrie.delete.data:
+                form.problems.entries.pop(index)
+                return render_template(self.template, form=form)
 
         if not form.validate():
             return render_template(self.template, form=form)
