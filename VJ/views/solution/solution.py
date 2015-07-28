@@ -1,4 +1,4 @@
-from flask import (
+from flask import (  # noqa
     request,
     redirect,
     url_for,
@@ -7,9 +7,9 @@ from flask import (
 )
 
 from flask.views import MethodView
-from flask.ext.login import login_user
 
 from VJ.models import SolutionItem
+
 
 class SolutionListView(MethodView):
 
@@ -18,12 +18,15 @@ class SolutionListView(MethodView):
     def get(self):
         per_page = current_app.config['STATUS_PER_PAGE']
         page = request.args.get('page', 1, type=int)
-        paginate = SolutionItem.objects.order_by('-solution_id').paginate(page=page, per_page=per_page)
+        paginate = SolutionItem.objects.order_by('-solution_id').paginate(
+            page=page,
+            per_page=per_page
+        )
         solutions = paginate.items
         return render_template(
             self.template,
-            solutions = solutions,
-            paginate = paginate
+            solutions=solutions,
+            paginate=paginate
         )
 
     def post(self):
