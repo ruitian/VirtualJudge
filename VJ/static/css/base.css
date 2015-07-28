@@ -90,7 +90,7 @@ body {
     font-size: 11px;
     text-transform: capitalize;
 }
-.vcard-stat:hover {
+.vcard-stats:hover {
     text-decoration: none;
 }
 .vcard-stat-count {
