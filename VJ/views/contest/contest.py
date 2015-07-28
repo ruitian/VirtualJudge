@@ -167,7 +167,7 @@ class ContestCreateView(MethodView):
             username=current_user.username
         ).first()
         contest.save()
-        return redirect(url_for('index.index'))
+        return redirect(url_for('contest.contest', contest_id=contest.id))
 
 
 class ContestEditView(MethodView):
