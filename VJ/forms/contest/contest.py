@@ -9,7 +9,7 @@ from wtforms import (
     SubmitField,
     FormField
 )
-from wtforms.validators import Required, ValidationError
+from wtforms.validators import Required, ValidationError, Length
 from datetime import datetime
 
 from VJ.models import ContestModel, ProblemItem
@@ -39,7 +39,7 @@ class ProblemForm(Form):
 class ContestCreateForm(Form):
     title = StringField(
         'Contest Title',
-        [Required()],
+        [Required(), Length(max=64)],
         default='The king asked me to look for the mountains. ',
     )
     contest_type = SelectField(
