@@ -76,8 +76,8 @@
     <div class="col-md-5 fields_wrap">
 
       <div class="form-group">
-        <div class="btn-group">
-          {{ form.remove(class="btn btn-default") }}
+        <div class="btn-group" style="width:100%">
+          {{ form.remove(class="btn btn-default", style="width:19%") }}
           {{ form.add(class="btn btn-default") }}
         </div>
       </div>
@@ -85,18 +85,21 @@
       {% for entrie in form.problems.entries %}
       {{ entrie.csrf_token }}
       <div class="form-group problem_field">
-          <div class="input-group input_field">
-            <div class="input-group-addon">{{ entrie.origin_oj(class="select_inline") }}</div>
-            {{ entrie.problem_id(class="form-control problem", required="required") }}
-            <div class="input-group-addon">
-              {% if entrie.title.data %}
-                {{ entrie.title.data }}
-              {% else %}
-                <span class="fa fa-search"></span>
-              {% endif %}
+          <div class="input-group input_field left" style="width:50%">
+            <div class="input-group-addon" style="width:32%">{{ entrie.origin_oj(class="select_inline") }}</div>
+            {{ entrie.problem_id(class="form-control problem") }}
+            <div class="input-group-addon" style="width:32%">
+                {{ entrie.delete(class="button_inline", type="submit") }}
             </div>
           </div>
-          {{ entrie.title(hidden="hidden") }}
+          <div class="right" style="width:45%">
+            <div>
+              {% if entrie.title.data %}
+                {{ entrie.title.data }}
+              {% endif %}
+            </div>
+            {{ entrie.title(hidden="hidden") }}
+          </div>
       </div>
       {% endfor %}
 
@@ -118,62 +121,59 @@ $(".form_datetime").datetimepicker({
 });
 </script>
 <script>
-$('.problem').keyup(function(){
-  var origin_oj = $(this).prev().children().val();
-  var problem_id = $(this).val();
-  var $this = $(this);
+$(document).ready(function(){
+  $('.problem').keyup(function(){
+    var origin_oj = $(this).prev().children().val();
+    var problem_id = $(this).val();
+    var $this = $(this);
 
-  if(problem_id.length == 4){
-    $.getJSON(
-      '/problem/get',
-      {
-        origin_oj: origin_oj, 
-        problem_id: problem_id
-      },
-      function(data){
-        if(data.status == 'error'){
-          $this.next().html('<span class="fa fa-times"></span>');
+    if(problem_id.length == 4){
+      $.getJSON(
+        '/problem/get',
+        {
+          origin_oj: origin_oj, 
+          problem_id: problem_id
+        },
+        function(data){
+          if(data.status == 'error'){
+          }
+          else {
+            $this.parent().next().find('div').html(data.problem.title);
+            $this.parent().next().find('input').val(data.problem.title);
+          }
         }
-        else {
-          $this.next().html(data.problem.title);
-          $this.parent().next().val(data.problem.title);
-        }
-      }
+      );
+    } else {
+      $this.parent().next().find('div').html('');
+      $this.parent().next().find('input').val('');
+    }
+  });
+  $('#remove').click(function(){
+    var field = $('.problem_field').length;
+    if(field > 0){
+      return true;
+    } else {
+      return false;
+    }
+  });
+  $('#start_at').keyup(function(){
+    var start_time = new Date($(this).val());
+    start_time.setHours(start_time.getHours() + 5);
+    var year = start_time.getFullYear();
+    var month = start_time.getMonth() + 1;
+    var d = start_time.getDate();
+    var hours = start_time.getHours();
+    var min = start_time.getMinutes();
+    var sec = start_time.getSeconds();
+    $('#end_at').val(
+      year + '-' +
+      (month >= 10 ? month : '0' + month) + '-' +
+      (d > 10 ? d : '0' + d) + ' ' +
+      (hours >= 10 ? hours : '0' + hours) + ':' +
+      (min > 10 ? min : '0' + min) + ':' +
+      (sec > 10 ? sec : '0' + sec)
     );
-  } else {
-    $this.next().html('<span class="fa fa-search"></span>');
-    $this.parent().next().val('');
-  }
-})
-</script>
-<script>
-$('#remove').click(function(){
-  var field = $('.problem_field').length;
-  if(field > 0){
-    return true;
-  } else {
-    return false;
-  }
-})
-</script>
-<script>
-$('#start_at').keyup(function(){
-  var start_time = new Date($(this).val());
-  start_time.setHours(start_time.getHours() + 5);
-  var year = start_time.getFullYear();
-  var month = start_time.getMonth() + 1;
-  var d = start_time.getDate();
-  var hours = start_time.getHours();
-  var min = start_time.getMinutes();
-  var sec = start_time.getSeconds();
-  $('#end_at').val(
-    year + '-' +
-    (month >= 10 ? month : '0' + month) + '-' +
-    (d > 10 ? d : '0' + d) + ' ' +
-    (hours >= 10 ? hours : '0' + hours) + ':' +
-    (min > 10 ? min : '0' + min) + ':' +
-    (sec > 10 ? sec : '0' + sec)
-  );
+  });
 })
 </script>
 {% endblock %}
