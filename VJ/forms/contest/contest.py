@@ -66,7 +66,7 @@ class ContestCreateForm(Form):
         default=datetime.now,
     )
     description = TextAreaField('Description')
-    problems = FieldList(FormField(ProblemForm))
+    problems = FieldList(FormField(ProblemForm), max_entries=26)
     remove = SubmitField()
     add = SubmitField()
 

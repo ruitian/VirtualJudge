@@ -153,6 +153,16 @@ $(document).ready(function(){
     if(field > 0){
       return true;
     } else {
+      alert('Problem field cannot be less than 0.');
+      return false;
+    }
+  });
+  $('#add').click(function(){
+    var field = $('.problem_field').length;
+    if(field < 26){
+      return true;
+    } else {
+      alert('Problem field cannot be longer than 26.');
       return false;
     }
   });
