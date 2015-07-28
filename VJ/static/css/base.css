@@ -35,6 +35,7 @@ body {
 .one-fifth h1 {
     margin-bottom: 15px;
 }
+
 .four-fifth{
     width: 80%
 }
@@ -63,6 +64,7 @@ body {
     border-top: 1px solid #eee;
     list-style: none;
 }
+
 .vcard-detail{
    width: 100%;
    padding: 2px 0 2px 24px;
@@ -90,9 +92,11 @@ body {
     font-size: 11px;
     text-transform: capitalize;
 }
+
 .vcard-stats:hover {
     text-decoration: none;
 }
+
 .vcard-stat-count {
     display:block;
     line-height:1;
@@ -103,6 +107,7 @@ body {
 .text-muted {
     color: #767676;
 }
+
 /*
  * Problem
  */
