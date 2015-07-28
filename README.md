@@ -26,4 +26,4 @@ fi
 
 - python manage.py runserver
 - redis-server
-- celery -A VJ.libs.tasks:celery worker
+- celery -A VJ.libs.tasks:celery worker -B -l debug
