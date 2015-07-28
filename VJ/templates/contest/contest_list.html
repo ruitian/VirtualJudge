@@ -48,6 +48,7 @@
       <th>Title</th>
       <th>Start Time</th>
       <th>End Time</th>
+      <th>Status</th>
       <th>Type</th>
       <th>Manager</th>
     </tr>
@@ -58,6 +59,7 @@
       <td><a href="{{ url_for('contest.contest', contest_id=contest.id) }}">{{ contest.title }}</a></td>
       <td>{{ contest.start_at }}</td>
       <td>{{ contest.end_at }}</td>
+      <td></td>
       <td>{{ contest.contest_type }}</td>
       <td><a href="{{ url_for('user.user', username=contest.manager.username ) }}">{{ contest.manager.username }}</td>
     </tr>
