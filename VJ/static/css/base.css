@@ -32,6 +32,9 @@ body {
     width: 20%
 }
 
+.one-fifth h1 {
+    margin-bottom: 15px;
+}
 .four-fifth{
     width: 80%
 }
@@ -44,12 +47,6 @@ body {
     border-radius: 5px;
 }
 
-.vcard-details{
-    padding-top: 15px;
-    padding-bottom: 15px;
-    border-top: 1px solid #eee;
-}
-
 .panels{
     margin-top: 20px
 }
@@ -57,7 +54,55 @@ body {
 .one-half{
     width: 49%
 }
+ 
+.vcard-details{
+    margin: 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 0px;
+    border-top: 1px solid #eee;
+    list-style: none;
+}
+.vcard-detail{
+   width: 100%;
+   padding: 2px 0 2px 24px;
+   font-size: 14px;
+}
 
+.glyphicon {
+    float: left;
+    width: 16px;
+    text-align: center;
+    margin-left: -24px;
+    color: #eee;
+}
+
+.vcard-stats {
+    padding-top:15px;
+    padding-bottom: 15px;
+    border-top:1px solid #eee;
+    text-align: center;
+}
+
+.vcard-stat {
+    float: left;
+    width: 33.333%;
+    font-size: 11px;
+    text-transform: capitalize;
+}
+.vcard-stat:hover {
+    text-decoration: none;
+}
+.vcard-stat-count {
+    display:block;
+    line-height:1;
+    font-weight: bold;
+    font-size: 28px;
+}
+
+.text-muted {
+    color: #767676;
+}
 /*
  * Problem
  */
