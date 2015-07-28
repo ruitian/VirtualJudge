@@ -39,7 +39,7 @@
       <div class="form-group">
         {{ form.password.label(class="col-sm-3 control-label") }}
         <div class="col-sm-9">
-          {{ form.password(class="form-control") }}
+          {{ form.password(class="form-control", placeholder="public contest don't need password") }}
         </div>
           {{ field_error(form.password) }}
       </div>
@@ -77,8 +77,8 @@
 
       <div class="form-group">
         <div class="btn-group" style="width:100%">
-          {{ form.remove(class="btn btn-default", style="width:19%") }}
-          {{ form.add(class="btn btn-default") }}
+          {{ form.remove(class="btn btn-default", style="width:25%") }}
+          {{ form.add(class="btn btn-default", style="width:25%") }}
         </div>
       </div>
           
@@ -99,6 +99,7 @@
               {% endif %}
             </div>
             {{ entrie.title(hidden="hidden") }}
+            {{ field_error(entrie.problem_id) }}
           </div>
       </div>
       {% endfor %}
@@ -140,12 +141,14 @@ $(document).ready(function(){
           else {
             $this.parent().next().find('div').html(data.problem.title);
             $this.parent().next().find('input').val(data.problem.title);
+            $this.parent().next().find('ul').remove();
           }
         }
       );
     } else {
       $this.parent().next().find('div').html('');
       $this.parent().next().find('input').val('');
+      $this.parent().next().find('ul').remove();
     }
   });
   $('#remove').click(function(){

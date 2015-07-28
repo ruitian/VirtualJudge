@@ -37,7 +37,7 @@ class ProblemForm(Form):
             origin_oj=self.origin_oj.data,
             problem_id=field.data
         ).first():
-            raise ValidationError('Problem Id is required')
+            raise ValidationError('Invalid problem ID')
 
 
 class ContestCreateForm(Form):
@@ -65,7 +65,7 @@ class ContestCreateForm(Form):
         [Required()],
         default=datetime.now,
     )
-    description = TextAreaField('Description')
+    description = TextAreaField('Description', [Length(max=255)])
     problems = FieldList(FormField(ProblemForm), max_entries=26)
     remove = SubmitField()
     add = SubmitField()
