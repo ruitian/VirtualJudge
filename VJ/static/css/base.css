@@ -108,6 +108,13 @@ body {
     background-color: #eee;
 }
 
+.button_inline{
+    border: 0px;
+    background-color: #eee;
+    padding-left: 1px;
+    padding-right: 1px
+}
+
 .fields_wrap{
     margin-left: 5%;
 }
