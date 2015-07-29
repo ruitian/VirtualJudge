@@ -6,6 +6,7 @@ from .register import RegisterView
 from .login import LoginView
 from .logout import LogoutView
 from .views import ConfirmView, UnConfirmedView, ResendConfirmationView
+from .password import PasswordResetRequestView, PasswordResetView
 
 bp_auth = Blueprint('auth', __name__)
 
@@ -59,4 +60,18 @@ bp_auth.add_url_rule(
     endpoint='resend_confirmation',
     view_func=ResendConfirmationView.as_view('resend_confirmation'),
     methods=['get']
+)
+
+bp_auth.add_url_rule(
+    '/reset',
+    endpoint='reset_password',
+    view_func=PasswordResetRequestView.as_view('reset_password'),
+    methods=['get', 'post']
+)
+
+bp_auth.add_url_rule(
+    '/reset/<token>',
+    endpoint='password_reset',
+    view_func=PasswordResetView.as_view('password_reset'),
+    methods=['get', 'post']
 )

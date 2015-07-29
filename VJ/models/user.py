@@ -120,7 +120,7 @@ class UserModel(db.Document, UserMixin):
             return False
         if data.get('reset') != self.id:
             return False
-        self.password = new_password
+        self.password = self.generate_password(new_password)
         self.save()
         return True
 

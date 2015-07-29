@@ -35,11 +35,11 @@ class RegisterForm(Form):
     submit = SubmitField('Register')
 
     def validate_username(self, field):
-        if UserModel.objects.filter(username=field.data):
+        if UserModel.objects(username=field.data):
             raise ValidationError('Username already in use')
 
     def validate_email(self, field):
-        if UserModel.objects.filter(email=field.data):
+        if UserModel.objects(email=field.data):
             raise ValidationError('Email has already been registered')
 
     def register(self):
