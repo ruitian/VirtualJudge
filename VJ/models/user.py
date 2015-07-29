@@ -4,6 +4,7 @@ from VJ import db, login_manager
 from datetime import datetime
 from flask.ext.login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from VJ.models.role import RoleModel
 from flask import current_app
 from mongoengine import DENY, NULLIFY
@@ -34,6 +35,7 @@ class AccountItem(db.Document):
 
 
 class UserModel(db.Document, UserMixin):
+    id = db.SequenceField(primary_key=True)
     username = db.StringField(max_length=255)
     email = db.StringField(required=True, unique=True)
     password = db.StringField(max_length=255)
@@ -41,6 +43,7 @@ class UserModel(db.Document, UserMixin):
     role = db.ReferenceField(RoleModel, reverse_delete_rule=DENY)
 
     active = db.BooleanField(default=True)
+    confirmed = db.BooleanField(default=False)
 
     poj = db.ReferenceField(AccountItem, reverse_delete_rule=NULLIFY)
     hdu = db.ReferenceField(AccountItem, reverse_delete_rule=NULLIFY)
@@ -92,6 +95,38 @@ class UserModel(db.Document, UserMixin):
             password=password,
             **kwargs
         )
+
+    def generate_confirmation_token(self, expiration=3600):
+        s = Serializer(current_app.config['SECRET_KEY'], expiration)
+        return s.dumps({'confirm': self.id})
+
+    def confirm(self, token):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        try:
+            data = s.loads(token)
+        except:
+            return False
+        if data.get('confirm') != self.id:
+            return False
+        self.confirmed = True
+        self.save()
+        return True
+
+    def generate_reset_token(self, expiration=3600):
+        s = Serializer(current_app.config['SECRET_KEY'], expiration)
+        return s.dumps({'reset': self.id})
+
+    def reset_password(self, token, new_password):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        try:
+            data = s.loads(token)
+        except:
+            return False
+        if data.get('reset') != self.id:
+            return False
+        self.password = new_password
+        self.save()
+        return True
 
     def get_account(self, origin_oj):
         if origin_oj == 'poj':

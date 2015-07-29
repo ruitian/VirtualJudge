@@ -5,6 +5,7 @@ from wtforms.validators import (
     Email,
     Required,
     EqualTo,
+    Regexp,
     Length,
     ValidationError
 )
@@ -13,7 +14,18 @@ from VJ.models import UserModel
 
 
 class RegisterForm(Form):
-    username = StringField('Username', [Required(), Length(min=4, max=11)])
+    username = StringField(
+        'Username',
+        [
+            Required(),
+            Length(4, 11),
+            Regexp(
+                '^[A-Za-z][A-Za-z0-9_.]*$', 0,
+                'Username must have only letters, '
+                'numbers, dots or underscores'
+            )
+        ]
+    )
     email = StringField('Email', [Required(), Email()])
     password = PasswordField('Password', [
         Required(),
@@ -24,7 +36,7 @@ class RegisterForm(Form):
 
     def validate_username(self, field):
         if UserModel.objects.filter(username=field.data):
-            raise ValidationError('Username has already been registered')
+            raise ValidationError('Username already in use')
 
     def validate_email(self, field):
         if UserModel.objects.filter(email=field.data):

@@ -7,12 +7,17 @@ from VJ.models import UserModel
 
 class UserAdmin(ModelViewMixin):
 
+    can_restore = True
+    can_create = True
+    can_edit = True
+    can_delete = True
+
     column_list = [
         'email',
         'username',
         'created_at',
     ]
-    column_filters = ['email', 'username', 'created_at']
+    column_filters = ['email', 'username', 'active', 'confirmed', 'created_at']
     column_searchable_list = ['username']
 
     form_excluded_columns = [
