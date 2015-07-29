@@ -28,7 +28,7 @@ class RegisterView(MethodView):
             return render_template(self.template, form=form)
         user = form.register()
         token = user.generate_confirmation_token()
-        send_email(
+        send_email.delay(
             user.email,
             'Confirm Your Account',
             'auth/email/confirm',

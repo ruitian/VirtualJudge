@@ -41,7 +41,7 @@ class ResendConfirmationView(MethodView):
     @login_required
     def get(self):
         token = current_user.generate_confirmation_token()
-        send_email(
+        send_email.delay(
             current_user.email,
             'Confirm Your Account',
             'auth/email/confirm',

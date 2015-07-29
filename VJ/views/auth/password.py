@@ -32,7 +32,7 @@ class PasswordResetRequestView(MethodView):
         user = UserModel.objects(email=form.email.data).first()
         if user:
             token = user.generate_reset_token()
-            send_email(
+            send_email.delay(
                 user.email,
                 'Reset Your Password',
                 'auth/email/reset_password',
