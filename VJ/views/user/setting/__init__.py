@@ -1,5 +1,6 @@
 from VJ.views.user import bp_user
 from .profile import ProfileView
+from .account import AccountView
 from .origin_oj import (
     OriginOJView,
     PojView,
@@ -12,6 +13,13 @@ bp_user.add_url_rule(
     '/settings/profile',
     endpoint='profile',
     view_func=ProfileView.as_view('profile'),
+    methods=['get', 'post']
+)
+
+bp_user.add_url_rule(
+    '/settings/account',
+    endpoint='account',
+    view_func=AccountView.as_view('account'),
     methods=['get', 'post']
 )
 

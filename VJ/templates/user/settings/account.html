@@ -1,0 +1,38 @@
+{% extends "user/settings/profile.html" %}
+{% from "_macro/_formhelpers.html" import field_error %}
+
+{% block title %}Public Profile | Virtual Judge{% endblock %}
+
+{% block setting_main %}
+<div class="panel panel-default">
+  <div class="panel-heading">Change password</div>
+  <div class="clearfix">
+    <form method="post">
+      {{ form.csrf_token }}
+      {% if form.csrf_token.errors %}
+        <div class="warning">You have submitted an invalid CSRF token</div>
+      {% endif %}
+      <div class="column two-thirds">
+
+        <dl class="form">
+          <dt>{{ form.old_password.label() }}</dt>
+          <dd>{{ form.old_password(class='form-control') }}</dd>
+          {{ field_error(form.old_password) }}
+        </dl>
+        <dl class="form">
+          <dt>{{ form.password.label() }}</dt>
+          <dd>{{ form.password(class='form-control') }}</dd>
+          {{ field_error(form.password) }}
+        </dl>
+        <dl class="form">
+          <dt>{{ form.confirm.label() }}</dt>
+          <dd>{{ form.confirm(class='form-control') }}</dd>
+          {{ field_error(form.confirm) }}
+        </dl>
+
+        {{ form.submit(class="btn btn-primary") }}
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
