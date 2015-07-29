@@ -1,5 +1,5 @@
 from VJ.views.user import bp_user
-from .profile import ProfileView
+from .profile import ProfileView, UpdateProfileView
 from .origin_oj import (
     OriginOJView,
     PojView,
@@ -47,5 +47,12 @@ bp_user.add_url_rule(
     '/settings/origin_oj/fzu',
     endpoint='fzu',
     view_func=FzuView.as_view('fzu'),
+    methods=['get', 'post']
+)
+
+bp_user.add_url_rule(
+    '/settings/updateprofile',
+    endpoint='updateprofile',
+    view_func=UpdateProfileView.as_view('updateprofile'),
     methods=['get', 'post']
 )

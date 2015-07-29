@@ -52,6 +52,10 @@ class UserModel(db.Document, UserMixin):
     last_login_ip = db.StringField(max_length=255)
     current_login_ip = db.StringField(max_length=255)
 
+    school = db.StringField(max_length=255)
+    blog_url = db.StringField(max_length=255)
+    location = db.StringField(max_length=255)
+
     @property
     def email_md5(self):
         email = self.email.strip()

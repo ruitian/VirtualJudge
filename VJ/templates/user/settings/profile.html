@@ -11,7 +11,7 @@
 
       <!-- List group -->
       <ul class="list-group">
-        <li class="list-group-item"><a href="#">Profile</a></li>
+        <li class="list-group-item"><a href="{{ url_for('user.updateprofile', username=current_user.username) }}">Profile</a></li>
         <li class="list-group-item"><a href="#">Account settings</a></li>
         <li class="list-group-item"><a href="#">Email</a></li>
         <li class="list-group-item"><a href="{{ url_for('user.origin_oj') }}">Origin OJ</a></li>
@@ -20,13 +20,7 @@
   </div>
   <div class="four-fifth right main">
     {% block setting_main %}
-    <div class="panel panel-default">
-      <div class="panel-heading">Public profile</div>
-      <div class="panel-body">
-        <p>...</p>
-      </div>
 
-    </div>
     {% endblock %}
   </div>
 </div>
