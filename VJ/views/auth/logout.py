@@ -1,10 +1,11 @@
-from flask import (
+from flask import (  # noqa
     render_template,
     redirect,
     url_for
 )
 from flask.views import MethodView
 from flask.ext.login import logout_user, login_required
+
 
 class LogoutView(MethodView):
 
