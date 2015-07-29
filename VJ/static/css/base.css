@@ -71,12 +71,12 @@ body {
    font-size: 14px;
 }
 
-.glyphicon {
+.vcard-detail>.glyphicon {
     float: left;
     width: 16px;
     text-align: center;
     margin-left: -24px;
-    color: #eee;
+    color: #ccc;
 }
 
 .vcard-stats {
