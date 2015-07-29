@@ -16,7 +16,7 @@ class ConfirmView(MethodView):
 
     @login_required
     def get(self, token):
-        if current_user.active:
+        if current_user.confirmed:
             return redirect(url_for('index.index'))
         if current_user.confirm(token):
             flash('You have confirmed your account. Thanks!')
