@@ -1,4 +1,6 @@
-from VJ import app
+from VJ import app, mail
+from flask.ext.mail import Message
+from flask import render_template
 from celery import Celery
 
 from crawl import (
@@ -24,6 +26,18 @@ def make_celery(app):
     return celery
 
 celery = make_celery(app)
+
+
+@celery.task()
+def send_email(to, subject, template, **kwargs):
+    msg = Message(
+        app.config['VJ_MAIL_SUBJECT_PREFIX'] + ' ' + subject,
+        sender=app.config['VJ_MAIL_SENDER'],
+        recipients=[to]
+    )
+    msg.body = render_template(template + '.txt', **kwargs)
+    msg.html = render_template(template + '.html', **kwargs)
+    mail.send(msg)
 
 
 @celery.task()
