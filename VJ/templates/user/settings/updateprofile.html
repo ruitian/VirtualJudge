@@ -1,0 +1,44 @@
+{% extends "user/settings/profile.html" %}
+{% from "_macro/_formhelpers.html" import render_field %}
+
+{% block title %}Origin OJ | Virtual Judge{% endblock %}
+
+{% block setting_main %}
+<div class="panel panel-default">
+  <div class="panel-heading">Public profile</div>
+  <div class="clearfix">
+    <form action="">
+      <div class="column two-thirds">
+        <dl class="form edit-profile-avatar">
+          <dt>
+            <label for="exampleInputText">Profile picture</label>
+          </dt>
+          <dd>
+          <img class="avatar-picture" src="{{ user.avatar(406)}}"> 
+            <div class="avatar-upload">
+              <button class="btn btn-default">Upload new picture</button>
+              <div class="avatar-upload-default">
+                <p>You can also drag and drop a picture from your computer.</p>
+              </div>
+            </div>
+          </dd>
+        </dl>
+        <dl class="form">
+          <dt>{{ form.school.label() }}</dt>
+          <dd>{{ form.school(class='form-control') }}</dd>
+        </dl>
+        <dl class="form">
+          <dt>{{ form.blog_url.label() }}</dt>
+          <dd>{{ form.blog_url(class='form-control') }}</dd>
+        </dl>
+        <dl class="form">
+          <dt>{{ form.location.label() }}</dt>
+          <dd>{{ form.location(class='form-control') }}</dd>
+        </dl>
+
+        <button class="btn btn-primary">Update profile</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
