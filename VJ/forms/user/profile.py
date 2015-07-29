@@ -13,5 +13,5 @@ from wtforms.validators import (  # noqa
 class ProfileForm(Form):
     name = StringField('Name')
     school = StringField('School')
-    blog_url = StringField('BLOG URL')
+    blog_url = StringField('Blog URL')
     location = StringField('Location')
