@@ -1,8 +1,17 @@
 from flask_wtf import Form
 from wtforms import StringField
+from wtforms.validators import (  # noqa
+    Email,
+    Required,
+    EqualTo,
+    Regexp,
+    Length,
+    ValidationError
+)
 
 
-class UpdateProfileForm(Form):
+class ProfileForm(Form):
+    name = StringField('Name')
     school = StringField('School')
-    blog_url = StringField('URL')
+    blog_url = StringField('BLOG URL')
     location = StringField('Location')

@@ -45,7 +45,7 @@
       <li role="presentation"><a href="#"><i class="fa fa-list"> Your Contest</i></a></li>
       <li role="presentation"><a href="#"><i class="fa fa-rss"> Public activity</i></a></li>
       {% if current_user == user %}
-      <a href="{{ url_for('user.updateprofile') }}" class="btn btn-default right"><i class="fa fa-pencil"> Edit Profile</i></a>
+      <a href="{{ url_for('user.profile') }}" class="btn btn-default right"><i class="fa fa-pencil"> Edit Profile</i></a>
       {% endif %}
     </ul>
     <div class="panels">
