@@ -27,3 +27,8 @@ fi
 - python manage.py runserver
 - redis-server
 - celery -A VJ.libs.tasks:celery worker -B -l debug
+
+## 
+
+- export MAIL_USERNAME="example@sina.cn"
+- export MAIL_PASSWORD="password"
