@@ -18,15 +18,15 @@
       {{ form.email.label(class="col-sm-4 control-label") }}
       <div class="col-sm-4">
         {{ form.email(class="form-control") }}
-      </div>
         {{ field_error(form.email) }}
+      </div>
     </div>
     <div class="form-group">
       {{ form.password.label(class="col-sm-4 control-label") }}
       <div class="col-sm-4">
         {{ form.password(class="form-control") }}
-      </div>
         {{ field_error(form.password) }}
+      </div>
     </div>
     <div class="form-group">
       <div class="col-sm-offset-4 col-sm-4">
@@ -39,7 +39,12 @@
     </div>
     <div class="form-group">
       <div class="col-sm-offset-4 col-sm-4">
-        <button type="submit" class="btn btn-default">Sign in</button>
+        {{ form.submit(class="btn btn-default") }}
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-4 col-sm-4">
+        <a href="{{ url_for('auth.reset_password' )}}"> Forget the password ?</a>
       </div>
     </div>
 </form>
