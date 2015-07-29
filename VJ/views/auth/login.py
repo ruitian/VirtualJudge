@@ -1,5 +1,6 @@
-#-*- coding: utf-8 -*-
-from flask import (
+# -*- coding: utf-8 -*-
+
+from flask import (  # noqa
     request,
     redirect,
     url_for,
@@ -10,6 +11,7 @@ from flask.views import MethodView
 from flask.ext.login import current_user, login_user
 
 from VJ.forms import LoginForm
+
 
 class LoginView(MethodView):
 
