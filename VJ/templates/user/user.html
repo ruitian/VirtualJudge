@@ -8,7 +8,7 @@
     <a href="{{ user.avatar(460) }}">
       <img src="{{ user.avatar(460) }}" class="vcard-avatar" width="100%" height="auto" >
     </a>
-    <h1>{{ user.username }}</h1>
+      <h1>{{ user.username }}</h1>
     <ul class="vcard-details">
       <li class="vcard-detail">
         <span class="glyphicon glyphicon-education"></span>SDUT
@@ -45,7 +45,7 @@
       <li role="presentation"><a href="#"><i class="fa fa-list"> Your Contest</i></a></li>
       <li role="presentation"><a href="#"><i class="fa fa-rss"> Public activity</i></a></li>
       {% if current_user == user %}
-      <a href="{{ url_for('user.profile') }}" class="btn btn-default right"><i class="fa fa-pencil"> Edit Profile</i></a>
+      <a href="{{ url_for('user.updateprofile') }}" class="btn btn-default right"><i class="fa fa-pencil"> Edit Profile</i></a>
       {% endif %}
     </ul>
     <div class="panels">

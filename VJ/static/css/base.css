@@ -108,8 +108,43 @@ body {
     color: #767676;
 }
 
+.clearfix {
+    padding: 13px 0;
+}
+
+.two-thirds {
+    width: 66.66666%;
+}
+
+.column {
+    padding-left:10px;
+}
+
+dl.form {
+    margin:15px 0;
+}
+dl.form>dt {
+    margin: 0 0 6px;
+}
+
+.avatar-picture {
+    width: 15%;
+    height: auto;
+    border-radius: 3px;
+}
+
+.avatar-upload {
+    width: 80%;
+    float: right;
+}
+
+.avatar-upload-default {
+    padding: 10px 0;
+    font-size: 12px;
+    color: #767676;
+}
 /*
- * Problem
+ * Problem 
  */
 
 #problem_body{
@@ -140,8 +175,7 @@ body {
     border: 1px;
     border-style: dashed;
     padding: 20px;
-}
-
+} 
 #problem_output{
     border: 1px;
     border-style: dashed;

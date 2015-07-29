@@ -5,9 +5,9 @@ bp_user = Blueprint('user', __name__)
 
 bp_user.add_url_rule(
     '/<username>',
-    endpoint = 'user',
-    view_func = UserView.as_view('user'),
-    methods = ['get']
+    endpoint='user',
+    view_func=UserView.as_view('user'),
+    methods=['get']
 )
 
-from .setting import *
+from .setting import *  # noqa
