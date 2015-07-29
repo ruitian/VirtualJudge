@@ -11,7 +11,7 @@
 
       <!-- List group -->
       <ul class="list-group">
-        <li class="list-group-item"><a href="{{ url_for('user.updateprofile', username=current_user.username) }}">Profile</a></li>
+        <li class="list-group-item"><a href="{{ url_for('user.profile') }}">Profile</a></li>
         <li class="list-group-item"><a href="#">Account settings</a></li>
         <li class="list-group-item"><a href="#">Email</a></li>
         <li class="list-group-item"><a href="{{ url_for('user.origin_oj') }}">Origin OJ</a></li>
@@ -19,9 +19,49 @@
     </div>
   </div>
   <div class="four-fifth right main">
-    {% block setting_main %}
 
+    {% block setting_main %}
+    <div class="panel panel-default">
+      <div class="panel-heading">Public profile</div>
+      <div class="clearfix">
+        <form action="">
+          <div class="column two-thirds">
+
+            <dl class="form edit-profile-avatar">
+              <dt>
+                <label for="exampleInputText">Profile picture</label>
+              </dt>
+              <dd>
+              <img class="avatar-picture" src="{{ current_user.avatar(406) }}"> 
+                <div class="avatar-upload">
+                  <button class="btn btn-default">Upload new picture</button>
+                  <div class="avatar-upload-default">
+                    <p>You can also drag and drop a picture from your computer.</p>
+                  </div>
+                </div>
+              </dd>
+            </dl>
+
+            <dl class="form">
+              <dt>{{ form.school.label() }}</dt>
+              <dd>{{ form.school(class='form-control') }}</dd>
+            </dl>
+            <dl class="form">
+              <dt>{{ form.blog_url.label() }}</dt>
+              <dd>{{ form.blog_url(class='form-control') }}</dd>
+            </dl>
+            <dl class="form">
+              <dt>{{ form.location.label() }}</dt>
+              <dd>{{ form.location(class='form-control') }}</dd>
+            </dl>
+
+            <button class="btn btn-primary">Update profile</button>
+          </div>
+        </form>
+      </div>
+    </div>
     {% endblock %}
+
   </div>
 </div>
 {% endblock %}
