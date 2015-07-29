@@ -9,7 +9,7 @@
   <li role="presentation"><a href="{{ url_for('auth.register') }}">Register</a></li>
 </ul>
 <div class="col-md-12 content">
-<form method=post class="form-horizontal" action="/auth/login">
+<form method=post class="form-horizontal">
 {{ form.csrf_token }}
 {% if form.csrf_token.errors %}
   <div class="warning">You have submitted an invalid CSRF token</div>
