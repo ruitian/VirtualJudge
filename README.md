@@ -30,5 +30,6 @@ fi
 
 ## 
 
+- export VJ_SERVER_NAME="localhost:3000"
 - export MAIL_USERNAME="example@sina.cn"
 - export MAIL_PASSWORD="password"

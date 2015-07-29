@@ -18,6 +18,8 @@ class Config:
 
     CSRF_ENABLED = True
 
+    SERVER_NAME = os.getenv('VJ_SERVER_NAME') or 'vj.sdutacm.org'
+
     # pagination
     PROBLEM_PER_PAGE = 20
     CONTEST_PER_PAGE = 20
