@@ -6,11 +6,12 @@ from flask import (
     render_template
 )
 from flask.views import MethodView
-from flask.ext.login import login_user, login_required, current_user
+from flask.ext.login import login_required, current_user
 
-from VJ.models import UserModel
+from VJ.models import UserModel  # noqa
 from VJ.forms import OriginOJAccountForm
 from VJ.libs.tasks import account_init
+
 
 class OriginOJView(MethodView):
 
@@ -20,6 +21,7 @@ class OriginOJView(MethodView):
     def get(self):
         form = OriginOJAccountForm()
         return render_template(self.template, form=form)
+
 
 class PojView(MethodView):
 
@@ -54,6 +56,7 @@ class PojView(MethodView):
         )
         return redirect(url_for('user.origin_oj'))
 
+
 class HduView(MethodView):
 
     @login_required
@@ -87,6 +90,7 @@ class HduView(MethodView):
         )
         return redirect(url_for('user.origin_oj'))
 
+
 class SdutView(MethodView):
 
     @login_required
@@ -119,6 +123,7 @@ class SdutView(MethodView):
             form.password.data
         )
         return redirect(url_for('user.origin_oj'))
+
 
 class FzuView(MethodView):
 
