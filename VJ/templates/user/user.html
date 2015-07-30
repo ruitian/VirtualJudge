@@ -21,7 +21,7 @@
          <span class="glyphicon glyphicon-envelope"></span>{{ current_user.email }}
       </li>
        <li class="vcard-detail">
-         <span class="glyphicon glyphicon-link"></span><a target="__blank" href="http://{{ current_user.blog_url }}">{{ current_user.blog_url }}</a>
+         <span class="glyphicon glyphicon-link"></span><a target="__blank" href="{{ current_user.blog_url }}">{{ current_user.blog_url }}</a>
       </li>
       <li class="vcard-detail">
         <span class="glyphicon glyphicon-time"></span>{{ current_user.created_at }}

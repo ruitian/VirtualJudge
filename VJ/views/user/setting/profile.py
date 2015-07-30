@@ -29,14 +29,14 @@ class ProfileView(MethodView):
     @login_required
     def post(self):
         form = ProfileForm()
-        user = UserModel.objects(username=current_user.username).first()
-        if user is None:
+        if not form.validate():
+            flash(form.errors['blog_url'][0])
             return redirect(url_for('user.profile'))
-        if user.update_profile(
-                form.nickname.data,
-                form.school.data,
-                form.blog_url.data,
-                form.location.data
-                ):
-            flash('You have updated your profile!')
-            return redirect(url_for('user.profile'))
+        current_user.update_profile(
+            form.nickname.data,
+            form.school.data,
+            form.blog_url.data,
+            form.location.data
+        )
+        flash('You have updated your profile!')
+        return redirect(url_for('user.profile'))

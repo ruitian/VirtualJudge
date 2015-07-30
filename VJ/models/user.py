@@ -135,7 +135,6 @@ class UserModel(db.Document, UserMixin):
         self.blog_url = blog_url
         self.location = location
         self.save()
-        return True
 
     def get_account(self, origin_oj):
         if origin_oj == 'poj':
