@@ -32,8 +32,18 @@ body {
     width: 20%
 }
 
-.one-fifth h1 {
-    margin-bottom: 15px;
+.one-fifth>h2 {
+    margin-bottom: 0;
+    font-size: 26px;
+    line-height: 30px;
+    overflow: hidden;
+    display: block;
+}
+
+.one-fifth>p {
+    width: 100%;
+    font-size: 20px;
+    color: #666;
 }
 
 .four-fifth{

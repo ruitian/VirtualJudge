@@ -8,22 +8,23 @@
     <a href="{{ user.avatar(460) }}">
       <img src="{{ user.avatar(460) }}" class="vcard-avatar" width="100%" height="auto" >
     </a>
-      <h1>{{ user.username }}</h1>
+      <h2>{{ user.nickname }}</h2>
+      <p>{{ user.username }}</p>
     <ul class="vcard-details">
       <li class="vcard-detail">
-        <span class="glyphicon glyphicon-education"></span>SDUT
+        <span class="glyphicon glyphicon-education"></span>{{ current_user.school }}
       </li>
       <li class="vcard-detail">
-        <span class="glyphicon glyphicon-map-marker"></span>China
+        <span class="glyphicon glyphicon-map-marker"></span>{{ current_user.location }}
       </li>
        <li class="vcard-detail">
-        <span class="glyphicon glyphicon-envelope"></span>admin@163.com
+         <span class="glyphicon glyphicon-envelope"></span>{{ current_user.email }}
       </li>
        <li class="vcard-detail">
-        <span class="glyphicon glyphicon-link"></span><a href="#">http://admin.com</a>
+         <span class="glyphicon glyphicon-link"></span><a target="__blank" href="{{ current_user.blog_url }}">{{ current_user.blog_url }}</a>
       </li>
       <li class="vcard-detail">
-        <span class="glyphicon glyphicon-time"></span>Joined on 10 May 2014
+        <span class="glyphicon glyphicon-time"></span>{{ current_user.created_at }}
       </li>
     </ul>
     <div class="vcard-stats">

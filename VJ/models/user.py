@@ -55,6 +55,7 @@ class UserModel(db.Document, UserMixin):
     last_login_ip = db.StringField(max_length=255)
     current_login_ip = db.StringField(max_length=255)
 
+    nickname = db.StringField(max_length=255)
     school = db.StringField(max_length=255)
     blog_url = db.StringField(max_length=255)
     location = db.StringField(max_length=255)
@@ -127,6 +128,13 @@ class UserModel(db.Document, UserMixin):
         self.password = self.generate_password(new_password)
         self.save()
         return True
+
+    def update_profile(self, nickname, school, blog_url, location):
+        self.nickname = nickname
+        self.school = school
+        self.blog_url = blog_url
+        self.location = location
+        self.save()
 
     def get_account(self, origin_oj):
         if origin_oj == 'poj':
