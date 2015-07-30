@@ -8,7 +8,8 @@
     <a href="{{ user.avatar(460) }}">
       <img src="{{ user.avatar(460) }}" class="vcard-avatar" width="100%" height="auto" >
     </a>
-      <h1>{{ user.username }}</h1>
+      <h2>{{ user.nickname }}</h2>
+      <p>{{ user.username }}</p>
     <ul class="vcard-details">
       <li class="vcard-detail">
         <span class="glyphicon glyphicon-education"></span>{{ current_user.school }}
