@@ -11,18 +11,24 @@
       <h2>{{ user.nickname }}</h2>
       <p>{{ user.username }}</p>
     <ul class="vcard-details">
+      {% if current_user.school %}
       <li class="vcard-detail">
         <span class="glyphicon glyphicon-education"></span>{{ current_user.school }}
       </li>
+      {% endif %}
+      {% if current_user.location %}
       <li class="vcard-detail">
         <span class="glyphicon glyphicon-map-marker"></span>{{ current_user.location }}
       </li>
+      {% endif %}
        <li class="vcard-detail">
          <span class="glyphicon glyphicon-envelope"></span>{{ current_user.email }}
       </li>
+      {% if current_user.blog_url %}
        <li class="vcard-detail">
          <span class="glyphicon glyphicon-link"></span><a target="__blank" href="{{ current_user.blog_url }}">{{ current_user.blog_url }}</a>
       </li>
+      {% endif %}
       <li class="vcard-detail">
         <span class="glyphicon glyphicon-time"></span>{{ current_user.created_at }}
       </li>
