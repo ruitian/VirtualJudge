@@ -1,5 +1,5 @@
 from flask_wtf import Form
-from wtforms import StringField
+from wtforms import StringField, SubmitField
 from wtforms.validators import (  # noqa
     Email,
     Required,
@@ -11,7 +11,8 @@ from wtforms.validators import (  # noqa
 
 
 class ProfileForm(Form):
-    name = StringField('Name')
+    nickname = StringField('Name')
     school = StringField('School')
-    blog_url = StringField('Blog URL')
     location = StringField('Location')
+    blog_url = StringField('Blog URL')
+    submit = SubmitField('Update profile')

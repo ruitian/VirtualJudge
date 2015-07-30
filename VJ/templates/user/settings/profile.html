@@ -24,7 +24,7 @@
     <div class="panel panel-default">
       <div class="panel-heading">Public profile</div>
       <div class="clearfix">
-        <form action="">
+        <form method="post">
           <div class="column two-thirds">
 
             <dl class="form edit-profile-avatar">
@@ -43,8 +43,8 @@
             </dl>
 
             <dl class="form">
-              <dt>{{ form.name.label() }}</dt>
-              <dd>{{ form.name(class='form-control') }}</dd>
+              <dt>{{ form.nickname.label() }}</dt>
+              <dd>{{ form.nickname(class='form-control') }}</dd>
             </dl>
             <dl class="form">
               <dt>{{ form.school.label() }}</dt>
@@ -59,7 +59,7 @@
               <dd>{{ form.location(class='form-control') }}</dd>
             </dl>
 
-            <button class="btn btn-primary">Update profile</button>
+            {{ form.submit(class="btn btn-primary") }}
           </div>
         </form>
       </div>
