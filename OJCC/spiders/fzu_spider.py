@@ -262,9 +262,9 @@ class FzuSubmitSpider(CrawlSpider):
 
                     try:
                         item['memory'] = \
-                            tr.xpath('.//td')[5].xpath('./text()').extract()[0]
-                        item['time'] = \
                             tr.xpath('.//td')[6].xpath('./text()').extract()[0]
+                        item['time'] = \
+                            tr.xpath('.//td')[5].xpath('./text()').extract()[0]
                     except:
                         pass
 
