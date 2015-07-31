@@ -65,13 +65,34 @@
       <td style="text-align:right">{{ solution.origin_oj|upper }}</td>
       <td><a href="{{ url_for('problem.detail', origin_oj=solution.origin_oj, problem_id=solution.problem_id) }}">{{ solution.problem_id }}</a></td>
       <td><a href="{{ url_for('user.user', username=solution.username) }}">{{ solution.username }}</a></td>
+      {% if solution.result != 'Compile Error' %}
       <td>{{ solution.result }}</td>
+      {% else %}
+      <td><a data-toggle="modal" data-target="#solution_{{ solution.solution_id }}">{{ solution.result }}</a></td>
+      {% endif %}
       <td>{{ solution.time }}</td>
       <td>{{ solution.memory }}</td>
       <td>{{ solution.language }}</td>
       <td><a href="">{{ solution.code_length }}</a></td>
       <td>{{ solution.created_at }}</td>
     </tr>
+      <!-- Modal -->
+      <div class="modal fade" id="solution_{{ solution.solution_id }}" tabindex="-1" role="dialog" aria-labelledby="label">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="label">Compile Info</h4>
+            </div>
+            <div class="modal-body">
+              {{ solution.compile_info | safe }}
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
     {% endfor %}
   <tbody>
   </tbody>
