@@ -17,6 +17,7 @@ class SolutionItem(db.Document):
     language = db.StringField()
     code_length = db.StringField()
     submit_time = db.StringField()
+    compile_info = db.StringField()
     created_at = db.DateTimeField(default=datetime.now, required=True)
 
     meta = {
