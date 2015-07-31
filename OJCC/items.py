@@ -41,6 +41,7 @@ class SolutionItem(scrapy.Item):
     language = scrapy.Field()
     code_length = scrapy.Field()
     submit_time = scrapy.Field()
+    compile_info = scrapy.Field()
 
 
 class AccountItem(scrapy.Item):
