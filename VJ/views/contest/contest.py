@@ -158,7 +158,6 @@ class ContestCreateView(MethodView):
 
         contest = form.generate_contest()
 
-        contest_problems = []
         for index, entrie in enumerate(form.problems.entries):
             problem = ContestProblemModel()
             problem.index = chr(index + 65)
@@ -166,9 +165,8 @@ class ContestCreateView(MethodView):
                 origin_oj=entrie.origin_oj.data,
                 problem_id=entrie.problem_id.data
             ).first()
-            contest_problems.append(problem)
+            contest.problems.append(problem)
 
-        contest.problems = contest_problems
         contest.manager = UserModel.objects(
             username=current_user.username
         ).first()
