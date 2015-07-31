@@ -2,6 +2,10 @@ body {
     padding-top: 60px;
 }
 
+a:focus, a:hover{
+    text-decoration: none;
+}
+
 .alert-messages {
     margin-bottom: 0px;
     margin-top: 10px
