@@ -149,11 +149,13 @@ class PojSubmitSpider(CrawlSpider):
             language='g++',
             source=None,
             username='sdutacm1',
+            nickname=None,
             password='sdutacm', *args, **kwargs):
         super(PojSubmitSpider, self).__init__(*args, **kwargs)
 
         self.solution_id = solution_id
         self.username = username
+        self.nickname = nickname
         self.password = password
         self.problem_id = problem_id
         self.language = language
@@ -298,6 +300,7 @@ class PojAccountSpider(Spider):
         self.item = AccountItem()
         self.item['origin_oj'] = 'poj'
         self.item['username'] = self.username
+        self.item['nickname'] = self.username
         if self.is_login:
             try:
                 self.item['rank'] = sel.xpath('//center/table/tr')[1].\

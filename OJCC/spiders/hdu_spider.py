@@ -137,11 +137,13 @@ class HduSubmitSpider(CrawlSpider):
             language='g++',
             source=None,
             username='sdutacm1',
+            nickname=None,
             password='sdutacm', *args, **kwargs):
         super(HduSubmitSpider, self).__init__(*args, **kwargs)
 
         self.solution_id = solution_id
         self.username = username
+        self.nickname = nickname
         self.password = password
         self.problem_id = problem_id
         self.language = language

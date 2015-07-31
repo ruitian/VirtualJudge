@@ -142,12 +142,14 @@ class SdutSubmitSpider(CrawlSpider):
             language='g++',
             source=None,
             username='sdutacm1',
+            nickname=None,
             password='sdutacm', *args, **kwargs):
         super(SdutSubmitSpider, self).__init__(*args, **kwargs)
         self.solution_id = solution_id
         self.problem_id = problem_id
         self.language = LANGUAGE.get(language, 'g++')
         self.username = username
+        self.nickname = nickname
         self.password = password
         if source is not None:
             self.source = source
@@ -205,7 +207,7 @@ class SdutSubmitSpider(CrawlSpider):
                 submit_time = time.mktime(
                         time.strptime(_submit_time, '%Y-%m-%d %H:%M:%S'))
                 if submit_time > self.login_time and \
-                        user == self.username:
+                        user == self.nickname:
                     item['submit_time'] = _submit_time
                     item['run_id'] = tr.xpath('.//td/text()').extract()[0]
 

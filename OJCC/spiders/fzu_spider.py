@@ -181,6 +181,7 @@ class FzuSubmitSpider(CrawlSpider):
             language='g++',
             source=None,
             username='sdutacm1',
+            nickname=None,
             password='sdutacm', *args, **kwargs):
         super(FzuSubmitSpider, self).__init__(*args, **kwargs)
 
@@ -188,6 +189,7 @@ class FzuSubmitSpider(CrawlSpider):
         self.problem_id = problem_id
         self.language = language
         self.username = username
+        self.nickname = nickname
         self.password = password
         if source is not None:
             self.source = source
@@ -336,6 +338,7 @@ class FzuAccountSpider(CrawlSpider):
         self.item = AccountItem()
         self.item['origin_oj'] = 'fzu'
         self.item['username'] = self.username
+        self.item['nickname'] = self.username
         if self.is_login:
             try:
                 self.item['rank'] = sel.xpath('//table')[2].\
