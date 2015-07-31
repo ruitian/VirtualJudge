@@ -4,67 +4,69 @@
 {% block title %}Contests | Virtual Judge{% endblock %}
 
 {% block page_content %}
-{% block page_nav %}
-<ul class="nav nav-tabs">
-  <li role="presentation" class="active"><a href="#">All</a></li>
-  <li role="presentation"><a href="{{ url_for('contest.pending') }}">Pending</a></li>
-  <li role="presentation"><a href="{{ url_for('contest.running') }}">Running</a></li>
-  <li role="presentation"><a href="{{ url_for('contest.ended') }}">Ended</a></li>
-  {% if current_user.is_authenticated() %}
-  <a href="{{ url_for('contest.create') }}" class="btn btn-default right"><i class="fa fa-pencil"> Create Contest</i></a>
-  {% endif %}
-</ul>
-{% endblock %}
-<div class="text-center">
-{{ render_pagination(paginate, 'contest.list') }}
+<div class="content">
+  {% block page_nav %}
+  <ul class="nav nav-tabs">
+    <li role="presentation" class="active"><a href="#">All</a></li>
+    <li role="presentation"><a href="{{ url_for('contest.pending') }}">Pending</a></li>
+    <li role="presentation"><a href="{{ url_for('contest.running') }}">Running</a></li>
+    <li role="presentation"><a href="{{ url_for('contest.ended') }}">Ended</a></li>
+    {% if current_user.is_authenticated() %}
+    <a href="{{ url_for('contest.create') }}" class="btn btn-default right"><i class="fa fa-pencil"> Create Contest</i></a>
+    {% endif %}
+  </ul>
+  {% endblock %}
+  <div class="text-center">
+  {{ render_pagination(paginate, 'contest.list') }}
+  </div>
+  <form>
+  <table class="table" style="margin-bottom:0px">
+    <thead>
+      <tr>
+        <th>
+          <input class="form-control" type="text" name="cid" placeholder="Contest ID">
+        </th>
+        <th>
+          <input class="form-control" type="text" name="title" placeholder="Title">
+        </th>
+        <th>
+          <input class="form-control" type="text" name="manager" placeholder="Manager">
+        </th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th>
+            <button class="btn btn-primary btn-block" type="submit">Filter</button>
+        </th>
+      </tr>
+    </thead>
+  </table>
+  </form>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Contest ID</th>
+        <th>Title</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Status</th>
+        <th>Type</th>
+        <th>Manager</th>
+      </tr>
+    </thead>
+      {% for contest in contests %}
+      <tr>
+        <td>{{ contest.id }}</td>
+        <td><a href="{{ url_for('contest.contest', contest_id=contest.id) }}">{{ contest.title }}</a></td>
+        <td>{{ contest.start_at }}</td>
+        <td>{{ contest.end_at }}</td>
+        <td></td>
+        <td>{{ contest.contest_type }}</td>
+        <td><a href="{{ url_for('user.user', username=contest.manager.username ) }}">{{ contest.manager.username }}</td>
+      </tr>
+      {% endfor %}
+    <tbody>
+    </tbody>
+  </table>
 </div>
-<form>
-<table class="table" style="margin-bottom:0px">
-  <thead>
-    <tr>
-      <th>
-        <input class="form-control" type="text" name="cid" placeholder="Contest ID">
-      </th>
-      <th>
-        <input class="form-control" type="text" name="title" placeholder="Title">
-      </th>
-      <th>
-        <input class="form-control" type="text" name="manager" placeholder="Manager">
-      </th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th>
-          <button class="btn btn-primary btn-block" type="submit">Filter</button>
-      </th>
-    </tr>
-  </thead>
-</table>
-</form>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Contest ID</th>
-      <th>Title</th>
-      <th>Start Time</th>
-      <th>End Time</th>
-      <th>Status</th>
-      <th>Type</th>
-      <th>Manager</th>
-    </tr>
-  </thead>
-    {% for contest in contests %}
-    <tr>
-      <td>{{ contest.id }}</td>
-      <td><a href="{{ url_for('contest.contest', contest_id=contest.id) }}">{{ contest.title }}</a></td>
-      <td>{{ contest.start_at }}</td>
-      <td>{{ contest.end_at }}</td>
-      <td></td>
-      <td>{{ contest.contest_type }}</td>
-      <td><a href="{{ url_for('user.user', username=contest.manager.username ) }}">{{ contest.manager.username }}</td>
-    </tr>
-    {% endfor %}
-  <tbody>
-  </tbody>
-</table>
 {% endblock %}
