@@ -19,6 +19,7 @@ LANGUAGE = {
         'c#': '6'
     }
 
+
 class HduInitSpider(CrawlSpider):
     name = 'hdu_init'
     allowed_domains = ['acm.hdu.edu.cn']
@@ -43,8 +44,10 @@ class HduInitSpider(CrawlSpider):
         problems = sel.xpath('//script')[4].re('\(.+?\)')
         for problem in problems:
             problem_id = problem.split(',')[1]
-            yield Request(self.problem_base_url + problem_id,
-                callback=self.problem_item)
+            yield Request(
+                self.problem_base_url + problem_id,
+                callback=self.problem_item
+            )
 
     def problem_item(self, response):
         sel = Selector(response)
@@ -65,6 +68,7 @@ class HduInitSpider(CrawlSpider):
         item['sample_output'] = sel.xpath('//pre').extract()[1]
         item['update_time'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         return item
+
 
 class HduProblemSpider(Spider):
     name = 'hdu_problem'
@@ -97,6 +101,7 @@ class HduProblemSpider(Spider):
         item['update_time'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         return item
 
+
 class HduSubmitSpider(CrawlSpider):
     name = 'hdu_submit'
     allowed_domains = ['acm.hdu.edu.cn']
@@ -105,7 +110,10 @@ class HduSubmitSpider(CrawlSpider):
     login_verify_url = 'http://acm.hdu.edu.cn/control_panel.php'
 
     source = \
-        'I2luY2x1ZGUgPHN0ZGlvLmg+CgppbnQgbWFpbigpCnsKICAgIGludCBhLGI7CiAgICBzY2FuZigiJWQgJWQiLCZhLCAmYik7CiAgICBwcmludGYoIiVkXG4iLGErYik7CiAgICByZXR1cm4gMDsKfQ=='
+        'I2luY2x1ZGUgPHN0ZGlvLmg+CgppbnQgbWFpbigp\
+        CnsKICAgIGludCBhLGI7CiAgICBzY2FuZigiJWQgJ\
+        WQiLCZhLCAmYik7CiAgICBwcmludGYoIiVkXG4iLG\
+        ErYik7CiAgICByZXR1cm4gMDsKfQ=='
 
     start_urls = [
         'http://acm.hdu.edu.cn/status.php'
@@ -115,16 +123,21 @@ class HduSubmitSpider(CrawlSpider):
     is_login = False
 
     rules = [
-        Rule(link(allow=('/status.php\?first\S*status')), follow=True, callback='parse_start_url')
+        Rule(
+            link(
+                allow=('/status.php\?first\S*status')
+            ), follow=True, callback='parse_start_url'
+        )
     ]
 
-    def __init__(self,
-            solution_id = 1,
-            problem_id = '1000',
-            language = 'g++',
+    def __init__(
+            self,
+            solution_id=1,
+            problem_id='1000',
+            language='g++',
             source=None,
-            username = 'sdutacm1',
-            password = 'sdutacm', *args, **kwargs):
+            username='sdutacm1',
+            password='sdutacm', *args, **kwargs):
         super(HduSubmitSpider, self).__init__(*args, **kwargs)
 
         self.solution_id = solution_id
@@ -137,39 +150,39 @@ class HduSubmitSpider(CrawlSpider):
 
     def start_requests(self):
         return [FormRequest(self.login_url,
-                formdata = {
+                formdata={
                         'username': self.username,
                         'userpass': self.password,
                         'login': 'Sign+In',
                 },
-                callback = self.after_login,
-                dont_filter = True
+                callback=self.after_login,
+                dont_filter=True
         )]
 
     def after_login(self, response):
         if not re.search(r'No such user or wrong password.', response.body):
             self.is_login = True
 
-            self.login_time = time.mktime(time.strptime(\
-                    response.headers['Date'], \
+            self.login_time = time.mktime(time.strptime(
+                    response.headers['Date'],
                     '%a, %d %b %Y %H:%M:%S %Z')) + (8 * 60 * 60)
             time.sleep(1)
             return [FormRequest(self.submit_url,
-                    formdata = {
+                    formdata={
                             'problemid': self.problem_id,
                             'language': LANGUAGE.get(self.language, '0'),
                             'usercode': b64decode(self.source),
                             'check': '0'
                     },
-                    callback = self.after_submit,
-                    dont_filter = True
+                    callback=self.after_submit,
+                    dont_filter=True
             )]
         else:
             return Request(self.start_urls[0], callback=self.parse_start_url)
 
     def after_submit(self, response):
         time.sleep(3)
-        for url in self.start_urls :
+        for url in self.start_urls:
             yield self.make_requests_from_url(url)
 
     def parse_start_url(self, response):
@@ -186,9 +199,9 @@ class HduSubmitSpider(CrawlSpider):
             for tr in sel.xpath('//table[@class="table_text"]/tr')[1:]:
                 user = tr.xpath('.//td/a/text()').extract()[-1]
                 _submit_time = tr.xpath('.//td/text()').extract()[1]
-                submit_time = time.mktime(\
+                submit_time = time.mktime(
                         time.strptime(_submit_time, '%Y-%m-%d %H:%M:%S'))
-                if submit_time > self.login_time and \
+                if submit_time > self.login_time and\
                         user == self.username:
                     item['submit_time'] = _submit_time
                     item['run_id'] = tr.xpath('.//td/text()').extract()[0]
@@ -201,14 +214,17 @@ class HduSubmitSpider(CrawlSpider):
                     except:
                         pass
 
-                    item['code_length'] = tr.xpath('.//td/a/text()').extract()[-2]
-                    item['result'] = tr.xpath('.//td').xpath('.//font/text()').extract()[0]
+                    item['code_length'] = tr.xpath('.//td/a/text()').\
+                        extract()[-2]
+                    item['result'] = tr.xpath('.//td').\
+                        xpath('.//font/text()').extract()[0]
                     self._rules = []
                     return item
         else:
             item['result'] = 'Submit Error'
             self._rules = []
             return item
+
 
 class HduAccountSpider(Spider):
     name = 'hdu_user'
@@ -221,7 +237,8 @@ class HduAccountSpider(Spider):
     is_login = False
     solved = {}
 
-    def __init__(self,
+    def __init__(
+            self,
             username='sdutacm1',
             password='sdutacm', *args, **kwargs):
         super(HduAccountSpider, self).__init__(*args, **kwargs)
@@ -234,14 +251,15 @@ class HduAccountSpider(Spider):
         ]
 
     def start_requests(self):
-        return [FormRequest(self.login_url,
-                formdata = {
-                        'username': self.username,
-                        'userpass': self.password,
-                        'login': 'Sign+In',
-                },
-                callback = self.after_login,
-                dont_filter = True
+        return [FormRequest(
+            self.login_url,
+            formdata={
+                    'username': self.username,
+                    'userpass': self.password,
+                    'login': 'Sign+In',
+            },
+            callback=self.after_login,
+            dont_filter=True
         )]
 
     def after_login(self, response):
@@ -266,8 +284,9 @@ class HduAccountSpider(Spider):
                     xpath('./tr')[3].xpath('./td/text()')[1].extract()
                 self.item['submit'] = sel.xpath('//table')[3].\
                     xpath('./tr')[4].xpath('./td/text()')[1].extract()
-                yield Request(self.accepted_url % self.username,
-                    callback = self.accepted
+                yield Request(
+                    self.accepted_url % self.username,
+                    callback=self.accepted
                 )
                 self.item['status'] = 'Authentication Success'
             except:
@@ -293,8 +312,9 @@ class HduAccountSpider(Spider):
                 self.item['solved'] = self.solved
 
         if table_tr:
-            yield Request('http://' + self.allowed_domains[0] + next_url,
-                callback = self.accepted
+            yield Request(
+                'http://' + self.allowed_domains[0] + next_url,
+                callback=self.accepted
             )
 
         yield self.item
