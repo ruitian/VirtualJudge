@@ -237,8 +237,7 @@ class SdutAccountSpider(Spider):
 
     login_url = 'http://acm.sdut.edu.cn/sdutoj/login.php?action=login'
     accepted_url = \
-        'http://acm.sdut.edu.cn/sdutoj/status.php?\
-        username=%s&pro_lang=ALL&result=1'
+        'http://acm.sdut.edu.cn/sdutoj/status.php?username=%s&pro_lang=ALL&result=1'  # noqa
     start_urls = [
         'http://acm.sdut.edu.cn/sdutoj/setting.php'
     ]

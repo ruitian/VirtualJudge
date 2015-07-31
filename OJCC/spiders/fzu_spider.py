@@ -290,8 +290,7 @@ class FzuAccountSpider(CrawlSpider):
     login_url = 'http://acm.fzu.edu.cn/login.php?act=1&dir='
     login_verify_url = 'http://acm.fzu.edu.cn/mail.php'
     accepted_url = \
-        'http://acm.fzu.edu.cn/log.php?pid=&user=%s\
-        &language=99&state=1&submit=Go'
+        'http://acm.fzu.edu.cn/log.php?pid=&user=%s&language=99&state=1&submit=Go'  # noqa
 
     is_login = False
     solved = {}
@@ -347,6 +346,7 @@ class FzuAccountSpider(CrawlSpider):
                     xpath('./tr')[2].xpath('./td/text()')[1].extract()
                 self.item['submit'] = sel.xpath('//table')[2].\
                     xpath('./tr')[1].xpath('./td/text()')[1].extract()
+                print(self.accepted_url % self.username)
                 yield Request(
                     self.accepted_url % self.username,
                     callback=self.accepted
