@@ -11,39 +11,39 @@
       <h2>{{ user.nickname }}</h2>
       <p>{{ user.username }}</p>
     <ul class="vcard-details">
-      {% if current_user.school %}
+      {% if user.school %}
       <li class="vcard-detail">
-        <span class="glyphicon glyphicon-education"></span>{{ current_user.school }}
+        <span class="glyphicon glyphicon-education"></span>{{ user.school }}
       </li>
       {% endif %}
-      {% if current_user.location %}
+      {% if user.location %}
       <li class="vcard-detail">
-        <span class="glyphicon glyphicon-map-marker"></span>{{ current_user.location }}
+        <span class="glyphicon glyphicon-map-marker"></span>{{ user.location }}
       </li>
       {% endif %}
        <li class="vcard-detail">
-         <span class="glyphicon glyphicon-envelope"></span>{{ current_user.email }}
+         <span class="glyphicon glyphicon-envelope"></span>{{ user.email }}
       </li>
-      {% if current_user.blog_url %}
+      {% if user.blog_url %}
        <li class="vcard-detail">
-         <span class="glyphicon glyphicon-link"></span><a target="__blank" href="{{ current_user.blog_url }}">{{ current_user.blog_url }}</a>
+         <span class="glyphicon glyphicon-link"></span><a target="__blank" href="{{ user.blog_url }}">{{ user.blog_url }}</a>
       </li>
       {% endif %}
       <li class="vcard-detail">
-        <span class="glyphicon glyphicon-time"></span>{{ current_user.created_at }}
+        <span class="glyphicon glyphicon-time"></span>{{ user.created_at }}
       </li>
     </ul>
     <div class="vcard-stats">
-      <a href="#" class="vcard-stat">
-        <strong class="vcard-stat-count">78</strong>
+      <a href="{{ url_for('user.followers', username=user.username) }}" class="vcard-stat">
+        <strong class="vcard-stat-count">{{ user.followers | length }}</strong>
         <span class="text-muted">Followers</span>
       </a>
       <a href="#" class="vcard-stat">
         <strong class="vcard-stat-count">8</strong>
         <span class="text-muted">Starred</span>
       </a>
-      <a href="#" class="vcard-stat">
-        <strong class="vcard-stat-count">78</strong>
+      <a href="{{ url_for('user.following', username=user.username) }}" class="vcard-stat">
+        <strong class="vcard-stat-count">{{ user.following | length }}</strong>
         <span class="text-muted">Following</span>
       </a>
     </div>
@@ -56,6 +56,12 @@
       <li role="presentation"><a href="#"><i class="fa fa-rss"> Public activity</i></a></li>
       {% if current_user == user %}
       <a href="{{ url_for('user.profile') }}" class="btn btn-default right"><i class="fa fa-pencil"> Edit Profile</i></a>
+      {% else %}
+        {% if not current_user.is_following(user) %}
+        <a href="{{ url_for('user.follow', username=user.username) }}"class="btn btn-default right"><i></i> Follow</a>
+        {% else %}
+        <a href="{{ url_for('user.unfollow', username=user.username) }}"class="btn btn-default right"><i></i> Unfollow</a>
+        {% endif %}
       {% endif %}
     </ul>
     <div class="panels">
