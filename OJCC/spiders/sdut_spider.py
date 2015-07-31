@@ -1,4 +1,5 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+
 from scrapy.spiders import Spider
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor as link
@@ -24,6 +25,7 @@ LANGUAGE = {
     'python2': 'python2',
     'python3': 'python3'
 }
+
 
 class SdutInitSpider(CrawlSpider):
     name = 'sdut_init'
@@ -58,13 +60,17 @@ class SdutInitSpider(CrawlSpider):
         item['description'] = sel.css('.pro_desc').extract()[0]
         item['input'] = sel.css('.pro_desc').extract()[1]
         item['output'] = sel.css('.pro_desc').extract()[2]
-        item['time_limit'] = sel.xpath('//a/h5/text()').re('T[\S*\s]*s')[0][12:]
+        item['time_limit'] = sel.xpath('//a/h5/text()').\
+            re('T[\S*\s]*s')[0][12:]
         item['memory_limit'] = \
             sel.xpath('//a/h5/text()').re('M[\S*\s]*K')[0][14:]
-        item['sample_input'] = sel.xpath('//div[@class="data"]/pre').extract()[0]
-        item['sample_output'] = sel.xpath('//div[@class="data"]/pre').extract()[1]
+        item['sample_input'] = sel.xpath('//div[@class="data"]/pre').\
+            extract()[0]
+        item['sample_output'] = sel.xpath('//div[@class="data"]/pre').\
+            extract()[1]
         item['update_time'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         return item
+
 
 class SdutProblemSpider(Spider):
     name = 'sdut_problem'
@@ -74,8 +80,8 @@ class SdutProblemSpider(Spider):
         self.problem_id = problem_id
         super(SdutProblemSpider, self).__init__(*args, **kwargs)
         self.start_urls = [
-            'http://acm.sdut.edu.cn/sdutoj/problem.php?action=showproblem&problemid=%s'
-                % problem_id
+            'http://acm.sdut.edu.cn/sdutoj/problem.php?\
+                action=showproblem&problemid=%s' % problem_id
         ]
 
     def parse(self, response):
@@ -89,13 +95,17 @@ class SdutProblemSpider(Spider):
         item['description'] = sel.css('.pro_desc').extract()[0]
         item['input'] = sel.css('.pro_desc').extract()[1]
         item['output'] = sel.css('.pro_desc').extract()[2]
-        item['time_limit'] = sel.xpath('//a/h5/text()').re('T[\S*\s]*s')[0][12:]
+        item['time_limit'] = sel.xpath('//a/h5/text()').\
+            re('T[\S*\s]*s')[0][12:]
         item['memory_limit'] = \
             sel.xpath('//a/h5/text()').re('M[\S*\s]*K')[0][14:]
-        item['sample_input'] = sel.xpath('//div[@class="data"]/pre').extract()[0]
-        item['sample_output'] = sel.xpath('//div[@class="data"]/pre').extract()[1]
+        item['sample_input'] = sel.xpath('//div[@class="data"]/pre').\
+            extract()[0]
+        item['sample_output'] = sel.xpath('//div[@class="data"]/pre').\
+            extract()[1]
         item['update_time'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         return item
+
 
 class SdutSubmitSpider(CrawlSpider):
     name = 'sdut_submit'
@@ -103,7 +113,9 @@ class SdutSubmitSpider(CrawlSpider):
     login_url = 'http://acm.sdut.edu.cn/sdutoj/login.php?action=login'
     submit_url = 'http://acm.sdut.edu.cn/sdutoj/submit.php?action=submit'
     source = \
-        'I2luY2x1ZGUgPHN0ZGlvLmg+CgppbnQgbWFpbigpCnsKICAgIGludCBhLGI7CiAgICBzY2FuZigiJWQgJWQiLCZhLCAmYik7CiAgICBwcmludGYoIiVkXG4iLGErYik7CiAgICByZXR1cm4gMDsKfQ=='
+        'I2luY2x1ZGUgPHN0ZGlvLmg+CgppbnQgbWFpbigpCnsKICAg\
+        IGludCBhLGI7CiAgICBzY2FuZigiJWQgJWQiLCZhLCAmYik7C\
+        iAgICBwcmludGYoIiVkXG4iLGErYik7CiAgICByZXR1cm4gMDsKfQ=='
 
     start_urls = [
         "http://acm.sdut.edu.cn/sdutoj/status.php"
@@ -114,7 +126,7 @@ class SdutSubmitSpider(CrawlSpider):
     rules = [
         Rule(
             link(
-                allow=('status.php\?page=[0-9]+\S*'), \
+                allow=('status.php\?page=[0-9]+\S*'),
                 deny=('status.php\?page=1&\S*'),
                 unique=True
             ),
@@ -123,13 +135,14 @@ class SdutSubmitSpider(CrawlSpider):
 
     is_login = False
 
-    def __init__(self,
+    def __init__(
+            self,
             solution_id=1,
-            problem_id = '1000',
-            language = 'g++',
-            source = None,
-            username = 'sdutacm1',
-            password = 'sdutacm', *args, **kwargs):
+            problem_id='1000',
+            language='g++',
+            source=None,
+            username='sdutacm1',
+            password='sdutacm', *args, **kwargs):
         super(SdutSubmitSpider, self).__init__(*args, **kwargs)
         self.solution_id = solution_id
         self.problem_id = problem_id
@@ -141,34 +154,34 @@ class SdutSubmitSpider(CrawlSpider):
 
     def start_requests(self):
         return [FormRequest(self.login_url,
-                formdata = {
+                formdata={
                         'username': self.username,
                         'password': self.password,
                         'submit': '++%E7%99%BB+%E5%BD%95++'
                 },
-                callback = self.after_login,
-                dont_filter = True
+                callback=self.after_login,
+                dont_filter=True
         )]
 
     def after_login(self, response):
         if not re.search(r'用户名或密码错误!', response.body):
             self.is_login = True
 
-            self.login_time = time.mktime(time.strptime(\
-                    response.headers['Date'], \
+            self.login_time = time.mktime(time.strptime(
+                    response.headers['Date'],
                     '%a, %d %b %Y %H:%M:%S %Z')) + (8 * 60 * 60)
             time.sleep(1)
             return [FormRequest(self.submit_url,
-                    formdata = {
+                    formdata={
                         'Sub[problem_id]': self.problem_id,
                         'Sub[pro_lang]': self.language,
                         'Sub[code]': b64decode(self.source)
                     },
-                    callback = self.after_submit,
-                    dont_filter = True
+                    callback=self.after_submit,
+                    dont_filter=True
             )]
         else:
-            return Request(self.start_urls[0], callback = self.parse_start_url)
+            return Request(self.start_urls[0], callback=self.parse_start_url)
 
     def after_submit(self, response):
         time.sleep(3)
@@ -189,7 +202,7 @@ class SdutSubmitSpider(CrawlSpider):
             for tr in sel.xpath('//table[@class="tablelist"]/tr')[1:]:
                 user = tr.xpath('.//td/a/xmp/text()').extract()[0]
                 _submit_time = tr.xpath('.//td/text()').extract()[-1]
-                submit_time = time.mktime(\
+                submit_time = time.mktime(
                         time.strptime(_submit_time, '%Y-%m-%d %H:%M:%S'))
                 if submit_time > self.login_time and \
                         user == self.username:
@@ -215,13 +228,15 @@ class SdutSubmitSpider(CrawlSpider):
             self._rules = []
             return item
 
+
 class SdutAccountSpider(Spider):
     name = 'sdut_user'
     allowed_domains = ['acm.sdut.edu.cn']
 
     login_url = 'http://acm.sdut.edu.cn/sdutoj/login.php?action=login'
     accepted_url = \
-        'http://acm.sdut.edu.cn/sdutoj/status.php?username=%s&pro_lang=ALL&result=1'
+        'http://acm.sdut.edu.cn/sdutoj/status.php?\
+        username=%s&pro_lang=ALL&result=1'
     start_urls = [
         'http://acm.sdut.edu.cn/sdutoj/setting.php'
     ]
@@ -229,7 +244,8 @@ class SdutAccountSpider(Spider):
     solved = {}
     is_login = False
 
-    def __init__(self,
+    def __init__(
+            self,
             username='sdutacm1',
             password='sdutacm', *args, **kwargs):
         super(SdutAccountSpider, self).__init__(*args, **kwargs)
@@ -239,13 +255,13 @@ class SdutAccountSpider(Spider):
 
     def start_requests(self):
         return [FormRequest(self.login_url,
-                formdata = {
+                formdata={
                         'username': self.username,
                         'password': self.password,
                         'submit': '++%E7%99%BB+%E5%BD%95++'
                 },
-                callback = self.after_login,
-                dont_filter = True
+                callback=self.after_login,
+                dont_filter=True
         )]
 
     def after_login(self, response):
@@ -276,12 +292,12 @@ class SdutAccountSpider(Spider):
                 self.item['submit'] = sel.\
                     xpath('//div[@id="content"]/table/tr')[3].\
                     xpath('./td[6]/text()').extract()[0]
-                yield Request(self.accepted_url % self.username,
-                    callback = self.accepted
+                yield Request(
+                    self.accepted_url % self.username,
+                    callback=self.accepted
                 )
                 self.item['status'] = 'Authentication Success'
-            except Exception, e:
-                print e
+            except:
                 self.item['status'] = 'Unknown Error'
         else:
             self.item['status'] = 'Authentication Failed'
@@ -304,8 +320,9 @@ class SdutAccountSpider(Spider):
                 self.item['solved'] = self.solved
 
         if table_tr:
-            yield Request('http://' + self.allowed_domains[0] + '/sdutoj/' + next_url,
-                callback = self.accepted
+            yield Request(
+                'http://' + self.allowed_domains[0] + '/sdutoj/' + next_url,
+                callback=self.accepted
             )
 
         yield self.item
