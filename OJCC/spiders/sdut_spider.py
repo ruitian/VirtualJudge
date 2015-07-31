@@ -112,6 +112,7 @@ class SdutSubmitSpider(CrawlSpider):
     allowed_domains = ['acm.sdut.edu.cn']
     login_url = 'http://acm.sdut.edu.cn/sdutoj/login.php?action=login'
     submit_url = 'http://acm.sdut.edu.cn/sdutoj/submit.php?action=submit'
+    compile_url = 'http://acm.sdut.edu.cn/sdutoj/compile.php?solutionid=%s'
     source = \
         'I2luY2x1ZGUgPHN0ZGlvLmg+CgppbnQgbWFpbigpCnsKICAg\
         IGludCBhLGI7CiAgICBzY2FuZigiJWQgJWQiLCZhLCAmYik7C\
@@ -194,11 +195,11 @@ class SdutSubmitSpider(CrawlSpider):
 
         sel = Selector(response)
 
-        item = SolutionItem()
-        item['solution_id'] = self.solution_id
-        item['origin_oj'] = 'sdut'
-        item['problem_id'] = self.problem_id
-        item['language'] = self.language
+        self.item = SolutionItem()
+        self.item['solution_id'] = self.solution_id
+        self.item['origin_oj'] = 'sdut'
+        self.item['problem_id'] = self.problem_id
+        self.item['language'] = self.language
 
         if self.is_login:
             for tr in sel.xpath('//table[@class="tablelist"]/tr')[1:]:
@@ -208,27 +209,41 @@ class SdutSubmitSpider(CrawlSpider):
                         time.strptime(_submit_time, '%Y-%m-%d %H:%M:%S'))
                 if submit_time > self.login_time and \
                         user == self.nickname:
-                    item['submit_time'] = _submit_time
-                    item['run_id'] = tr.xpath('.//td/text()').extract()[0]
+                    self.item['submit_time'] = _submit_time
+                    self.item['run_id'] = tr.xpath('.//td/text()').extract()[0]
 
                     try:
-                        item['memory'] = \
+                        self.item['memory'] = \
                             tr.xpath('.//td')[5].xpath('./text()').extract()[0]
-                        item['time'] = \
+                        self.item['time'] = \
                             tr.xpath('.//td')[4].xpath('./text()').extract()[0]
                     except:
                         pass
 
-                    item['code_length'] = tr.xpath('.//td/text()').\
+                    self.item['code_length'] = tr.xpath('.//td/text()').\
                         extract()[-2]
-                    item['result'] = tr.xpath('.//td').\
+                    self.item['result'] = tr.xpath('.//td').\
                         xpath('.//font/text()').extract()[0]
                     self._rules = []
-                    return item
+                    if self.item['result'] == 'Compile Error':
+                        yield Request(
+                            self.compile_url % self.item['run_id'],
+                            callback=self.compiled
+                        )
+                    yield self.item
         else:
-            item['result'] = 'Submit Error'
+            self.item['result'] = 'Submit Error'
             self._rules = []
-            return item
+            yield self.item
+
+    def compiled(self, response):
+
+        sel = Selector(response)
+
+        self.item['compile_info'] = \
+            sel.xpath('//div[@class="data"]').extract()[0]
+
+        yield self.item
 
 
 class SdutAccountSpider(Spider):
