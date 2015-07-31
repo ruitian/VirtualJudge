@@ -3,59 +3,59 @@
 {% block title %}Contests | Virtual Judge{% endblock %}
 
 {% block page_content %}
-{% block page_nav %}
-{% endblock %}
-<ul class="nav nav-tabs">
-  <li role="presentation" class="active"><a href="#">Problem</a></li>
-  <li role="presentation"><a href="">Solution</a></li>
-  <li role="presentation"><a href="">Rank</a></li>
-  {% if current_user.is_authenticated() and current_user.username == contest.manager.username %}
-  <a href="{{ url_for('contest.edit', contest_id=contest.id) }}" class="btn btn-default right"><i class="fa fa-pencil"> Edit Contest</i></a>
-  {% endif %}
-</ul>
-<div class="row">
-  <div class="col-md-12">
-    <div class="text-center">
-      <div class="contest_title">
-        <h2>{{ contest.title }}</h2>
-      </div>
-      <div id="contest_info">
-        <div class="contest_info">
-          <p>Contest Type: {{ contest.contest_type }}</p>
-          <p>Contest Status: </p>
-          <p>Manager: <a href="{{ url_for('user.user', username=contest.manager.username) }}" target="__blank">{{ contest.manager.username }}</a></p>
+<div class="content">
+  <ul class="nav nav-tabs">
+    <li role="presentation" class="active"><a href="#">Problem</a></li>
+    <li role="presentation"><a href="">Solution</a></li>
+    <li role="presentation"><a href="">Rank</a></li>
+    {% if current_user.is_authenticated() and current_user.username == contest.manager.username %}
+    <a href="{{ url_for('contest.edit', contest_id=contest.id) }}" class="btn btn-default right"><i class="fa fa-pencil"> Edit Contest</i></a>
+    {% endif %}
+  </ul>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="text-center">
+        <div class="contest_title">
+          <h2>{{ contest.title }}</h2>
         </div>
-        <div class="contest_time">
-          <p>Current Time: </p>
-          <p>Start Time: {{ contest.start_at }}</p>
-          <p>End Time : {{ contest.end_at }}</p>
+        <div id="contest_info">
+          <div class="contest_info">
+            <p>Contest Type: {{ contest.contest_type }}</p>
+            <p>Contest Status: </p>
+            <p>Manager: <a href="{{ url_for('user.user', username=contest.manager.username) }}" target="__blank">{{ contest.manager.username }}</a></p>
+          </div>
+          <div class="contest_time">
+            <p>Current Time: </p>
+            <p>Start Time: {{ contest.start_at }}</p>
+            <p>End Time : {{ contest.end_at }}</p>
+          </div>
+        </div>
+        <div class="contest_problem">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th style="width:10%"></th>
+                <th style="width:10%">ID</th>
+                <th style="text-align:left">Title</th>
+                <th style="width:10%">AC/Submit</th>
+              </tr>
+            </thead>
+              {% for problem in contest.problems %}
+              <tr>
+                <th></th>
+                <td style="text-align:left">{{ problem.index }}</td>
+                <td style="text-align:left"><a href="" target="__blank">{{ problem.problem.title }}</a></td>
+                <td>
+                    {{ problem.accepted }} / {{problem.submit }}
+                </td>
+              </tr>
+              {% endfor %}
+            <tbody>
+            </tbody>
+          </table>
         </div>
       </div>
-      <div class="contest_problem">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th style="width:10%"></th>
-              <th style="width:10%">ID</th>
-              <th style="text-align:left">Title</th>
-              <th style="width:10%">AC/Submit</th>
-            </tr>
-          </thead>
-            {% for problem in contest.problems %}
-            <tr>
-              <th></th>
-              <td style="text-align:left">{{ problem.index }}</td>
-              <td style="text-align:left"><a href="" target="__blank">{{ problem.problem.title }}</a></td>
-              <td>
-                  {{ problem.accepted }} / {{problem.submit }}
-              </td>
-            </tr>
-            {% endfor %}
-          <tbody>
-          </tbody>
-        </table>
       </div>
-    </div>
     </div>
   </div>
 </div>

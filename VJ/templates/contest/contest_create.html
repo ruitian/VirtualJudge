@@ -12,101 +12,101 @@
 
 {% block page_content %}
 <div class="content">
-<ul class="nav nav-tabs">
-  <li role="presentation" class="active"><a href="#">Add Contest</a></li>
-</ul>
-<div class="col-md-12 content">
-  <form class="form-horizontal" method="post">
-    {{ form.csrf_token }}
-    {% if form.csrf_token.errors %}
-      <div class="warning">You have submitted an invalid CSRF token</div>
-    {% endif %}
-    <div class="col-md-6">
-      <div class="form-group">
-        {{ form.title.label(class="col-sm-3 control-label") }}
-        <div class="col-sm-9">
-          {{ form.title(class="form-control", required="required") }}
-        </div>
-          {{ field_error(form.title) }}
-      </div>
-      <div class="form-group">
-        {{ form.contest_type.label(class="col-sm-3 control-label") }}
-        <div class="col-sm-9">
-          {{ form.contest_type(class="form-control") }}
-        </div>
-          {{ field_error(form.contest_type) }}
-      </div>
-      <div class="form-group">
-        {{ form.password.label(class="col-sm-3 control-label") }}
-        <div class="col-sm-9">
-          {{ form.password(class="form-control", placeholder="public contest don't need password") }}
-        </div>
-          {{ field_error(form.password) }}
-      </div>
-      <div class="form-group">
-        {{ form.start_at.label(class="col-sm-3 control-label") }}
-        <div class="col-sm-9">
-          {{ form.start_at(class="form-control form_datetime", required="required") }}
-        </div>
-          {{ field_error(form.start_at) }}
-      </div>
-      <div class="form-group">
-        {{ form.end_at.label(class="col-sm-3 control-label") }}
-        <div class="col-sm-9">
-          {{ form.end_at(class="form-control form_datetime", required="required") }}
-        </div>
-          {{ field_error(form.end_at) }}
-      </div>
-      <div class="form-group">
-        {{ form.description.label(class="col-sm-3 control-label") }}
-        <div class="col-sm-9">
-          {{ form.description(class="form-control") }}
-        </div>
-          {{ field_error(form.description) }}
-      </div>
-      <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-6">
-          <div class="btn-group">
-            <button type="submit" class="btn btn-default">Add Contest</button>
-            <button type="reset" class="btn btn-default">Reset</button>
+  <ul class="nav nav-tabs">
+    <li role="presentation" class="active"><a href="#">Add Contest</a></li>
+  </ul>
+  <div class="col-md-12 content">
+    <form class="form-horizontal" method="post">
+      {{ form.csrf_token }}
+      {% if form.csrf_token.errors %}
+        <div class="warning">You have submitted an invalid CSRF token</div>
+      {% endif %}
+      <div class="col-md-6">
+        <div class="form-group">
+          {{ form.title.label(class="col-sm-3 control-label") }}
+          <div class="col-sm-9">
+            {{ form.title(class="form-control", required="required") }}
           </div>
+            {{ field_error(form.title) }}
         </div>
-      </div>
-    </div>
-    <div class="col-md-5 fields_wrap">
-
-      <div class="form-group">
-        <div class="btn-group" style="width:100%">
-          {{ form.remove(class="btn btn-default", style="width:25%") }}
-          {{ form.add(class="btn btn-default", style="width:25%") }}
+        <div class="form-group">
+          {{ form.contest_type.label(class="col-sm-3 control-label") }}
+          <div class="col-sm-9">
+            {{ form.contest_type(class="form-control") }}
+          </div>
+            {{ field_error(form.contest_type) }}
         </div>
-      </div>
-          
-      {% for entrie in form.problems.entries %}
-      {{ entrie.csrf_token }}
-      <div class="form-group problem_field">
-          <div class="input-group input_field left" style="width:50%">
-            <div class="input-group-addon" style="width:32%">{{ entrie.origin_oj(class="select_inline") }}</div>
-            {{ entrie.problem_id(class="form-control problem") }}
-            <div class="input-group-addon" style="width:32%">
-                {{ entrie.delete(class="button_inline", type="submit") }}
+        <div class="form-group">
+          {{ form.password.label(class="col-sm-3 control-label") }}
+          <div class="col-sm-9">
+            {{ form.password(class="form-control", placeholder="public contest don't need password") }}
+          </div>
+            {{ field_error(form.password) }}
+        </div>
+        <div class="form-group">
+          {{ form.start_at.label(class="col-sm-3 control-label") }}
+          <div class="col-sm-9">
+            {{ form.start_at(class="form-control form_datetime", required="required") }}
+          </div>
+            {{ field_error(form.start_at) }}
+        </div>
+        <div class="form-group">
+          {{ form.end_at.label(class="col-sm-3 control-label") }}
+          <div class="col-sm-9">
+            {{ form.end_at(class="form-control form_datetime", required="required") }}
+          </div>
+            {{ field_error(form.end_at) }}
+        </div>
+        <div class="form-group">
+          {{ form.description.label(class="col-sm-3 control-label") }}
+          <div class="col-sm-9">
+            {{ form.description(class="form-control") }}
+          </div>
+            {{ field_error(form.description) }}
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-3 col-sm-6">
+            <div class="btn-group">
+              <button type="submit" class="btn btn-default">Add Contest</button>
+              <button type="reset" class="btn btn-default">Reset</button>
             </div>
           </div>
-          <div class="right" style="width:45%">
-            <div>
-              {% if entrie.title.data %}
-                {{ entrie.title.data }}
-              {% endif %}
-            </div>
-            {{ entrie.title(hidden="hidden") }}
-            {{ field_error(entrie.problem_id) }}
-          </div>
+        </div>
       </div>
-      {% endfor %}
+      <div class="col-md-5 fields_wrap">
 
-    </div>
-  </form>
-</div>
+        <div class="form-group">
+          <div class="btn-group" style="width:100%">
+            {{ form.remove(class="btn btn-default", style="width:25%") }}
+            {{ form.add(class="btn btn-default", style="width:25%") }}
+          </div>
+        </div>
+            
+        {% for entrie in form.problems.entries %}
+        {{ entrie.csrf_token }}
+        <div class="form-group problem_field">
+            <div class="input-group input_field left" style="width:50%">
+              <div class="input-group-addon" style="width:32%">{{ entrie.origin_oj(class="select_inline") }}</div>
+              {{ entrie.problem_id(class="form-control problem") }}
+              <div class="input-group-addon" style="width:32%">
+                  {{ entrie.delete(class="button_inline", type="submit") }}
+              </div>
+            </div>
+            <div class="right" style="width:45%">
+              <div>
+                {% if entrie.title.data %}
+                  {{ entrie.title.data }}
+                {% endif %}
+              </div>
+              {{ entrie.title(hidden="hidden") }}
+              {{ field_error(entrie.problem_id) }}
+            </div>
+        </div>
+        {% endfor %}
+
+      </div>
+    </form>
+  </div>
 </div>
 {% endblock %}
 
