@@ -1,0 +1,16 @@
+{% macro render_follow(follow) %}
+<div class="users">
+  <div class="follow-list">
+  {% for u in follow %}
+    <div class="follow-list-item">
+      <a href="{{ url_for('user.user', username=u.username) }}">
+        <img src="{{ u.avatar(460) }}" class="avatar-picture" width="80" height="auto" >
+      </a>
+      <div class="follow-list-container">
+        <a>{{ u.username }}</a>
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+</div>
+{% endmacro %}
