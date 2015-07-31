@@ -1,4 +1,4 @@
-from flask import (
+from flask import (  # noqa
     request,
     redirect,
     url_for,
@@ -8,13 +8,12 @@ from flask import (
 )
 
 from flask.views import MethodView
-from flask.ext.login import login_user, login_required
 
 from VJ.models import ProblemItem
 from VJ.forms import SubmitForm
-from VJ.libs.tasks import code_submit
 
 import json
+
 
 class ProblemListView(MethodView):
 
@@ -23,16 +22,20 @@ class ProblemListView(MethodView):
     def get(self):
         per_page = current_app.config['PROBLEM_PER_PAGE']
         page = request.args.get('page', 1, type=int)
-        paginate = ProblemItem.objects.order_by('problem_id').paginate(page=page, per_page=per_page)
+        paginate = ProblemItem.objects.order_by('problem_id').paginate(
+            page=page,
+            per_page=per_page
+        )
         problems = paginate.items
         return render_template(
             self.template,
-            problems = problems,
-            paginate = paginate
+            problems=problems,
+            paginate=paginate
         )
 
     def post(self):
         pass
+
 
 class ProblemDetailView(MethodView):
 
@@ -45,6 +48,7 @@ class ProblemDetailView(MethodView):
             problem_id=problem_id
         )
         return render_template(self.template, problem=problem, form=form)
+
 
 class ProblemGetView(MethodView):
 

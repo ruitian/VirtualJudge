@@ -24,6 +24,8 @@ class Config:
     PROBLEM_PER_PAGE = 20
     CONTEST_PER_PAGE = 20
     STATUS_PER_PAGE = 50
+    FOLLOWERS_PER_PAGE = 20
+    FOLLOWING_PER_PAGE = 20
     UPLOAD_FOLDER = BASE_DIR + '/app/uploads'
     GRAVATAR_BASE_URL = 'http://gravatar.duoshuo.com/avatar/'
 
