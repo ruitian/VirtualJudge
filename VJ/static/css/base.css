@@ -11,6 +11,10 @@ a:focus, a:hover{
     margin-top: 10px
 }
 
+.alert-messages{
+    margin-top: 30px;
+}
+
 .content{
     margin-top: 30px
 }
