@@ -15,7 +15,7 @@ SPIDER_MODULES = ['OJCC.spiders']
 NEWSPIDER_MODULE = 'OJCC.spiders'
 
 MONGO_URI = 'mongodb://localhost:27017/'
-MONGO_DATABASE = 'OJCC'
+MONGO_DATABASE = 'VirtualJudge'
 
 COOKIES_ENABLED = True
 # DOWNLOAD_DELAY = 0.25

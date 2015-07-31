@@ -31,7 +31,7 @@ class Config:
 
     # mongodb
     MONGODB_SETTINGS = {
-        'db': 'OJCC',
+        'db': 'VirtualJudge',
         'username': '',
         'password': '',
         'host': '127.0.0.1',
