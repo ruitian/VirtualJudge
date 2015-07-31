@@ -1,4 +1,5 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+
 from scrapy.spiders import Spider
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor as link
@@ -18,6 +19,7 @@ LANGUAGE = {
     'c++': '4',
     'c': '5'
 }
+
 
 class FzuInitSpider(CrawlSpider):
     name = 'fzu_init'
@@ -54,13 +56,13 @@ class FzuInitSpider(CrawlSpider):
         item['origin_oj'] = 'fzu'
         item['problem_id'] = response.url[-4:]
         item['problem_url'] = response.url
-        item['title'] = sel.xpath(\
+        item['title'] = sel.xpath(
             '//div[contains(@class,\
             "problem_title")]/b/text()').extract()[0][14:].rstrip()
         item['description'] = \
             sel.css('.pro_desc').extract()[0][22:-6].\
-                replace('<div class="data">', '<pre>').\
-                replace('</div>', '</pre>')
+            replace('<div class="data">', '<pre>').\
+            replace('</div>', '</pre>')
 
         try:
             item['input'] = sel.css('.pro_desc').extract()[1]
@@ -71,19 +73,21 @@ class FzuInitSpider(CrawlSpider):
         except:
             item['output'] = []
         item['time_limit'] = sel.css('.problem_desc').re('T[\S*\s]*c')[0][12:]
-        item['memory_limit'] = sel.css('.problem_desc').re('M[\S*\s]*B')[0][15:]
+        item['memory_limit'] = sel.css('.problem_desc').\
+            re('M[\S*\s]*B')[0][15:]
         item['accept'] = sel.css('.problem_desc').re('Accept:*\s[0-9]+')[0][8:]
         item['submit'] = sel.css('.problem_desc').re('Submit:*\s[0-9]+')[0][8:]
         item['sample_input'] = \
             sel.css('.data').extract()[-2].\
-                replace('<div class="data">', '<pre>').\
-                replace('</div>', '</pre>')
+            replace('<div class="data">', '<pre>').\
+            replace('</div>', '</pre>')
         item['sample_output'] = \
             sel.css('.data').extract()[-1].\
-                replace('<div class="data">', '<pre>').\
-                replace('</div>', '</pre>')
+            replace('<div class="data">', '<pre>').\
+            replace('</div>', '</pre>')
         item['update_time'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         return item
+
 
 class FzuProblemSpider(Spider):
     name = 'fzu_problem'
@@ -111,13 +115,13 @@ class FzuProblemSpider(Spider):
         item['origin_oj'] = 'fzu'
         item['problem_id'] = self.problem_id
         item['problem_url'] = response.url
-        item['title'] = sel.xpath(\
+        item['title'] = sel.xpath(
             '//div[contains(@class,\
             "problem_title")]/b/text()').extract()[0][14:].rstrip()
         item['description'] = \
             sel.css('.pro_desc').extract()[0][22:-6].\
-                replace('<div class="data">', '<pre>').\
-                replace('</div>', '</pre>')
+            replace('<div class="data">', '<pre>').\
+            replace('</div>', '</pre>')
 
         try:
             item['input'] = sel.css('.pro_desc').extract()[1]
@@ -128,19 +132,21 @@ class FzuProblemSpider(Spider):
         except:
             item['output'] = []
         item['time_limit'] = sel.css('.problem_desc').re('T[\S*\s]*c')[0][12:]
-        item['memory_limit'] = sel.css('.problem_desc').re('M[\S*\s]*B')[0][15:]
+        item['memory_limit'] = sel.css('.problem_desc').\
+            re('M[\S*\s]*B')[0][15:]
         item['accept'] = sel.css('.problem_desc').re('Accept:*\s[0-9]+')[0][8:]
         item['submit'] = sel.css('.problem_desc').re('Submit:*\s[0-9]+')[0][8:]
         item['sample_input'] = \
             sel.css('.data').extract()[-2].\
-                replace('<div class="data">', '<pre>').\
-                replace('</div>', '</pre>')
+            replace('<div class="data">', '<pre>').\
+            replace('</div>', '</pre>')
         item['sample_output'] = \
             sel.css('.data').extract()[-1].\
-                replace('<div class="data">', '<pre>').\
-                replace('</div>', '</pre>')
+            replace('<div class="data">', '<pre>').\
+            replace('</div>', '</pre>')
         item['update_time'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         return item
+
 
 class FzuSubmitSpider(CrawlSpider):
     name = 'fzu_submit'
@@ -149,7 +155,9 @@ class FzuSubmitSpider(CrawlSpider):
     submit_url = 'http://acm.fzu.edu.cn/submit.php?act=5'
     login_verify_url = 'http://acm.fzu.edu.cn/mail.php'
     source = \
-        'I2luY2x1ZGUgPHN0ZGlvLmg+CgppbnQgbWFpbigpCnsKICAgIGludCBhLGI7CiAgICBzY2FuZigiJWQgJWQiLCZhLCAmYik7CiAgICBwcmludGYoIiVkXG4iLGErYik7CiAgICByZXR1cm4gMDsKfQ=='
+        'I2luY2x1ZGUgPHN0ZGlvLmg+CgppbnQgbWFpbigpCnsKICAg\
+        IGludCBhLGI7CiAgICBzY2FuZigiJWQgJWQiLCZhLCAmYik7C\
+        iAgICBwcmludGYoIiVkXG4iLGErYik7CiAgICByZXR1cm4gMDsKfQ=='
 
     start_urls = [
             "http://acm.fzu.edu.cn/log.php"
@@ -166,13 +174,14 @@ class FzuSubmitSpider(CrawlSpider):
             ), follow=True, callback='parse_start_url')
     ]
 
-    def __init__(self,
+    def __init__(
+            self,
             solution_id=1,
             problem_id='1000',
             language='g++',
             source=None,
-            username = 'sdutacm1',
-            password = 'sdutacm', *args, **kwargs):
+            username='sdutacm1',
+            password='sdutacm', *args, **kwargs):
         super(FzuSubmitSpider, self).__init__(*args, **kwargs)
 
         self.solution_id = solution_id
@@ -185,44 +194,47 @@ class FzuSubmitSpider(CrawlSpider):
 
     def start_requests(self):
         return [FormRequest(self.login_url,
-                formdata = {
+                formdata={
                         'uname': self.username,
                         'upassword': self.password,
                         'submit': 'Submit',
                 },
-                callback = self.after_login,
-                dont_filter = True
+                callback=self.after_login,
+                dont_filter=True
         )]
 
     def after_login(self, response):
-        return [Request(self.login_verify_url,
-            callback = self.login_verify
+        return [Request(
+            self.login_verify_url,
+            callback=self.login_verify
         )]
 
     def login_verify(self, response):
         if re.search('Write New Mail', response.body):
             self.is_login = True
 
-            self.login_time = time.mktime(time.strptime(\
-                    response.headers['Date'], \
-                    '%a, %d %b %Y %H:%M:%S %Z')) + (8 * 60 * 60)
+            self.login_time = time.mktime(
+                time.strptime(
+                    response.headers['Date'],
+                    '%a, %d %b %Y %H:%M:%S %Z')
+            ) + (8 * 60 * 60)
             time.sleep(1)
             return [FormRequest(self.submit_url,
-                    formdata = {
+                    formdata={
                             'pid': self.problem_id,
                             'lang': LANGUAGE.get(self.language, '0'),
                             'code': b64decode(self.source),
                             'submit': 'Submit',
                     },
-                    callback = self.after_submit,
-                    dont_filter = True
+                    callback=self.after_submit,
+                    dont_filter=True
             )]
         else:
             return Request(self.start_urls[0], callback=self.parse_start_url)
 
     def after_submit(self, response):
         time.sleep(10)
-        for url in self.start_urls :
+        for url in self.start_urls:
             yield self.make_requests_from_url(url)
 
     def parse_start_url(self, response):
@@ -239,7 +251,7 @@ class FzuSubmitSpider(CrawlSpider):
             for tr in sel.xpath('//table/tr')[1:]:
                 user = tr.xpath('.//td/a/text()').extract()[-1]
                 _submit_time = tr.xpath('.//td/text()').extract()[1]
-                submit_time = time.mktime(\
+                submit_time = time.mktime(
                         time.strptime(_submit_time, '%Y-%m-%d %H:%M:%S'))
                 if submit_time > self.login_time and \
                         user == self.username:
@@ -254,11 +266,14 @@ class FzuSubmitSpider(CrawlSpider):
                     except:
                         pass
 
-                    item['code_length'] = tr.xpath('.//td/text()').extract()[-1]
+                    item['code_length'] = tr.xpath('.//td/text()').\
+                        extract()[-1]
                     try:
-                        item['result'] = tr.xpath('.//td/font/text()').extract()[0]
+                        item['result'] = tr.xpath('.//td/font/text()').\
+                            extract()[0]
                     except:
-                        item['result'] = tr.xpath('.//td/font/a/text()').extract()[0]
+                        item['result'] = tr.xpath('.//td/font/a/text()').\
+                            extract()[0]
                     self._rules = []
                     return item
         else:
@@ -266,18 +281,21 @@ class FzuSubmitSpider(CrawlSpider):
             self._rules = []
             return item
 
+
 class FzuAccountSpider(CrawlSpider):
     name = 'fzu_user'
     allowed_domains = ['acm.fzu.edu.cn']
     login_url = 'http://acm.fzu.edu.cn/login.php?act=1&dir='
     login_verify_url = 'http://acm.fzu.edu.cn/mail.php'
     accepted_url = \
-        'http://acm.fzu.edu.cn/log.php?pid=&user=%s&language=99&state=1&submit=Go'
+        'http://acm.fzu.edu.cn/log.php?pid=&user=%s\
+        &language=99&state=1&submit=Go'
 
     is_login = False
     solved = {}
 
-    def __init__(self,
+    def __init__(
+            self,
             username='sdutacm1',
             password='sdutacm', *args, **kwargs):
         super(FzuAccountSpider, self).__init__(*args, **kwargs)
@@ -291,18 +309,19 @@ class FzuAccountSpider(CrawlSpider):
 
     def start_requests(self):
         return [FormRequest(self.login_url,
-                formdata = {
+                formdata={
                         'uname': self.username,
                         'upassword': self.password,
                         'submit': 'Submit',
                 },
-                callback = self.after_login,
-                dont_filter = True
+                callback=self.after_login,
+                dont_filter=True
         )]
 
     def after_login(self, response):
-        return [Request(self.login_verify_url,
-            callback = self.login_verify
+        return [Request(
+            self.login_verify_url,
+            callback=self.login_verify
         )]
 
     def login_verify(self, response):
@@ -325,8 +344,9 @@ class FzuAccountSpider(CrawlSpider):
                     xpath('./tr')[2].xpath('./td/text()')[1].extract()
                 self.item['submit'] = sel.xpath('//table')[2].\
                     xpath('./tr')[1].xpath('./td/text()')[1].extract()
-                yield Request(self.accepted_url % self.username,
-                    callback = self.accepted
+                yield Request(
+                    self.accepted_url % self.username,
+                    callback=self.accepted
                 )
                 self.item['status'] = 'Authentication Success'
             except:
@@ -343,7 +363,7 @@ class FzuAccountSpider(CrawlSpider):
         next_url = sel.xpath('//b/a/@href')[-2].extract()
         table_tr = sel.xpath('//table/tr')[1:]
         for tr in table_tr:
-            name = tr.xpath('.//td/a/text()').extract()[-1]
+            name = tr.xpath('.//td/a/text()').extract()[-1]  # noqa
             problem_id = tr.xpath('.//td[4]/a/text()').extract()[0]
             submit_time = tr.xpath('.//td/text()').extract()[1]
 
@@ -351,8 +371,9 @@ class FzuAccountSpider(CrawlSpider):
             self.item['solved'] = self.solved
 
         if sel.xpath('//b/a/text()')[-2].extract() == 'Next':
-            yield Request('http://' + self.allowed_domains[0] + '/' + next_url,
-                callback = self.accepted
+            yield Request(
+                'http://' + self.allowed_domains[0] + '/' + next_url,
+                callback=self.accepted
             )
 
         yield self.item
