@@ -1,5 +1,5 @@
 body {
-    padding-top: 60px;
+    padding-top: 50px;
 }
 
 .alert-messages {
@@ -7,13 +7,8 @@ body {
     margin-top: 10px
 }
 
-.nav-tabs{
-    padding-top: 20px;
-    margin-bottom: 10px
-}
-
 .content{
-    margin-top: 20px
+    margin-top: 30px
 }
 
 .right{
@@ -39,6 +34,7 @@ body {
     line-height: 30px;
     overflow: hidden;
     display: block;
+    color: black;
 }
 
 .one-fifth>p {
@@ -66,7 +62,19 @@ body {
 .one-half{
     width: 49%
 }
- 
+
+.vcard-names{
+    margin-top: 10px;
+}
+
+.vcard-nickname{
+}
+
+.vcard-username{
+    font-size: 24px;
+    color: #666;
+}
+
 .vcard-details{
     margin: 0;
     padding-top: 15px;
@@ -140,7 +148,6 @@ dl.form>dt {
 }
 
 .avatar-picture {
-    width: 15%;
     height: auto;
     border-radius: 3px;
 }
@@ -155,6 +162,56 @@ dl.form>dt {
     font-size: 12px;
     color: #767676;
 }
+
+/*
+ * Follow
+ */
+
+.page_head{
+    position: relative;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee
+}
+
+.page_head>h4{
+    margin-top: 0px;
+    margin-bottom: 0px
+}
+
+.page_head .avatar-picture{
+    margin-right: 5px;
+}
+
+.nav-tabs>li>a>.badge{
+    margin-left: 5px;
+}
+
+.users{
+    margin-top: 20px;
+}
+
+.follow-list-item img{
+    float: left;
+}
+
+.follow-list{
+}
+
+.follow-list-item{
+    width: 25%;
+    float: left;
+    margin-right: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.follow-list-container{
+    margin-left: 100px;
+}
+
 /*
  * Problem 
  */

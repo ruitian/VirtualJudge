@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% from "_macro/_follow.html" import render_follow %}
+
+{% block title %}You're Following | Virtual Judge{% endblock %}
+
+{% block page_content %}
+<div class="page_head">
+  <h4>
+    <a href="{{ url_for('user.user', username=user.username) }}">
+      <img src="{{ user.avatar(460) }}" class="avatar-picture" width="30" height="auto" >
+    </a>
+    <a href="{{ url_for('user.user', username=user.username)}}">{{ user.username }}</a>
+    {% if user.nickname %}
+    <strong>({{ user.nickname }})</strong>
+    {% endif %}
+  </h4>
+</div>
+<h3>Following</h3>
+<ul class="nav nav-tabs">
+  <li role="presentation" class="active"><a href="#">All <span class="badge">{{ user.following | length }}</span></a></li>
+</ul>
+{{ render_follow(following) }}
+{% endblock %}

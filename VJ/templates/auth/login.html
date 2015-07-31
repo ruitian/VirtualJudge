@@ -4,49 +4,51 @@
 {% block title %}Log in | Virtual Judge{% endblock %}
 
 {% block page_content %}
-<ul class="nav nav-tabs">
-  <li role="presentation" class="active"><a href="#">Log in</a></li>
-  <li role="presentation"><a href="{{ url_for('auth.register') }}">Register</a></li>
-</ul>
-<div class="col-md-12 content">
-<form method=post class="form-horizontal">
-{{ form.csrf_token }}
-{% if form.csrf_token.errors %}
-  <div class="warning">You have submitted an invalid CSRF token</div>
-{% endif %}
-    <div class="form-group">
-      {{ form.email.label(class="col-sm-4 control-label") }}
-      <div class="col-sm-4">
-        {{ form.email(class="form-control") }}
-        {{ field_error(form.email) }}
-      </div>
-    </div>
-    <div class="form-group">
-      {{ form.password.label(class="col-sm-4 control-label") }}
-      <div class="col-sm-4">
-        {{ form.password(class="form-control") }}
-        {{ field_error(form.password) }}
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-sm-offset-4 col-sm-4">
-        <div class="checkbox">
-          <label>
-            {{ form.remember_me }}
-          </label>
+<div class="content">
+  <ul class="nav nav-tabs">
+    <li role="presentation" class="active"><a href="#">Log in</a></li>
+    <li role="presentation"><a href="{{ url_for('auth.register') }}">Register</a></li>
+  </ul>
+  <div class="col-md-12 content">
+  <form method=post class="form-horizontal">
+  {{ form.csrf_token }}
+  {% if form.csrf_token.errors %}
+    <div class="warning">You have submitted an invalid CSRF token</div>
+  {% endif %}
+      <div class="form-group">
+        {{ form.email.label(class="col-sm-4 control-label") }}
+        <div class="col-sm-4">
+          {{ form.email(class="form-control") }}
+          {{ field_error(form.email) }}
         </div>
       </div>
-    </div>
-    <div class="form-group">
-      <div class="col-sm-offset-4 col-sm-4">
-        {{ form.submit(class="btn btn-default") }}
+      <div class="form-group">
+        {{ form.password.label(class="col-sm-4 control-label") }}
+        <div class="col-sm-4">
+          {{ form.password(class="form-control") }}
+          {{ field_error(form.password) }}
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <div class="col-sm-offset-4 col-sm-4">
-        <a href="{{ url_for('auth.reset_password' )}}"> Forget the password ?</a>
+      <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-4">
+          <div class="checkbox">
+            <label>
+              {{ form.remember_me }}
+            </label>
+          </div>
+        </div>
       </div>
-    </div>
-</form>
+      <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-4">
+          {{ form.submit(class="btn btn-default") }}
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-4">
+          <a href="{{ url_for('auth.reset_password' )}}"> Forget the password ?</a>
+        </div>
+      </div>
+  </form>
+  </div>
 </div>
 {% endblock %}
