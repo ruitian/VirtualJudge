@@ -43,6 +43,7 @@ class CodeSubmitCrawler(Crawler):
             language,
             code,
             username,
+            nickname,
             password):
         self.crawler.crawl(
             origin_oj + '_submit',
@@ -51,6 +52,7 @@ class CodeSubmitCrawler(Crawler):
             language=language,
             source=b64encode(code),
             username=username,
+            nickname=nickname,
             password=password
         )
         self.crawler.start()
@@ -64,6 +66,7 @@ class CodeSubmitCrawler(Crawler):
             language,
             code,
             username,
+            nickname,
             password):
         p = Process(
             target=self._crawl,
@@ -74,6 +77,7 @@ class CodeSubmitCrawler(Crawler):
                 language,
                 code,
                 username,
+                nickname,
                 password
             ]
         )

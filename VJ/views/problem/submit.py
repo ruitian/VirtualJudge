@@ -58,6 +58,7 @@ class ProblemSubmitView(MethodView):
             form.language.data,
             form.code.data,
             account.username,
+            account.nickname,
             account.password
         )
 

@@ -64,6 +64,7 @@ def code_submit(
         language,
         code,
         username,
+        nickname,
         password):
     crawler = CodeSubmitCrawler()
     crawler.crawl(
@@ -73,6 +74,7 @@ def code_submit(
         language,
         code,
         username,
+        nickname,
         password
     )
 
