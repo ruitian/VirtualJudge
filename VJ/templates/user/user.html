@@ -8,8 +8,12 @@
     <a href="{{ user.avatar(460) }}">
       <img src="{{ user.avatar(460) }}" class="vcard-avatar" width="100%" height="auto" >
     </a>
-      <h2>{{ user.nickname }}</h2>
-      <p>{{ user.username }}</p>
+    <h1 class="vcard-names">
+      {% if user.nickname %}
+      {{ user.nickname }}
+      {% endif %}
+      <p class="vcard-username">{{ user.username }}</p>
+    </h1>
     <ul class="vcard-details">
       {% if user.school %}
       <li class="vcard-detail">
