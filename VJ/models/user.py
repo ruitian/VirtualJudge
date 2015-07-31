@@ -45,6 +45,21 @@ class UserModel(db.Document, UserMixin):
     active = db.BooleanField(default=True)
     confirmed = db.BooleanField(default=False)
 
+    following = db.ListField(
+        db.ReferenceField(
+            'UserModel',
+            dbref=True
+        ),
+        default=[]
+    )
+    followers = db.ListField(
+        db.ReferenceField(
+            'UserModel',
+            dbref=True
+        ),
+        default=[]
+    )
+
     poj = db.ReferenceField(AccountItem, reverse_delete_rule=NULLIFY)
     hdu = db.ReferenceField(AccountItem, reverse_delete_rule=NULLIFY)
     sdut = db.ReferenceField(AccountItem, reverse_delete_rule=NULLIFY)
@@ -135,6 +150,25 @@ class UserModel(db.Document, UserMixin):
         self.blog_url = blog_url
         self.location = location
         self.save()
+
+    def follow(self, user):
+        if not self.is_following(user):
+            self.following.append(user)
+            user.followers.append(self)
+            self.save()
+            user.save()
+
+    def unfollow(self, user):
+        self.following.remove(user)
+        user.followers.remove(self)
+        self.save()
+        user.save()
+
+    def is_following(self, user):
+        return user in self.following is not None
+
+    def is_followed_by(self, user):
+        return user in self.followers is not None
 
     def get_account(self, origin_oj):
         if origin_oj == 'poj':
