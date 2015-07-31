@@ -17,7 +17,7 @@ h3{
 }
 
 .content{
-    margin-top: 20px
+    margin-top: 30px
 }
 
 .right{
@@ -43,6 +43,7 @@ h3{
     line-height: 30px;
     overflow: hidden;
     display: block;
+    color: black;
 }
 
 .one-fifth>p {
