@@ -1,4 +1,5 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+
 from scrapy.spiders import Spider
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor as link
@@ -17,6 +18,7 @@ LANGUAGE = {
     'c': '5',
     'fortran': '6'
 }
+
 
 class PojInitSpider(CrawlSpider):
     name = 'poj_init'
@@ -52,7 +54,6 @@ class PojInitSpider(CrawlSpider):
         sel = Selector(text=html)
 
         item = ProblemItem()
-        print response
         item['origin_oj'] = 'poj'
         item['problem_id'] = response.url[-4:]
         item['problem_url'] = response.url
@@ -61,7 +62,8 @@ class PojInitSpider(CrawlSpider):
         item['input'] = sel.css('.ptx').extract()[1]
         item['output'] = sel.css('.ptx').extract()[2]
         try:
-            item['time_limit'] = sel.css('.plm').re('Case\sT[\S*\s]*MS')[0][21:]
+            item['time_limit'] = sel.css('.plm').\
+                re('Case\sT[\S*\s]*MS')[0][21:]
         except:
             item['time_limit'] = sel.css('.plm').re('T[\S*\s]*MS')[0][16:]
         item['memory_limit'] = sel.css('.plm').re('Me[\S*\s]*K')[0]
@@ -69,6 +71,7 @@ class PojInitSpider(CrawlSpider):
         item['sample_output'] = sel.css('.sio').extract()[1]
         item['update_time'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         return item
+
 
 class PojProblemSpider(Spider):
     name = 'poj_problem'
@@ -99,7 +102,8 @@ class PojProblemSpider(Spider):
         item['input'] = sel.css('.ptx').extract()[1]
         item['output'] = sel.css('.ptx').extract()[2]
         try:
-            item['time_limit'] = sel.css('.plm').re('Case\sT[\S*\s]*MS')[0][21:]
+            item['time_limit'] = sel.css('.plm').\
+                re('Case\sT[\S*\s]*MS')[0][21:]
         except:
             item['time_limit'] = sel.css('.plm').re('T[\S*\s]*MS')[0][16:]
         item['memory_limit'] = sel.css('.plm').re('Me[\S*\s]*K')[0][18:]
@@ -108,6 +112,7 @@ class PojProblemSpider(Spider):
         item['update_time'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         return item
 
+
 class PojSubmitSpider(CrawlSpider):
     name = 'poj_submit'
     allowed_domains = ['poj.org']
@@ -115,7 +120,9 @@ class PojSubmitSpider(CrawlSpider):
     submit_url = 'http://poj.org/submit'
     login_verify_url = 'http://poj.org/loginlog'
     source = \
-        'I2luY2x1ZGUgPHN0ZGlvLmg+CgppbnQgbWFpbigpCnsKICAgIGludCBhLGI7CiAgICBzY2FuZigiJWQgJWQiLCZhLCAmYik7CiAgICBwcmludGYoIiVkXG4iLGErYik7CiAgICByZXR1cm4gMDsKfQ=='
+        'I2luY2x1ZGUgPHN0ZGlvLmg+CgppbnQgbWFpbigpCnsKICA\
+        gIGludCBhLGI7CiAgICBzY2FuZigiJWQgJWQiLCZhLCAmYik\
+        7CiAgICBwcmludGYoIiVkXG4iLGErYik7CiAgICByZXR1cm4gMDsKfQ=='
 
     start_urls = [
         "http://poj.org/status"
@@ -124,12 +131,19 @@ class PojSubmitSpider(CrawlSpider):
     download_delay = 0.5
 
     rules = [
-        Rule(link(allow=('/status\?top=[0-9]+'), deny=('status\?bottom=[0-9]+')), follow=True, callback='parse_start_url')
+        Rule(
+            link(
+                allow=('/status\?top=[0-9]+'),
+                deny=('status\?bottom=[0-9]+')
+            ),
+            follow=True, callback='parse_start_url'
+        )
     ]
 
     is_login = False
 
-    def __init__(self,
+    def __init__(
+            self,
             solution_id=1,
             problem_id='1000',
             language='g++',
@@ -148,37 +162,38 @@ class PojSubmitSpider(CrawlSpider):
 
     def start_requests(self):
         return [FormRequest(self.login_url,
-                formdata = {
+                formdata={
                         'user_id1': self.username,
                         'password1': self.password,
                         'B1': 'login',
                 },
-                callback = self.after_login,
+                callback=self.after_login,
         )]
 
     def after_login(self, response):
-        return [Request(self.login_verify_url,
-            callback = self.login_verify
+        return [Request(
+            self.login_verify_url,
+            callback=self.login_verify
         )]
 
     def login_verify(self, response):
         if response.url == self.login_verify_url:
             self.is_login = True
 
-            self.login_time = time.mktime(time.strptime(\
-                    response.headers['Date'], \
+            self.login_time = time.mktime(time.strptime(
+                    response.headers['Date'],
                     '%a, %d %b %Y %H:%M:%S %Z')) + (8 * 60 * 60)
             time.sleep(1)
             return [FormRequest(self.submit_url,
-                    formdata = {
+                    formdata={
                             'problem_id': self.problem_id,
                             'language': LANGUAGE.get(self.language, '0'),
                             'source': self.source,
                             'submit': 'Submit',
                             'encoded': '1'
                     },
-                    callback = self.after_submit,
-                    dont_filter = True
+                    callback=self.after_submit,
+                    dont_filter=True
             )]
         else:
             return Request(self.start_urls[0], callback=self.parse_start_url)
@@ -202,9 +217,9 @@ class PojSubmitSpider(CrawlSpider):
             for tr in sel.xpath('//table')[-1].xpath('.//tr')[1:]:
                 user = tr.xpath('.//td/a/text()').extract()[0]
                 _submit_time = tr.xpath('.//td/text()').extract()[-1]
-                submit_time = time.mktime(\
+                submit_time = time.mktime(
                         time.strptime(_submit_time, '%Y-%m-%d %H:%M:%S'))
-                if submit_time > self.login_time and \
+                if submit_time > self.login_time and\
                         user == self.username:
                     item['submit_time'] = _submit_time
                     item['run_id'] = tr.xpath('.//td/text()').extract()[0]
@@ -217,14 +232,17 @@ class PojSubmitSpider(CrawlSpider):
                     except:
                         pass
 
-                    item['code_length'] = tr.xpath('.//td/text()').extract()[-2]
-                    item['result'] = tr.xpath('.//td').xpath('.//font/text()').extract()[0]
+                    item['code_length'] = tr.xpath('.//td/text()').\
+                        extract()[-2]
+                    item['result'] = tr.xpath('.//td').\
+                        xpath('.//font/text()').extract()[0]
                     self._rules = []
                     return item
         else:
             item['result'] = 'Submit Error'
             self._rules = []
             return item
+
 
 class PojAccountSpider(Spider):
     name = 'poj_user'
@@ -238,7 +256,8 @@ class PojAccountSpider(Spider):
     is_login = False
     solved = {}
 
-    def __init__(self,
+    def __init__(
+            self,
             username='sdutacm1',
             password='sdutacm', *args, **kwargs):
         super(PojAccountSpider, self).__init__(*args, **kwargs)
@@ -251,18 +270,20 @@ class PojAccountSpider(Spider):
         ]
 
     def start_requests(self):
-        return [FormRequest(self.login_url,
-            formdata = {
+        return [FormRequest(
+            self.login_url,
+            formdata={
                     'user_id1': self.username,
                     'password1': self.password,
                     'B1': 'login',
             },
-            callback = self.after_login,
+            callback=self.after_login,
         )]
 
     def after_login(self, response):
-        return [Request(self.login_verify_url,
-            callback = self.login_verify
+        return [Request(
+            self.login_verify_url,
+            callback=self.login_verify
         )]
 
     def login_verify(self, response):
@@ -285,8 +306,9 @@ class PojAccountSpider(Spider):
                     xpath('.//td/a/text()').extract()[0]
                 self.item['submit'] = sel.xpath('//center/table/tr')[3].\
                     xpath('.//td/a/text()').extract()[0]
-                yield Request(self.accepted_url % self.username,
-                    callback = self.accepted
+                yield Request(
+                    self.accepted_url % self.username,
+                    callback=self.accepted
                 )
                 self.item['status'] = 'Authentication Success'
             except:
@@ -303,7 +325,7 @@ class PojAccountSpider(Spider):
         next_url = sel.xpath('//p/a/@href')[2].extract()
         table_tr = sel.xpath('//table')[-1].xpath('.//tr')[1:]
         for tr in table_tr:
-            name = tr.xpath('.//td/a/text()').extract()[0]
+            name = tr.xpath('.//td/a/text()').extract()[0]  # noqa
             problem_id = tr.xpath('.//td[3]/a/text()').extract()[0].strip()
             submit_time = tr.xpath('.//td/text()').extract()[-1]
 
@@ -311,8 +333,9 @@ class PojAccountSpider(Spider):
             self.item['solved'] = self.solved
 
         if table_tr:
-            yield Request('http://' + self.allowed_domains[0] + '/' + next_url,
-                callback = self.accepted
+            yield Request(
+                'http://' + self.allowed_domains[0] + '/' + next_url,
+                callback=self.accepted
             )
 
         yield self.item
