@@ -9,6 +9,7 @@ from flask import (  # noqa
 from flask.views import MethodView
 
 from VJ.models import SolutionItem
+from base64 import b64decode
 
 
 class SolutionListView(MethodView):
@@ -31,3 +32,13 @@ class SolutionListView(MethodView):
 
     def post(self):
         pass
+
+
+class SolutionDetailView(MethodView):
+
+    template = 'solution/solution_detail.html'
+
+    def get(self, solution_id):
+        solution = SolutionItem.objects.get_or_404(solution_id=solution_id)
+        code = b64decode(solution.source)
+        return render_template(self.template, solution=solution, code=code)
