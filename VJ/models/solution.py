@@ -2,13 +2,18 @@ from VJ import db
 from datetime import datetime
 
 from base64 import b64encode
+from mongoengine import DENY
 
 
 class SolutionItem(db.Document):
     solution_id = db.SequenceField()
     origin_oj = db.StringField()
     problem_id = db.StringField()
-    username = db.StringField()
+    user = db.ReferenceField(
+        'UserModel',
+        dbref=True,
+        reverse_delete_rule=DENY
+    )
     run_id = db.StringField()
     source = db.StringField()
     result = db.StringField(default="Queuing && Judging")
@@ -34,14 +39,12 @@ class SolutionItem(db.Document):
             cls,
             origin_oj,
             problem_id,
-            username,
             language,
             code, **kwargs):
         source = cls.generate_source(code)
         return cls.objects.create(
             origin_oj=origin_oj,
             problem_id=problem_id,
-            username=username,
             language=language,
             source=source,
             **kwargs
