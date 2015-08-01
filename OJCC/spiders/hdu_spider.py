@@ -205,7 +205,7 @@ class HduSubmitSpider(CrawlSpider):
                 submit_time = time.mktime(
                         time.strptime(_submit_time, '%Y-%m-%d %H:%M:%S'))
                 if submit_time > self.login_time and\
-                        user == self.username:
+                        user == self.nickname:
                     self.item['submit_time'] = _submit_time
                     self.item['run_id'] = tr.xpath('.//td/text()').extract()[0]
 
