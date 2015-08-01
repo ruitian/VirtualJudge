@@ -10,6 +10,7 @@ from flask.views import MethodView
 from flask.ext.login import login_required, current_user
 
 from VJ.forms import SubmitForm
+from VJ.models import UserModel
 from VJ.libs.tasks import code_submit
 
 
@@ -50,7 +51,11 @@ class ProblemSubmitView(MethodView):
                 )
             )
 
-        solution = form.generate_solution(current_user.username)
+        solution = form.generate_solution()
+        solution.user = UserModel.objects(
+            username=current_user.username
+        ).first()
+        solution.save()
         code_submit.delay(
             form.origin_oj.data,
             solution.solution_id,
