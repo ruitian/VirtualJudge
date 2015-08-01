@@ -43,11 +43,10 @@ class SubmitForm(Form):
                 problem_id=field.data):
             raise ValidationError('Invalid problem id')
 
-    def generate_solution(self, username):
+    def generate_solution(self):
         return SolutionItem.create_solution(
             origin_oj=self.origin_oj.data,
             problem_id=self.problem_id.data,
-            username=username,
             language=self.language.data,
             code=self.code.data
         )
