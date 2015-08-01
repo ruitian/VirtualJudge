@@ -16,11 +16,10 @@ class SolutionAdmin(ModelViewMixin):
         'solution_id',
         'origin_oj',
         'problem_id',
-        'username',
         'result',
         'created_at'
     )
-    column_filters = ['origin_oj', 'problem_id', 'username', 'result']
+    column_filters = ['origin_oj', 'problem_id', 'result']
     column_searchable_list = ['origin_oj', 'problem_id', 'result']
 
 admin.add_view(
