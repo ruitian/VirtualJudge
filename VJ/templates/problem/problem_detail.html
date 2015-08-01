@@ -42,9 +42,41 @@
     <div id="problem_sampleoutput">
       {{ problem.sample_output|safe }}
     </div>
-    <a href="{{ url_for('problem.submit', origin_oj=problem.origin_oj, problem_id=problem.problem_id)}}" type="button" class="btn btn-primary">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#submit">
     Submit
-    </a>
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="submit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Submit Your Code</h4>
+          </div>
+          <form method="post" action="{{ url_for('problem.submit', origin_oj=problem.origin_oj, problem_id=problem.problem_id) }}">
+            <div class="modal-body">
+              {{ form.csrf_token }}
+              {% if form.csrf_token.errors %}
+                <div class="warning">You have submitted an invalid CSRF token</div>
+              {% endif %}
+              <div class="input-group" style="margin-bottom:15px">
+                <span class="input-group-addon" id="basic-addon1">{{ problem.origin_oj|upper }}</span>
+                <input type="text" class="form-control" disabled aria-describedby="basic-addon1" value={{ problem.problem_id }} >
+              </div>
+              {{ form.origin_oj(class="hidden", value=origin_oj) }}
+              {{ form.problem_id(class="hidden", value=problem_id) }}
+              {{ render_field(form.language) }}
+              {{ render_field(form.code, rows="15", required="required") }}
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
 
   </div>
 </div>
