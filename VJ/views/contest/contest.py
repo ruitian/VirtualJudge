@@ -110,9 +110,9 @@ class ContestEndedView(MethodView):
         pass
 
 
-class ContestView(MethodView):
+class ContestDetailView(MethodView):
 
-    template = 'contest/contest.html'
+    template = 'contest/contest_detail.html'
 
     @login_required
     def get(self, contest_id):

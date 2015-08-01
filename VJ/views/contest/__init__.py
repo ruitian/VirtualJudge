@@ -6,7 +6,7 @@ from .contest import (
     ContestEndedView,
     ContestCreateView,
     ContestEditView,
-    ContestView
+    ContestDetailView
 )
 
 bp_contest = Blueprint('contest', __name__)
@@ -48,8 +48,8 @@ bp_contest.add_url_rule(
 
 bp_contest.add_url_rule(
     '/<int:contest_id>',
-    endpoint='contest',
-    view_func=ContestView.as_view('contest'),
+    endpoint='detail',
+    view_func=ContestDetailView.as_view('detail'),
     methods=['get', 'post']
 )
 

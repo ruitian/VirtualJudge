@@ -57,7 +57,7 @@
       {% for contest in contests %}
       <tr>
         <td>{{ contest.id }}</td>
-        <td><a href="{{ url_for('contest.contest', contest_id=contest.id) }}">{{ contest.title }}</a></td>
+        <td><a href="{{ url_for('contest.detail', contest_id=contest.id) }}">{{ contest.title }}</a></td>
         <td>{{ contest.start_at }}</td>
         <td>{{ contest.end_at }}</td>
         <td></td>
