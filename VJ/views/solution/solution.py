@@ -12,6 +12,15 @@ from flask.ext.login import current_user
 from VJ.models import SolutionItem
 from base64 import b64decode
 
+from pygments import highlight
+from pygments.formatters import HtmlFormatter
+from pygments.lexers import get_lexer_by_name
+
+lang = {
+    'gcc': 'c',
+    'g++': 'c++'
+}
+
 
 class SolutionListView(MethodView):
 
@@ -44,4 +53,10 @@ class SolutionDetailView(MethodView):
         if solution.user.username != current_user.username:
             return redirect(url_for('index.index'))
         code = b64decode(solution.source)
-        return render_template(self.template, solution=solution, code=code)
+        lexer = get_lexer_by_name(lang[solution.language], stripall=True)
+        formatter = HtmlFormatter(linenos=True, cssclass="highlight")
+        return render_template(
+            self.template,
+            solution=solution,
+            code=highlight(code, lexer, formatter)
+        )

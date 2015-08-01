@@ -3,6 +3,13 @@
 
 {% block title %}Solutions | Virtual Judge{% endblock %}
 
+{% block link %}
+{{ super() }}
+<link href="{{ url_for('static', filename='css/pygments-css/default.css')}}" rel="stylesheet">
+{% endblock %}
+
 {% block page_content %}
-<pre>{{ code }}</pre>
+<div class="content">
+{{ code | safe }}
+</div>
 {% endblock %}
