@@ -10,6 +10,7 @@ from flask import (  # noqa
 from flask.views import MethodView
 
 from VJ.models import ProblemItem
+from VJ.forms import SubmitForm
 
 import json
 
@@ -41,11 +42,12 @@ class ProblemDetailView(MethodView):
     template = 'problem/problem_detail.html'
 
     def get(self, origin_oj, problem_id):
+        form = SubmitForm(origin_oj, problem_id)
         problem = ProblemItem.objects.get_or_404(
             origin_oj=origin_oj,
             problem_id=problem_id
         )
-        return render_template(self.template, problem=problem)
+        return render_template(self.template, problem=problem, form=form)
 
 
 class ProblemGetView(MethodView):

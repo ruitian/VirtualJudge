@@ -30,8 +30,8 @@ bp_problem.add_url_rule(
 )
 
 bp_problem.add_url_rule(
-    '/submit',
+    '/submit/<origin_oj>/<problem_id>',
     endpoint='submit',
     view_func=ProblemSubmitView.as_view('submit'),
-    methods=['get', 'post']
+    methods=['post']
 )
