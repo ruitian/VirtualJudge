@@ -64,16 +64,20 @@
     <tr>
       <td style="text-align:right">{{ solution.origin_oj|upper }}</td>
       <td><a href="{{ url_for('problem.detail', origin_oj=solution.origin_oj, problem_id=solution.problem_id) }}">{{ solution.problem_id }}</a></td>
-      <td><a href="{{ url_for('user.user', username=solution.username) }}">{{ solution.username }}</a></td>
-      {% if solution.result != 'Compile Error' %}
-      <td>{{ solution.result }}</td>
-      {% else %}
+      <td><a href="{{ url_for('user.user', username=solution.user.username) }}">{{ solution.user.username }}</a></td>
+      {% if solution.user == current_user and solution.result == 'Compile Error' %}
       <td><a data-toggle="modal" data-target="#solution_{{ solution.solution_id }}">{{ solution.result }}</a></td>
+      {% else %}
+      <td>{{ solution.result }}</td>
       {% endif %}
       <td>{{ solution.time }}</td>
       <td>{{ solution.memory }}</td>
       <td>{{ solution.language }}</td>
-      <td><a href="">{{ solution.code_length }}</a></td>
+      {% if solution.user == current_user %}
+      <td><a href="{{ url_for('solution.detail', solution_id=solution.solution_id) }}">{{ solution.code_length }}</a></td>
+      {% else %}
+      <td>{{ solution.code_length }}</td>
+      {% endif %}
       <td>{{ solution.created_at }}</td>
     </tr>
       <!-- Modal -->
