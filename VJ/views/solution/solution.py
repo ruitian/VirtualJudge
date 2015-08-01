@@ -7,6 +7,7 @@ from flask import (  # noqa
 )
 
 from flask.views import MethodView
+from flask.ext.login import current_user
 
 from VJ.models import SolutionItem
 from base64 import b64decode
@@ -40,5 +41,7 @@ class SolutionDetailView(MethodView):
 
     def get(self, solution_id):
         solution = SolutionItem.objects.get_or_404(solution_id=solution_id)
+        if solution.user.username != current_user.username:
+            return redirect(url_for('index.index'))
         code = b64decode(solution.source)
         return render_template(self.template, solution=solution, code=code)
