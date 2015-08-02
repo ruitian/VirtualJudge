@@ -92,21 +92,22 @@
             {{ entrie.csrf_token }}
             <tr>
               <td>
-            {{ entrie.delete(class="btn btn-default") }}
+              {{ entrie.delete(class="btn btn-default") }}
               </td>
               <td>
-            {{ entrie.origin_oj() }}
+              {{ entrie.origin_oj() }}
               </td>
               <td>
-            {{ entrie.problem_id(class="form-control problem_id") }}
+              {{ entrie.problem_id(class="form-control problem_id") }}
               </td>
               <td>
-                {{ entrie.title(class="form-control") }}
+              {{ entrie.title(class="form-control") }}
               </td>
               <td>
-                {{ entrie.index(class="form-control", disabled="disabled") }}
+              {{ entrie.index(class="form-control", disabled="disabled") }}
               </td>
-        {% endfor %}
+            </tr>
+          {% endfor %}
           </tbody>
         </table>
 
