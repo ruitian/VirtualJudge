@@ -5,7 +5,8 @@
 {% block page_content %}
 <div class="content">
   <ul class="nav nav-tabs">
-    <li role="presentation" class="active"><a href="#">Problem</a></li>
+    <li role="presentation" class="active"><a href="#">Overview</a></li>
+    <li role="presentation"><a href="#">Problem</a></li>
     <li role="presentation"><a href="">Solution</a></li>
     <li role="presentation"><a href="">Rank</a></li>
     {% if current_user.is_authenticated() and current_user.username == contest.manager.username %}
@@ -30,13 +31,14 @@
             <p>End Time : {{ contest.end_at }}</p>
           </div>
         </div>
-        <div class="contest_problem">
-          <table class="table table-striped">
+        <div class="contest_problem" style="width:75%; margin: 0 auto">
+          <table class="table table-striped table-bordered">
             <thead>
               <tr>
                 <th style="width:10%"></th>
                 <th style="width:10%">ID</th>
                 <th style="text-align:left">Title</th>
+                <th style="width:10%"></th>
                 <th style="width:10%">AC/Submit</th>
               </tr>
             </thead>
@@ -45,6 +47,7 @@
                 <th></th>
                 <td style="text-align:left">{{ problem.index }}</td>
                 <td style="text-align:left"><a href="" target="__blank">{{ problem.problem.title }}</a></td>
+                <td style="text-align:left"></td>
                 <td>
                     {{ problem.accepted }} / {{problem.submit }}
                 </td>
