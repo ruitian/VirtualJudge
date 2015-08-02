@@ -9,6 +9,8 @@ a:focus, a:hover{
 pre{
     border: 0px;
     border-radius: 0px;
+    border-top: 3px solid #ddd;
+    padding-left: 20px
 }
 
 .alert-messages {
@@ -328,6 +330,10 @@ dl.form>dt {
 /*
  * Solution
  */
+
+table td.code{
+    width:100%
+}
 
 /*
  * Footer
