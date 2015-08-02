@@ -284,6 +284,10 @@ dl.form>dt {
  * Contest
  */
 
+#contest_problem{
+    border-top: 3px solid #6cf;
+}
+
 .col-md-6 table input{
     margin-top: -5px;
     margin-bottom: -5px
