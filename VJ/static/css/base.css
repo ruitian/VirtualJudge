@@ -228,6 +228,8 @@ dl.form>dt {
 /*
  * Problem 
  */
+#problem_search{
+}
 
 #problem_head{
     border-bottom: 1px solid #eee;

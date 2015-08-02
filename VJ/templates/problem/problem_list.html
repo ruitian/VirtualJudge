@@ -11,32 +11,23 @@
   <div class="text-center">
   {{ render_pagination(paginate, 'problem.list') }}
   </div>
-  <form>
-  <table class="table" style="margin-bottom:0px">
-    <thead>
-      <tr>
-        <th style="width:4%">
-          <select class="form-control" name="origin_oj">
-            <option value="poj">POJ</option>
-            <option value="hdu">HDU</option>
-            <option value="sdut">SDUT</option>
-            <option value="fzu">FZU</option>
-          </select>
-        </th>
-        <th style="width:4%">
-          <input class="form-control" type="text" name="problem_id" placeholder="PID">
-        </th>
-        <th style="width:8%">
-          <input class="form-control" type="text" name="title" placeholder="Title">
-        </th>
-        <th class="hidden-xs" style="width:10%"></th>
-        <th class="hidden-xs" style="width:10%"></th>
-        <th style="width:4%">
-            <button class="btn btn-primary btn-block" type="submit">Filter</button>
-        </th>
-      </tr>
-    </thead>
-  </table>
+  <form class="form-inline">
+    <table class="table" style="margin-bottom:0px">
+      <thead>
+        <tr>
+          <th>
+            <div class="right">
+              <div class="input-group">
+                <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+                <input class="form-control" type="text" name="title" placeholder="">
+              </div>
+              <button class="btn btn-default" type="submit">Filter</button>
+              <button class="btn btn-default" type="reset">Reset</button>
+            </div>
+          </th>
+        </tr>
+      </thead>
+    </table>
   </form>
   <table class="table table-striped">
     <thead>

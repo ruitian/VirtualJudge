@@ -19,28 +19,23 @@
   <div class="text-center">
   {{ render_pagination(paginate, 'contest.list') }}
   </div>
-  <form>
-  <table class="table" style="margin-bottom:0px">
-    <thead>
-      <tr>
-        <th>
-          <input class="form-control" type="text" name="cid" placeholder="Contest ID">
-        </th>
-        <th>
-          <input class="form-control" type="text" name="title" placeholder="Title">
-        </th>
-        <th>
-          <input class="form-control" type="text" name="manager" placeholder="Manager">
-        </th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th>
-            <button class="btn btn-primary btn-block" type="submit">Filter</button>
-        </th>
-      </tr>
-    </thead>
-  </table>
+  <form class="form-inline">
+    <table class="table" style="margin-bottom:0px">
+      <thead>
+        <tr>
+          <th>
+            <div class="right">
+              <div class="input-group">
+                <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+                <input class="form-control" type="text" name="title" placeholder="">
+              </div>
+              <button class="btn btn-default" type="submit">Filter</button>
+              <button class="btn btn-default" type="reset">Reset</button>
+            </div>
+          </th>
+        </tr>
+      </thead>
+    </table>
   </form>
   <table class="table table-striped">
     <thead>
