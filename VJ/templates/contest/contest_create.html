@@ -73,36 +73,41 @@
           </div>
         </div>
       </div>
-      <div class="col-md-5 fields_wrap">
+      <div class="col-md-6">
 
-        <div class="form-group">
-          <div class="btn-group" style="width:100%">
-            {{ form.remove(class="btn btn-default", style="width:25%") }}
-            {{ form.add(class="btn btn-default", style="width:25%") }}
-          </div>
-        </div>
-            
-        {% for entrie in form.problems.entries %}
-        {{ entrie.csrf_token }}
-        <div class="form-group problem_field">
-            <div class="input-group input_field left" style="width:50%">
-              <div class="input-group-addon" style="width:32%">{{ entrie.origin_oj(class="select_inline") }}</div>
-              {{ entrie.problem_id(class="form-control problem") }}
-              <div class="input-group-addon" style="width:32%">
-                  {{ entrie.delete(class="button_inline", type="submit") }}
-              </div>
-            </div>
-            <div class="right" style="width:45%">
-              <div>
-                {% if entrie.title.data %}
-                  {{ entrie.title.data }}
-                {% endif %}
-              </div>
-              {{ entrie.title(hidden="hidden") }}
-              {{ field_error(entrie.problem_id) }}
-            </div>
-        </div>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th width="5%">
+                {{ form.add(class="btn btn-default") }}
+              </th>
+              <th width="10%">OJ</th>
+              <th width="15%">PID</th>
+              <th width="45%">Alias</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for entrie in form.problems.entries %}
+            {{ entrie.csrf_token }}
+            <tr>
+              <td>
+            {{ entrie.delete(class="btn btn-default") }}
+              </td>
+              <td>
+            {{ entrie.origin_oj() }}
+              </td>
+              <td>
+            {{ entrie.problem_id(class="form-control problem_id") }}
+              </td>
+              <td>
+                {{ entrie.title(class="form-control") }}
+              </td>
+              <td>
+              </td>
         {% endfor %}
+          </tbody>
+        </table>
 
       </div>
     </form>
@@ -124,8 +129,8 @@ $(".form_datetime").datetimepicker({
 </script>
 <script>
 $(document).ready(function(){
-  $('.problem').keyup(function(){
-    var origin_oj = $(this).prev().children().val();
+  $('.problem_id').keyup(function(){
+    var origin_oj = $(this).parent().prev().children().val();
     var problem_id = $(this).val();
     var $this = $(this);
 
@@ -140,34 +145,12 @@ $(document).ready(function(){
           if(data.status == 'error'){
           }
           else {
-            $this.parent().next().find('div').html(data.problem.title);
-            $this.parent().next().find('input').val(data.problem.title);
-            $this.parent().next().find('ul').remove();
+            $this.parent().next().children().val(data.problem.title);
           }
         }
       );
     } else {
-      $this.parent().next().find('div').html('');
-      $this.parent().next().find('input').val('');
-      $this.parent().next().find('ul').remove();
-    }
-  });
-  $('#remove').click(function(){
-    var field = $('.problem_field').length;
-    if(field > 0){
-      return true;
-    } else {
-      alert('Problem field cannot be less than 0.');
-      return false;
-    }
-  });
-  $('#add').click(function(){
-    var field = $('.problem_field').length;
-    if(field < 26){
-      return true;
-    } else {
-      alert('Problem field cannot be longer than 26.');
-      return false;
+      $this.parent().next().children().val('');
     }
   });
   $('#start_at').keyup(function(){
