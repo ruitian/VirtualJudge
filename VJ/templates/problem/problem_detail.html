@@ -5,46 +5,23 @@
 
 {% block page_content %}
 <div class="row">
-  <div id="problem_body" class="col-md-12">
-    <div class="center-block text-center">
-      <div id="problem_title">
-        <h1>{{ problem.origin_oj|upper }}</h1>
-        <h1>{{ problem.title }}</h1>
-      </div>
-      <div id="problem_info">
-        <p>Accept : {{ problem.accept|safe }}</p>
-        <p>Submit : {{ problem.submit|safe }}</p>
-        <p>Memory Limit : {{ problem.memory_limit|safe }}</p>
-        <p>Time Limit : {{ problem.time_limit|safe }}</p>
-      </div>
+  <div id="problem_head" class="col-md-12">
+    <div id="problem_title">
+      <h2>{{ problem.title }}</h2>
     </div>
-    <h2>Description</h2>
-    <div id="problem_description">
-      {{ problem.description|safe }}
+    <div id="problem_info">
+      <p>
+        <span>Total Accepted: <strong>{{ problem.accept|safe }}</strong></span>
+        <span>Total Submissions: <strong>{{ problem.submit|safe }}</strong></span>
+      </p>
+      <p>
+        <span>Memory Limit: <strong>{{ problem.memory_limit|safe }}</strong></span>
+        <span>Time Limit: <strong>{{ problem.time_limit|safe }}</strong></span>
+      </p>
     </div>
-    {% if problem.input %}
-    <h2>Input</h2>
-    <div id="problem_input">
-      {{ problem.input|safe }}
-    </div>
-    {% endif %}
-    {% if problem.output %}
-    <h2>Output</h2>
-    <div id="problem_output">
-      {{ problem.output|safe }}
-    </div>
-    {% endif %}
-    <h2>Sample Input</h2>
-    <div id="problem_sampleinput">
-      {{ problem.sample_input|safe }}
-    </div>
-    <h2>Sample Output</h2>
-    <div id="problem_sampleoutput">
-      {{ problem.sample_output|safe }}
-    </div>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#submit">
+    <a type="button" class="btn btn-success right" data-toggle="modal" data-target="#submit">
     Submit
-    </button>
+    </a>
 
     <!-- Modal -->
     <div class="modal fade" id="submit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -76,6 +53,31 @@
           </form>
         </div>
       </div>
+    </div>
+  </div>
+  <div id="problem_body" class="col-md-12">
+    <div id="problem_description">
+      {{ problem.description|safe }}
+    </div>
+    {% if problem.input %}
+    <h3>Input</h3>
+    <div id="problem_input">
+      {{ problem.input|safe }}
+    </div>
+    {% endif %}
+    {% if problem.output %}
+    <h3>Output</h3>
+    <div id="problem_output">
+      {{ problem.output|safe }}
+    </div>
+    {% endif %}
+    <h3>Sample Input</h3>
+    <div id="problem_sampleinput">
+      {{ problem.sample_input|safe }}
+    </div>
+    <h3>Sample Output</h3>
+    <div id="problem_sampleoutput">
+      {{ problem.sample_output|safe }}
     </div>
 
   </div>

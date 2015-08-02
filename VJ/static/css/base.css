@@ -6,6 +6,11 @@ a:focus, a:hover{
     text-decoration: none;
 }
 
+pre{
+    border: 0px;
+    border-radius: 0px;
+}
+
 .alert-messages {
     margin-bottom: 0px;
     margin-top: 10px
@@ -224,28 +229,43 @@ dl.form>dt {
  * Problem 
  */
 
+#problem_head{
+    border-bottom: 1px solid #eee;
+    margin-top: 30px;
+    padding-bottom: 5px
+}
+
+#problem_head h2{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
 #problem_body{
     margin-top: 20px
 }
 
 #problem_title{
     display: inline-block;
-    vertical-align: text-bottom;
-    padding-right: 20px;
 }
 
 #problem_info{
     display: inline-block;
-    border-left: 1px;
-    border-left-style: dashed;
-    padding-left: 20px;
-    text-align: left
+}
+
+#problem_info span{
+    margin-left: 20px;
+    font-size: 10px;
+    color: #31708f
+}
+
+#problem_info p{
+    margin: 0px;
 }
 
 #problem_description{
-    border: 1px;
-    border-style: dashed;
-    padding: 20px;
+    margin-left: 20px;
+    padding-left: 20px;
+    border-left: 3px solid #ddd;
 }
 
 #problem_input{
@@ -302,6 +322,10 @@ dl.form>dt {
     display: inline-block;
     padding-right: 20px
 }
+
+/*
+ * Solution
+ */
 
 /*
  * Footer
