@@ -157,6 +157,8 @@ class ContestCreateView(MethodView):
                 return render_template(self.template, form=form)
 
         if not form.validate():
+            for index, entrie in enumerate(form.problems.entries):
+                entrie.index.data = chr(index + 65)
             return render_template(self.template, form=form)
 
         contest = form.generate_contest()
