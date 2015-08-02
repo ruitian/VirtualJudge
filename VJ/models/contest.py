@@ -9,6 +9,7 @@ class ContestProblemModel(db.EmbeddedDocument):
         ProblemItem,
     )
     index = db.StringField(max_length=255)
+    title = db.StringField(max_length=255)
     accepted = db.IntField(default=0)
     submit = db.IntField(default=0)
 

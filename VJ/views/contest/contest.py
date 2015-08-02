@@ -160,6 +160,7 @@ class ContestCreateView(MethodView):
         for index, entrie in enumerate(form.problems.entries):
             problem = ContestProblemModel()
             problem.index = chr(index + 65)
+            problem.title = entrie.title.data
             problem.problem = ProblemItem.objects(
                 origin_oj=entrie.origin_oj.data,
                 problem_id=entrie.problem_id.data

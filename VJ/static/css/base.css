@@ -288,9 +288,19 @@ dl.form>dt {
  * Contest
  */
 
-.select_inline{
+table input{
+    margin-top: -5px;
+    margin-bottom: -5px
+}
+
+table select{
     border: 0px;
-    background-color: #eee;
+    background-color: #fff;
+}
+
+table .btn{
+    border: 0px;
+    margin-bottom: -6px;
 }
 
 .button_inline{

@@ -67,7 +67,6 @@ class ContestCreateForm(Form):
     )
     description = TextAreaField('Description', [Length(max=255)])
     problems = FieldList(FormField(ProblemForm), max_entries=26)
-    remove = SubmitField()
     add = SubmitField()
 
     def validate_end_at(self, field):
