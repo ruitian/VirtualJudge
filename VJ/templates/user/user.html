@@ -58,13 +58,15 @@
       <li role="presentation" class="active"><a href="#"><i class="fa fa-pencil-square-o"> Your Problem</i></a></li>
       <li role="presentation"><a href="#"><i class="fa fa-list"> Your Contest</i></a></li>
       <li role="presentation"><a href="#"><i class="fa fa-rss"> Public activity</i></a></li>
-      {% if current_user == user %}
-      <a href="{{ url_for('user.profile') }}" class="btn btn-default right"><i class="fa fa-pencil"> Edit Profile</i></a>
-      {% else %}
-        {% if not current_user.is_following(user) %}
+      {% if not current_user.is_authenticated() %}
         <a href="{{ url_for('user.follow', username=user.username) }}"class="btn btn-default right"><i></i> Follow</a>
+      {% else %}
+        {% if current_user == user %}
+          <a href="{{ url_for('user.profile') }}" class="btn btn-default right"><i class="fa fa-pencil"> Edit Profile</i></a>
+        {% elif current_user.is_following(user) %}
+          <a href="{{ url_for('user.unfollow', username=user.username) }}"class="btn btn-default right"><i></i> Unfollow</a>
         {% else %}
-        <a href="{{ url_for('user.unfollow', username=user.username) }}"class="btn btn-default right"><i></i> Unfollow</a>
+          <a href="{{ url_for('user.follow', username=user.username) }}"class="btn btn-default right"><i></i> Follow</a>
         {% endif %}
       {% endif %}
     </ul>
