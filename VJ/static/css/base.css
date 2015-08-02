@@ -288,30 +288,19 @@ dl.form>dt {
  * Contest
  */
 
-table input{
+.col-md-6 table input{
     margin-top: -5px;
     margin-bottom: -5px
 }
 
-table select{
+.col-md-6 table select{
     border: 0px;
     background-color: #fff;
 }
 
-table .btn{
+.col-md-6 table .btn{
     border: 0px;
     margin-bottom: -6px;
-}
-
-.button_inline{
-    border: 0px;
-    background-color: #eee;
-    padding-left: 1px;
-    padding-right: 1px
-}
-
-.fields_wrap{
-    margin-left: 5%;
 }
 
 #contest_info{
