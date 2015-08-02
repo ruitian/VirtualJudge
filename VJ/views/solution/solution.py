@@ -53,7 +53,13 @@ class SolutionDetailView(MethodView):
         if solution.user.username != current_user.username:
             return redirect(url_for('index.index'))
         code = b64decode(solution.source)
-        lexer = get_lexer_by_name(lang[solution.language], stripall=True)
+        lexer = get_lexer_by_name(
+            lang.get(
+                solution.language,
+                solution.language
+            ),
+            stripall=True
+        )
         formatter = HtmlFormatter(linenos=True, cssclass="highlight")
         return render_template(
             self.template,
