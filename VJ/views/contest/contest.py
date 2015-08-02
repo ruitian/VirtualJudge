@@ -3,6 +3,7 @@ from flask import (
     request,
     redirect,
     url_for,
+    flash,
     render_template
 )
 from flask.views import MethodView
@@ -139,13 +140,11 @@ class ContestCreateView(MethodView):
     @login_required
     def post(self):
         form = ContestCreateForm()
-        if form.remove.data:
-            form.problems.pop_entry()
-            print(form.problems.last_index)
-            return render_template(self.template, form=form)
-        elif form.add.data:
-            form.problems.append_entry()
-            print(form.problems.last_index)
+        if form.add.data:
+            try:
+                form.problems.append_entry()
+            except:
+                flash('Problem field cannot be longer than 26.')
             return render_template(self.template, form=form)
 
         for index, entrie in enumerate(form.problems.entries):
@@ -188,6 +187,19 @@ class ContestEditView(MethodView):
             form=form,
             contest=contest
         )
+
+    @login_required
+    def post(self):
+        pass
+
+
+class ContestProblemView(MethodView):
+
+    template = 'contest/contest_problem.html'
+
+    @login_required
+    def get(self):
+        pass
 
     @login_required
     def post(self):
