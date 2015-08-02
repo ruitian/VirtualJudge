@@ -7,44 +7,58 @@
 <div class="text-center">
 {{ render_pagination(paginate, 'solution.list') }}
 </div>
-<form>
-<table class="table" style="margin-bottom:0px">
-  <thead>
-    <tr>
-      <th style="width:4%">
-        <select class="form-control" name="origin_oj">
-          <option value="poj">POJ</option>
-          <option value="hdu">HDU</option>
-          <option value="sdut">SDUT</option>
-          <option value="fzu">FZU</option>
-        </select>
-      </th>
-      <th style="width:4%">
-        <input class="form-control" type="text" name="problem_id" placeholder="PID">
-      </th>
-      <th style="width:4%">
-        <input class="form-control" type="text" name="username" placeholder="Username">
-      </th>
-      <th style="width:10%">
-        <select class="form-control" name="origin_oj">
-          <option value="all">All</option>
-          <option value="ac">Accepted</option>
-          <option value="pe">Presentation Error</option>
-          <option value="wa">Wrong Answer</option>
-          <option value="tle">Time Limit Exceeded</option>
-          <option value="mle">Memory Limit Exceeded</option>
-          <option value="ole">Output Limit Exceeded</option>
-          <option value="ce">Compile Error</option>
-          <option value="qj">Queuing && Judging</option>
-        </select>
-      </th>
-      <th class="hidden-xs" style="width:14%"></th>
-      <th style="width:4%">
-          <button class="btn btn-primary btn-block" type="submit">Filter</button>
-      </th>
-    </tr>
-  </thead>
-</table>
+<form class="form-inline">
+  <table class="table" style="margin-bottom:0px">
+    <thead>
+      <tr>
+        <th>
+          <div class="right">
+            <div class="input-group input-group-sm">
+              <div class="input-group-addon">OJ</div>
+              <select class="form-control" name="origin_oj">
+                <option value="all">All</option>
+                <option value="poj">POJ</option>
+                <option value="hdu">HDU</option>
+                <option value="sdut">SDUT</option>
+                <option value="fzu">FZU</option>
+              </select>
+            </div>
+            <div class="input-group input-group-sm">
+              <div class="input-group-addon">Name</div>
+              <input class="form-control" type="text" name="username" placeholder="Username">
+            </div>
+            <div class="input-group input-group-sm">
+              <div class="input-group-addon">Result</div>
+              <select class="form-control" name="result">
+                <option value="all">All</option>
+                <option value="ac">Accepted</option>
+                <option value="pe">Presentation Error</option>
+                <option value="wa">Wrong Answer</option>
+                <option value="tle">Time Limit Exceeded</option>
+                <option value="mle">Memory Limit Exceeded</option>
+                <option value="ole">Output Limit Exceeded</option>
+                <option value="ce">Compile Error</option>
+                <option value="qj">Queuing && Judging</option>
+              </select>
+            </div>
+            <div class="input-group input-group-sm">
+              <div class="input-group-addon">Lang</div>
+              <select class="form-control" name="lang">
+                <option value="all">All</option>
+                <option value="gcc">GCC</option>
+                <option value="g++">G++</option>
+                <option value="c">C</option>
+                <option value="c++">C++</option>
+                <option value="java">Java</option>
+              </select>
+            </div>
+            <button class="btn btn-default btn-sm" type="submit">Filter</button>
+            <button class="btn btn-default btn-sm" type="reset">Reset</button>
+          </div>
+        </th>
+      </tr>
+    </thead>
+  </table>
 </form>
 <table class="table table-striped">
   <thead>
