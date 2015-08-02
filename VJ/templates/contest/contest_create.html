@@ -83,7 +83,7 @@
               </th>
               <th width="10%">OJ</th>
               <th width="15%">PID</th>
-              <th width="45%">Alias</th>
+              <th width="44%">Alias</th>
               <th></th>
             </tr>
           </thead>
@@ -104,6 +104,7 @@
                 {{ entrie.title(class="form-control") }}
               </td>
               <td>
+                {{ entrie.index(class="form-control", disabled="disabled") }}
               </td>
         {% endfor %}
           </tbody>

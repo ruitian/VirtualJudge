@@ -143,6 +143,8 @@ class ContestCreateView(MethodView):
         if form.add.data:
             try:
                 form.problems.append_entry()
+                for index, entrie in enumerate(form.problems.entries):
+                    entrie.index.data = chr(index + 65)
             except:
                 flash('Problem field cannot be longer than 26.')
             return render_template(self.template, form=form)
@@ -150,6 +152,8 @@ class ContestCreateView(MethodView):
         for index, entrie in enumerate(form.problems.entries):
             if entrie.delete.data:
                 form.problems.entries.pop(index)
+                for index, entrie in enumerate(form.problems.entries):
+                    entrie.index.data = chr(index + 65)
                 return render_template(self.template, form=form)
 
         if not form.validate():

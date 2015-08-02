@@ -26,6 +26,7 @@ class ProblemForm(Form):
         ],
     )
     problem_id = StringField('Problem ID', [Required()])
+    index = StringField('Index')
     title = StringField('Title')
     delete = SubmitField('Delete')
 
