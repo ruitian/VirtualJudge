@@ -1,13 +1,15 @@
 from VJ import db
 from datetime import datetime
-from VJ.models import ProblemItem, UserModel
 from mongoengine import DENY
 
 
 class ContestProblemModel(db.EmbeddedDocument):
     problem = db.ReferenceField(
-        ProblemItem,
+        'ProblemItem',
+        dbref=True
     )
+    origin_oj = db.StringField(max_length=255)
+    problem_id = db.StringField(max_length=255)
     index = db.StringField(max_length=255)
     title = db.StringField(max_length=255)
     accepted = db.IntField(default=0)
@@ -27,7 +29,7 @@ class ContestModel(db.Document):
         default=[]
     )
     manager = db.ReferenceField(
-        UserModel,
+        'UserModel',
         reverse_delete_rule=DENY
     )
     start_at = db.DateTimeField(required=True)
