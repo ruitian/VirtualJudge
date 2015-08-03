@@ -11,9 +11,7 @@ from flask.ext.login import current_app, login_required, current_user
 
 from VJ.models import (
     ContestModel,
-    ProblemItem,
     UserModel,
-    ContestProblemModel
 )
 from VJ.forms import ContestCreateForm, ContestEditForm
 from datetime import datetime
@@ -165,13 +163,8 @@ class ContestCreateView(MethodView):
         contest = form.generate_contest()
 
         for index, entrie in enumerate(form.problems.entries):
-            problem = ContestProblemModel()
+            problem = entrie.generate_problem()
             problem.index = chr(index + 65)
-            problem.title = entrie.title.data
-            problem.problem = ProblemItem.objects(
-                origin_oj=entrie.origin_oj.data,
-                problem_id=entrie.problem_id.data
-            ).first()
             contest.problems.append(problem)
 
         contest.manager = UserModel.objects(
@@ -188,7 +181,7 @@ class ContestEditView(MethodView):
     @login_required
     def get(self, contest_id):
         contest = ContestModel.objects.get_or_404(id=contest_id)
-        form = ContestEditForm()
+        form = ContestEditForm(obj=contest)
 
         return render_template(
             self.template,
