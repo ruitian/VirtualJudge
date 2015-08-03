@@ -222,6 +222,8 @@ class ContestEditView(MethodView):
         contest.update(
             title=form.title.data,
             contest_type=form.contest_type.data,
+            password=form.password.data if form.password.data
+            else contest.password,
             start_at=form.start_at.data,
             end_at=form.end_at.data,
             description=form.description.data,
