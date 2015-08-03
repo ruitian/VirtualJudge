@@ -24,16 +24,16 @@
         <table style="width:100%">
           <tbody>
             <tr>
-              <td> Contest Type: {{ contest.contest_type }} </td>
-              <td> Current Time: </td>
+              <td class="content_detail"> Contest Type: {{ contest.contest_type }} </td>
+              <td style="text-align: left;"> Current Time: </td>
             </tr>
             <tr>
-              <td> Contest Status: </td>
-              <td> Start Time: {{ contest.start_at }} </td>
+              <td class="content_detail"> Contest Status: </td>
+              <td style="text-align: left;"> Start Time: {{ contest.start_at }} </td>
             </tr>
             <tr>
-              <td> Manager: <a href="{{ url_for('user.user', username=contest.manager.username) }}" target="__blank">{{ contest.manager.username }}</a></p> </td>
-              <td> End Time : {{ contest.end_at }} </td>
+              <td class="content_detail"> Manager: <a href="{{ url_for('user.user', username=contest.manager.username) }}" target="__blank">{{ contest.manager.username }}</a></td>
+              <td style="text-align: left;"> End Time : {{ contest.end_at }} </td>
             </tr>
           </tbody>
         </table>

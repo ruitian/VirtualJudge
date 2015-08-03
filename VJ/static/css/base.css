@@ -329,6 +329,12 @@ dl.form>dt {
     padding-right: 20px
 }
 
+.content_detail {
+    width: 50%;
+    text-align: right;
+    padding: 0 10px 0 0;
+}
+
 /*
  * Solution
  */
