@@ -17,7 +17,7 @@ class ContestProblemModel(db.EmbeddedDocument):
 
 
 class ContestModel(db.Document):
-    id = db.SequenceField(primary_key=True)
+    contest_id = db.SequenceField(primary_key=True)
     title = db.StringField(max_length=255)
     contest_type = db.StringField(max_length=255)
     password = db.StringField(max_length=255)

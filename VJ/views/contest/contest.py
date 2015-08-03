@@ -115,7 +115,7 @@ class ContestDetailView(MethodView):
 
     @login_required
     def get(self, contest_id):
-        contest = ContestModel.objects.get_or_404(id=contest_id)
+        contest = ContestModel.objects.get_or_404(contest_id=contest_id)
         return render_template(
             self.template,
             contest=contest,
@@ -170,7 +170,12 @@ class ContestCreateView(MethodView):
             username=current_user.username
         ).first()
         contest.save()
-        return redirect(url_for('contest.detail', contest_id=contest.id))
+        return redirect(
+            url_for(
+                'contest.detail',
+                contest_id=contest.contest_id
+            )
+        )
 
 
 class ContestEditView(MethodView):
@@ -179,7 +184,7 @@ class ContestEditView(MethodView):
 
     @login_required
     def get(self, contest_id):
-        contest = ContestModel.objects.get_or_404(id=contest_id)
+        contest = ContestModel.objects.get_or_404(contest_id=contest_id)
         form = ContestEditForm(obj=contest)
 
         return render_template(
@@ -191,7 +196,7 @@ class ContestEditView(MethodView):
     @login_required
     def post(self, contest_id):
         form = ContestEditForm()
-        contest = ContestModel.objects.get_or_404(id=contest_id)
+        contest = ContestModel.objects.get_or_404(contest_id=contest_id)
         if form.add.data:
             try:
                 form.problems.append_entry()
@@ -226,7 +231,12 @@ class ContestEditView(MethodView):
             ]
         )
 
-        return redirect(url_for('contest.detail', contest_id=contest.id))
+        return redirect(
+            url_for(
+                'contest.detail',
+                contest_id=contest.contest_id
+            )
+        )
 
 
 class ContestProblemView(MethodView):

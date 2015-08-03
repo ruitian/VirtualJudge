@@ -10,7 +10,7 @@
     <li role="presentation"><a href="">Solution</a></li>
     <li role="presentation"><a href="">Rank</a></li>
     {% if current_user.is_authenticated() and current_user.username == contest.manager.username %}
-    <a href="{{ url_for('contest.edit', contest_id=contest.id) }}" class="btn btn-default right"><i class="fa fa-pencil"> Edit Contest</i></a>
+    <a href="{{ url_for('contest.edit', contest_id=contest.contest_id) }}" class="btn btn-default right"><i class="fa fa-pencil"> Edit Contest</i></a>
     {% endif %}
   </ul>
   <div class="row">

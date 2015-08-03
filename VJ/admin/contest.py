@@ -13,7 +13,7 @@ class ContestAdmin(ModelViewMixin):
     can_delete = True
 
     column_list = (
-        'id',
+        'contest_id',
         'title',
         'contest_type',
         'manager',
