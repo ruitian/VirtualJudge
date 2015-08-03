@@ -163,8 +163,7 @@ class ContestCreateView(MethodView):
         contest = form.generate_contest()
 
         for index, entrie in enumerate(form.problems.entries):
-            problem = entrie.generate_problem()
-            problem.index = chr(index + 65)
+            problem = entrie.generate_problem(chr(index + 65))
             contest.problems.append(problem)
 
         contest.manager = UserModel.objects(
@@ -190,8 +189,42 @@ class ContestEditView(MethodView):
         )
 
     @login_required
-    def post(self):
-        pass
+    def post(self, contest_id):
+        form = ContestEditForm()
+        contest = ContestModel.objects.get_or_404(id=contest_id)
+        if form.add.data:
+            try:
+                form.problems.append_entry()
+            except:
+                flash('Problem field cannot be longer than 26.')
+            finally:
+                for index, entrie in enumerate(form.problems.entries):
+                    entrie.index.data = chr(index + 65)
+            return render_template(self.template, form=form)
+
+        for index, entrie in enumerate(form.problems.entries):
+            if entrie.delete.data:
+                form.problems.entries.pop(index)
+                for index, entrie in enumerate(form.problems.entries):
+                    entrie.index.data = chr(index + 65)
+                return render_template(self.template, form=form)
+
+        if not form.validate():
+            for index, entrie in enumerate(form.problems.entries):
+                entrie.index.data = chr(index + 65)
+            return render_template(self.template, form=form)
+
+        contest.update(
+            title=form.title.data,
+            contest_type=form.contest_type.data,
+            description=form.description.data,
+            problems=[
+                entrie.generate_problem(chr(index+65))
+                for index, entrie in enumerate(form.problems.entries)
+            ]
+        )
+
+        return redirect(url_for('contest.detail', contest_id=contest.id))
 
 
 class ContestProblemView(MethodView):
