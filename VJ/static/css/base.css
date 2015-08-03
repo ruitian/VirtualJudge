@@ -307,8 +307,8 @@ dl.form>dt {
 }
 
 #contest_info{
-    margin-top:20px;
-    margin-bottom:20px
+    width: 75%;
+    margin: 0 auto
 }
 
 .contest_title{

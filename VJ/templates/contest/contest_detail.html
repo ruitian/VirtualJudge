@@ -21,16 +21,22 @@
         <h2>{{ contest.title }}</h2>
       </div>
       <div id="contest_info">
-        <div class="contest_info">
-          <p>Contest Type: {{ contest.contest_type }}</p>
-          <p>Contest Status: </p>
-          <p>Manager: <a href="{{ url_for('user.user', username=contest.manager.username) }}" target="__blank">{{ contest.manager.username }}</a></p>
-        </div>
-        <div class="contest_time">
-          <p>Current Time: </p>
-          <p>Start Time: {{ contest.start_at }}</p>
-          <p>End Time : {{ contest.end_at }}</p>
-        </div>
+        <table style="width:100%">
+          <tbody>
+            <tr>
+              <td> Contest Type: {{ contest.contest_type }} </td>
+              <td> Current Time: </td>
+            </tr>
+            <tr>
+              <td> Contest Status: </td>
+              <td> Start Time: {{ contest.start_at }} </td>
+            </tr>
+            <tr>
+              <td> Manager: <a href="{{ url_for('user.user', username=contest.manager.username) }}" target="__blank">{{ contest.manager.username }}</a></p> </td>
+              <td> End Time : {{ contest.end_at }} </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <div id="contest_problem" class="contest_problem" style="width:75%; margin: 0 auto">
         <table class="table table-striped table-bordered">
