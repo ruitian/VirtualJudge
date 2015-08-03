@@ -246,8 +246,23 @@ class ContestProblemView(MethodView):
     template = 'contest/contest_problem.html'
 
     @login_required
-    def get(self):
-        pass
+    def get(self, contest_id, index):
+        contest = ContestModel.objects.get_or_404(contest_id=contest_id)
+        try:
+            problem = contest.problems[ord(index)-65]
+        except:
+            flash('Problem %s is not exist.' % index)
+            return redirect(
+                url_for(
+                    'contest.detail',
+                    contest_id=contest.contest_id
+                )
+            )
+        return render_template(
+            self.template,
+            contest=contest,
+            problem=problem
+        )
 
     @login_required
     def post(self):

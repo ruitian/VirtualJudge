@@ -6,58 +6,57 @@
 <div class="content">
   <ul class="nav nav-tabs">
     <li role="presentation" class="active"><a href="#">Overview</a></li>
-    <li role="presentation"><a href="#">Problem</a></li>
-    <li role="presentation"><a href="">Solution</a></li>
-    <li role="presentation"><a href="">Rank</a></li>
+    <li role="presentation"><a href="{{ url_for('contest.problem', contest_id=contest.contest_id, index="A")}}">Problem</a></li>
+    <li role="presentation"><a href="#">Solution</a></li>
+    <li role="presentation"><a href="#">Rank</a></li>
     {% if current_user.is_authenticated() and current_user.username == contest.manager.username %}
     <a href="{{ url_for('contest.edit', contest_id=contest.contest_id) }}" class="btn btn-default right"><i class="fa fa-pencil"> Edit Contest</i></a>
     {% endif %}
   </ul>
-  <div class="row">
-    <div class="col-md-12">
-      <div class="text-center">
-        <div class="contest_title">
-          <h2>{{ contest.title }}</h2>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="text-center">
+      <div class="contest_title">
+        <h2>{{ contest.title }}</h2>
+      </div>
+      <div id="contest_info">
+        <div class="contest_info">
+          <p>Contest Type: {{ contest.contest_type }}</p>
+          <p>Contest Status: </p>
+          <p>Manager: <a href="{{ url_for('user.user', username=contest.manager.username) }}" target="__blank">{{ contest.manager.username }}</a></p>
         </div>
-        <div id="contest_info">
-          <div class="contest_info">
-            <p>Contest Type: {{ contest.contest_type }}</p>
-            <p>Contest Status: </p>
-            <p>Manager: <a href="{{ url_for('user.user', username=contest.manager.username) }}" target="__blank">{{ contest.manager.username }}</a></p>
-          </div>
-          <div class="contest_time">
-            <p>Current Time: </p>
-            <p>Start Time: {{ contest.start_at }}</p>
-            <p>End Time : {{ contest.end_at }}</p>
-          </div>
-        </div>
-        <div class="contest_problem" style="width:75%; margin: 0 auto">
-          <table class="table table-striped table-bordered">
-            <thead>
-              <tr>
-                <th style="width:10%"></th>
-                <th style="width:10%">ID</th>
-                <th style="text-align:left">Title</th>
-                <th style="width:10%"></th>
-                <th style="width:10%">AC/Submit</th>
-              </tr>
-            </thead>
-              {% for problem in contest.problems %}
-              <tr>
-                <th></th>
-                <td style="text-align:left"><a href="">{{ problem.index }}</a></td>
-                <td style="text-align:left"><a href="">{{ problem.title }}</a></td>
-                <td style="text-align:left"></td>
-                <td>
-                    {{ problem.accepted }} / {{problem.submit }}
-                </td>
-              </tr>
-              {% endfor %}
-            <tbody>
-            </tbody>
-          </table>
+        <div class="contest_time">
+          <p>Current Time: </p>
+          <p>Start Time: {{ contest.start_at }}</p>
+          <p>End Time : {{ contest.end_at }}</p>
         </div>
       </div>
+      <div id="contest_problem" class="contest_problem" style="width:75%; margin: 0 auto">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th style="width:10%"></th>
+              <th style="width:10%">ID</th>
+              <th style="text-align:left">Title</th>
+              <th style="width:10%"></th>
+              <th style="width:10%">AC/Submit</th>
+            </tr>
+          </thead>
+            {% for problem in contest.problems %}
+            <tr>
+              <th></th>
+              <td style="text-align:left"><a href="{{ url_for('contest.problem', contest_id=contest.contest_id, index=problem.index) }}">{{ problem.index }}</a></td>
+              <td style="text-align:left"><a href="{{ url_for('contest.problem', contest_id=contest.contest_id, index=problem.index) }}">{{ problem.title }}</a></td>
+              <td style="text-align:left"></td>
+              <td>
+                  {{ problem.accepted }} / {{problem.submit }}
+              </td>
+            </tr>
+            {% endfor %}
+          <tbody>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Contests | Virtual Judge{% endblock %}
+
+{% block page_content %}
+<div class="content">
+  <ul class="nav nav-tabs">
+    <li role="presentation"><a href="{{ url_for('contest.detail', contest_id=contest.contest_id) }}">Overview</a></li>
+    <li role="presentation" class="active"><a href="#">Problem</a></li>
+    <li role="presentation"><a href="">Solution</a></li>
+    <li role="presentation"><a href="">Rank</a></li>
+    {% if current_user.is_authenticated() and current_user.username == contest.manager.username %}
+    <a href="{{ url_for('contest.edit', contest_id=contest.id) }}" class="btn btn-default right"><i class="fa fa-pencil"> Edit Contest</i></a>
+    {% endif %}
+  </ul>
+</div>
+<nav class="text-center">
+  <ul class="pagination">
+    {% for problem in contest.problems %}
+    <li><a role="presentation" href="{{ url_for('contest.problem', contest_id=contest.contest_id, index=problem.index) }}">{{ problem.index }}</a></li>
+    {% endfor %}
+  </ul>
+</nav>
+<div class="row">
+    <div class="tab-content">
+      <div class="col-md-12">
+        <div id="problem_head" class="col-md-12">
+          <div id="problem_title">
+            <h2>{{ problem.title }}</h2>
+          </div>
+          <div id="problem_info">
+            <p>
+              <span>Memory Limit: <strong>{{ problem.problem.memory_limit|safe }}</strong></span>
+              <span>Time Limit: <strong>{{ problem.problem.time_limit|safe }}</strong></span>
+            </p>
+          </div>
+          <a type="button" class="btn btn-success right" data-toggle="modal" data-target="#submit">
+          Submit
+          </a>
+
+        </div>
+        <div id="problem_body" class="col-md-12">
+          <div id="problem_description">
+            {{ problem.problem.description|safe }}
+          </div>
+          {% if problem.problem.input %}
+          <h3>Input</h3>
+          <div id="problem_input">
+            {{ problem.problem.input|safe }}
+          </div>
+          {% endif %}
+          {% if problem.problem.output %}
+          <h3>Output</h3>
+          <div id="problem_output">
+            {{ problem.problem.output|safe }}
+          </div>
+          {% endif %}
+          <h3>Sample Input</h3>
+          <div id="problem_sampleinput">
+            {{ problem.problem.sample_input|safe }}
+          </div>
+          <h3>Sample Output</h3>
+          <div id="problem_sampleoutput">
+            {{ problem.problem.sample_output|safe }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

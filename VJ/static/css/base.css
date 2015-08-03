@@ -10,7 +10,8 @@ pre{
     border: 0px;
     border-radius: 0px;
     border-top: 3px solid #ddd;
-    padding-left: 20px
+    padding-left: 20px;
+    color: black
 }
 
 .alert-messages{
@@ -231,17 +232,18 @@ dl.form>dt {
 
 #problem_head{
     border-bottom: 1px solid #eee;
-    margin-top: 30px;
     padding-bottom: 5px
 }
 
 #problem_head h2{
     margin-top: 0px;
     margin-bottom: 0px;
+    font-size: 34px;
 }
 
 #problem_body{
-    margin-top: 20px
+    margin-top: 20px;
+    margin-bottom: 20px
 }
 
 #problem_title{
@@ -254,7 +256,7 @@ dl.form>dt {
 
 #problem_info span{
     margin-left: 20px;
-    font-size: 10px;
+    font-size: 12px;
     color: #31708f
 }
 
@@ -266,6 +268,7 @@ dl.form>dt {
     margin-left: 20px;
     padding-left: 20px;
     border-left: 3px solid #ddd;
+    font-size: 18px;
 }
 
 #problem_input{
