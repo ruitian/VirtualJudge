@@ -19,11 +19,7 @@ class ProfileView(MethodView):
 
     @login_required
     def get(self):
-        form = ProfileForm()
-        form.nickname.data = current_user.nickname
-        form.school.data = current_user.school
-        form.blog_url.data = current_user.blog_url
-        form.location.data = current_user.location
+        form = ProfileForm(obj=current_user)
         return render_template(self.template, form=form)
 
     @login_required
