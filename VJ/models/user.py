@@ -144,13 +144,6 @@ class UserModel(db.Document, UserMixin):
         self.save()
         return True
 
-    def update_profile(self, nickname, school, blog_url, location):
-        self.nickname = nickname
-        self.school = school
-        self.blog_url = blog_url
-        self.location = location
-        self.save()
-
     def follow(self, user):
         if not self.is_following(user):
             self.following.append(user)

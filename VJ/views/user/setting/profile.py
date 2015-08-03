@@ -28,11 +28,11 @@ class ProfileView(MethodView):
         if not form.validate():
             flash(form.errors['blog_url'][0])
             return redirect(url_for('user.profile'))
-        current_user.update_profile(
-            form.nickname.data,
-            form.school.data,
-            form.blog_url.data,
-            form.location.data
+        current_user.update(
+            nickname=form.nickname.data,
+            school=form.school.data,
+            blog_url=form.blog_url.data,
+            location=form.location.data
         )
         flash('You have updated your profile!')
         return redirect(url_for('user.profile'))
