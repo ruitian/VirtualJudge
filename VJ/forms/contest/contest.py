@@ -12,7 +12,7 @@ from wtforms import (
 from wtforms.validators import Required, ValidationError, Length
 from datetime import datetime
 
-from VJ.models import ContestModel, ProblemItem
+from VJ.models import ContestModel, ProblemItem, ContestProblemModel
 
 
 class ProblemForm(Form):
@@ -39,6 +39,18 @@ class ProblemForm(Form):
             problem_id=field.data
         ).first():
             raise ValidationError('Invalid problem ID')
+
+    def generate_problem(self, index):
+        return ContestProblemModel(
+            problem=ProblemItem.objects(
+                origin_oj=self.origin_oj.data,
+                problem_id=self.problem_id.data
+            ).first(),
+            origin_oj=self.origin_oj.data,
+            problem_id=self.problem_id.data,
+            index=index,
+            title=self.title.data
+        )
 
 
 class ContestCreateForm(Form):
@@ -103,6 +115,7 @@ class ContestCreateForm(Form):
 
 
 class ContestEditForm(ContestCreateForm):
+    update = SubmitField()
 
     def validate_password(self, field):
         pass
